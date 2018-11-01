@@ -24,7 +24,7 @@
                 <version>3.0.1</version>
                 <configuration>
                     <reportOutputDirectory>../../doc</reportOutputDirectory>
-                    <destDir>doc</destDir>
+                    <destDir>../../doc</destDir>
                 </configuration>
                 <executions>
                     <execution>
