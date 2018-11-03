@@ -38,7 +38,7 @@ public class JSONObject {
          *
          */
         public JSONType() {
-
+            type = JSONTypes.NULL;
         }
     }
 }
