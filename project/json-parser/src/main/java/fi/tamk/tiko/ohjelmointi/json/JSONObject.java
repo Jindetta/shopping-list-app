@@ -21,7 +21,7 @@ public class JSONObject {
      *
      */
     public JSONObject() {
-
+        data = new HashMap<>();
     }
 
     /**
