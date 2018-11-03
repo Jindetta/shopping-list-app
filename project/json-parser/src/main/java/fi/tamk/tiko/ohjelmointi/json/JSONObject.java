@@ -24,6 +24,9 @@ public class JSONObject {
 
     }
 
+    /**
+     *
+     */
     private class JSONType {
 
     }
