@@ -1,5 +1,8 @@
 package fi.tamk.tiko.ohjelmointi.json;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  *
