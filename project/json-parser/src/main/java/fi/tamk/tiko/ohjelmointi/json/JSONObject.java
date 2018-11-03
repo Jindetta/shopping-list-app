@@ -18,4 +18,8 @@ public class JSONObject {
     public JSONObject() {
 
     }
+
+    private class JSONType {
+        
+    }
 }
