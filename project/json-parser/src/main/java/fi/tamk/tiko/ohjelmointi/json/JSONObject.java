@@ -29,5 +29,11 @@ public class JSONObject {
      */
     private class JSONType {
 
+        /**
+         *
+         */
+        public JSONType() {
+
+        }
     }
 }
