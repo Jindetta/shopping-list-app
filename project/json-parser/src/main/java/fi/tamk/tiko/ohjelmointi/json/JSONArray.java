@@ -14,7 +14,12 @@ public class JSONArray {
     /**
      *
      */
-    public JSONArray() {
+    private ArrayList<JSONObject> values;
 
+    /**
+     *
+     */
+    public JSONArray() {
+        
     }
 }
