@@ -15,11 +15,16 @@ public class JSONObject {
     /**
      *
      */
+    private Map<String, JSONType> data;
+
+    /**
+     *
+     */
     public JSONObject() {
 
     }
 
     private class JSONType {
-        
+
     }
 }
