@@ -21,6 +21,9 @@ public class JSONTokenizer {
 
     /**
      *
+     *
+     * @param findEOL
+     * @return
      */
     private char skipVoidTokens(boolean findEOL) {
         while (position < input.length()) {
