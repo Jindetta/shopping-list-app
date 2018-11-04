@@ -12,6 +12,11 @@ public class JSONTokenizer {
     /**
      *
      */
+    private long position;
+
+    /**
+     *
+     */
     public JSONTokenizer() {
 
     }
