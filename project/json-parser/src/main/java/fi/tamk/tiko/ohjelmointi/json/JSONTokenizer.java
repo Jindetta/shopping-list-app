@@ -22,32 +22,23 @@ public class JSONTokenizer {
     /**
      *
      */
-    private char skipToReadableToken(boolean findEOL) {
+    private char skipVoidTokens(boolean findEOL) {
         while (position < input.length()) {
             char character = input.charAt(position++);
 
-            switch (character) {
-                case '\r':
-                case '\n':
-                    if (findEOL) {
-                        return character;
-                    }
+            if (!findEOL) {
+                switch (character) {
+                    case ' ':
+                    case '\t':
+                    case '\r':
+                    case '\n':
+                        continue;
 
-                    continue;
+                    case '#':
+                        skipVoidTokens(true);
+                        continue;
 
-                case ' ':
-                case '\t':
-                    continue;
-
-                case '#':
-                    if (!findEOL) {
-                        skipToReadableToken(true);
-                    }
-
-                    continue;
-
-                case '/':
-                    if (!findEOL) {
+                    case '/':
                         if (position < input.length()) {
                             switch (input.charAt(position)) {
                                 case '*':
@@ -61,20 +52,16 @@ public class JSONTokenizer {
                                     continue;
 
                                 case '/':
-                                    skipToReadableToken(true);
+                                    skipVoidTokens(true);
                                     continue;
                             }
                         }
 
+                    default:
                         return character;
-                    }
-
-                    continue;
-
-                default:
-                    if (!findEOL) {
-                        return character;
-                    }
+                }
+            } else if (character == '\r' || character == '\n') {
+                return character;
             }
         }
 
