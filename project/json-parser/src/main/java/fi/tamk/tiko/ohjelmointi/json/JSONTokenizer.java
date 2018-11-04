@@ -25,9 +25,9 @@ public class JSONTokenizer {
      * @param findEOL
      * @return
      */
-    private char skipVoidTokens(boolean findEOL) {
+    private int skipVoidTokens(boolean findEOL) {
         while (position < input.length()) {
-            char character = input.charAt(position++);
+            int character = input.charAt(position++);
 
             if (!findEOL) {
                 switch (character) {
@@ -68,7 +68,7 @@ public class JSONTokenizer {
             }
         }
 
-        throw new JSONException("No readable tokens found.");
+        return -1;
     }
 
     /**
