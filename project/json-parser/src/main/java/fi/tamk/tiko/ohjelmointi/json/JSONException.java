@@ -16,4 +16,13 @@ public class JSONException extends RuntimeException {
     public JSONException(String message) {
         super(message);
     }
+
+    /**
+     *
+     * @param messageFormat
+     * @param args
+     */
+    public JSONException(String messageFormat, Object... args) {
+        this(String.format(messageFormat, args));
+    }
 }
