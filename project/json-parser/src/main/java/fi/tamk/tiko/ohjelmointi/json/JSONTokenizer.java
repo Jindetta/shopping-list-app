@@ -101,7 +101,8 @@ public class JSONTokenizer {
     /**
      *
      */
-    public JSONTokenizer() {
-
+    public JSONTokenizer(String input) {
+        this.input = input;
+        position = 0;
     }
 }
