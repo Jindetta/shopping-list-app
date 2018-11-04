@@ -11,8 +11,9 @@ public class JSONException extends RuntimeException {
 
     /**
      *
+     * @param message
      */
-    public JSONException() {
-
+    public JSONException(String message) {
+        super(message);
     }
 }
