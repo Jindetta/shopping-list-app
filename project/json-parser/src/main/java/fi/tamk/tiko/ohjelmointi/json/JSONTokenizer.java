@@ -22,29 +22,59 @@ public class JSONTokenizer {
     /**
      *
      */
-    private char skipToReadableToken() {
+    private char skipToReadableToken(boolean findEOL) {
         while (position < input.length()) {
             char character = input.charAt(position++);
 
             switch (character) {
-                case ' ':
-                case '\t':
                 case '\r':
                 case '\n':
+                    if (findEOL) {
+                        return character;
+                    }
+
+                    continue;
+
+                case ' ':
+                case '\t':
                     continue;
 
                 case '#':
-                    // TODO
-                    // Single-line comments
+                    if (!findEOL) {
+                        skipToReadableToken(true);
+                    }
+
                     continue;
-                
+
                 case '/':
-                    // TODO
-                    // Single and multi-line comments
+                    if (!findEOL) {
+                        if (position < input.length()) {
+                            switch (input.charAt(position)) {
+                                case '*':
+                                    int endIndex = input.indexOf("*/", ++position);
+
+                                    if (endIndex == -1) {
+                                        throw new JSONException("Unterminated comment.");
+                                    }
+
+                                    position = endIndex + 2;
+                                    continue;
+
+                                case '/':
+                                    skipToReadableToken(true);
+                                    continue;
+                            }
+                        }
+
+                        return character;
+                    }
+
                     continue;
 
                 default:
-                    return character;
+                    if (!findEOL) {
+                        return character;
+                    }
             }
         }
 
