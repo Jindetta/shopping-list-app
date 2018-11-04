@@ -22,6 +22,38 @@ public class JSONTokenizer {
     /**
      *
      */
+    private char skipToReadableToken() {
+        while (position < input.length) {
+            char character = input.charAt(position++);
+
+            switch (character) {
+                case ' ':
+                case '\t':
+                case '\r':
+                case '\n':
+                    continue;
+
+                case '#':
+                    // TODO
+                    // Single-line comments
+                    continue;
+                
+                case '/':
+                    // TODO
+                    // Single and multi-line comments
+                    continue;
+
+                default:
+                    return character;
+            }
+        }
+
+        throw new JSONException("No readable tokens found.");
+    }
+
+    /**
+     *
+     */
     public JSONTokenizer() {
 
     }
