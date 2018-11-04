@@ -73,6 +73,33 @@ public class JSONTokenizer {
 
     /**
      *
+     *
+     * @return
+     */
+    public Object parseNext() {
+        int token = skipVoidTokens(false);
+
+        if (token != -1) {
+            switch (token) {
+                case '{':
+                    return null; // TODO: Create JSONObject
+
+                case '[':
+                    return null; // TODO: Create JSONArray
+
+                case '"':
+                case '\'':
+                    return null; // TODO: Create String
+            }
+
+            return null; // TODO: Create literal (boolean, number, decimal, null)
+        }
+
+        throw new JSONException("End of file encountered while parsing.");
+    }
+
+    /**
+     *
      */
     public JSONTokenizer() {
 
