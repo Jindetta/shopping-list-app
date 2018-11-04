@@ -17,6 +17,11 @@ public class JSONTokenizer {
     /**
      *
      */
+    private String input;
+
+    /**
+     *
+     */
     public JSONTokenizer() {
 
     }
