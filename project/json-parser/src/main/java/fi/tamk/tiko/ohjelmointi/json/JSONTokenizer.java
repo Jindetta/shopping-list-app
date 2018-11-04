@@ -12,7 +12,7 @@ public class JSONTokenizer {
     /**
      *
      */
-    private long position;
+    private int position;
 
     /**
      *
@@ -23,7 +23,7 @@ public class JSONTokenizer {
      *
      */
     private char skipToReadableToken() {
-        while (position < input.length) {
+        while (position < input.length()) {
             char character = input.charAt(position++);
 
             switch (character) {
