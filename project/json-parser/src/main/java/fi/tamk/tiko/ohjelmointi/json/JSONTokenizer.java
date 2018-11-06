@@ -74,6 +74,28 @@ public class JSONTokenizer {
     /**
      *
      *
+     * @param quoteType
+     * @return
+     */
+    private String parseString(char quoteType) {
+        StringBuilder output = new StringBuilder();
+
+        while (position < input.length()) {
+            char key = input.charAt(position++);
+
+            if (key == quoteType) {
+                return output.toString();
+            } else {
+                output.append(key);
+            }
+        }
+
+        throw new JSONException("Unable to parse string.");
+    }
+
+    /**
+     *
+     *
      * @return
      */
     public Object parseNext() {
