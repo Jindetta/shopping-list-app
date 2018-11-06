@@ -27,7 +27,7 @@
                 <version>3.0.2</version>
                 <configuration>
                     <finalName>json-parser</finalName>
-                    <outputDirectory>../../bin</outputDirectory>
+                    <outputDirectory>${binaries}</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>
