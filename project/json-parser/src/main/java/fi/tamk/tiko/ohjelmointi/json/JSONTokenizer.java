@@ -164,10 +164,10 @@ public class JSONTokenizer {
 
                 case '"':
                 case '\'':
-                    return null; // TODO: Create String
+                    return parseString((char) token);
             }
 
-            return null; // TODO: Create literal (boolean, number, decimal, null)
+            return parseLiteral();
         }
 
         throw new JSONException("End of file encountered while parsing.");
