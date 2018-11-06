@@ -25,6 +25,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>
                 <configuration>
+                    <skip>false</skip>
                     <mainClass>fi.tamk.tiko.ohjelmointi.gui.GUI</mainClass>
                 </configuration>
             </plugin>
@@ -34,7 +35,7 @@
                 <version>3.0.2</version>
                 <configuration>
                     <finalName>gui</finalName>
-                    <outputDirectory>../../bin</outputDirectory>
+                    <outputDirectory>${binaries}</outputDirectory>
                     <archive> 
                         <manifest>
                             <mainClass>fi.tamk.tiko.ohjelmointi.gui.GUI</mainClass>
