@@ -74,6 +74,36 @@ public class JSONTokenizer {
     /**
      *
      *
+     * @return
+     */
+    private Object parseLiteral() {
+        int startPosition = position;
+
+        while (position < input.length()) {
+            int currentPosition = position++;
+            char key = input.charAt(currentPosition);
+
+            if (key == ',' || key == ']' || key == '}') {
+                String value = input.substring(startPosition, currentPosition - startPosition);
+
+                if (value.matches("^[+\-]?(?:0|[1-9]\d*)(?:[eE][+\-]?\d+)?$")) {
+                    return Long.parseLong(value);
+                } else if (value.matches("^[+\-]?(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?$")) {
+                    return Double.parseDouble(value);
+                } else if (value.matches("^(?i:(true|false))$")) {
+                    return Boolean.parseBoolean(value);
+                } else if (value.equalsIgnoreCase("null")) {
+                    return null;
+                }
+            }
+        }
+
+        throw new JSONException("Malformed literal.");
+    }
+
+    /**
+     *
+     *
      * @param quoteType
      * @return
      */
