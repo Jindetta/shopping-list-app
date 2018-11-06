@@ -79,15 +79,40 @@ public class JSONTokenizer {
      */
     private String parseString(char quoteType) {
         StringBuilder output = new StringBuilder();
+        boolean escapeString = false;
 
         while (position < input.length()) {
             char key = input.charAt(position++);
 
-            if (key == quoteType) {
+            if (escapeString) {
+                escapeString = false;
+
+                switch (key) {
+                    case 'r': key = '\r'; break;
+                    case 'n': key = '\n'; break;
+                    case 't': key = '\t'; break;
+                    case 'b': key = '\b'; break;
+                    case 'f': key = '\f'; break;
+                    // TODO: Handle unicode characters
+                    // case 'u': ...
+
+                    case '"':
+                    case '\'':
+                    case '\\':
+                    case '/':
+                        break;
+
+                    default:
+                        throw new JSONException("Unexpected symbol");
+                }
+            } else if (key == '\\')
+                escapeString = true;
+                continue;
+            } else if (key == quoteType) {
                 return output.toString();
-            } else {
-                output.append(key);
             }
+
+            output.append(key);
         }
 
         throw new JSONException("Unable to parse string.");
