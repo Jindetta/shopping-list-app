@@ -18,6 +18,15 @@ public class JSONArray {
 
     /**
      *
+     *
+     * @param
+     */
+    public void add(JSONType object) {
+        values.add(object);
+    }
+
+    /**
+     *
      */
     public JSONArray() {
         values = new ArrayList<>();
