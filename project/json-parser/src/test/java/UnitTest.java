@@ -59,4 +59,29 @@ public class UnitTest {
 
         Assert.assertNull(tokenizer.parseNext());
     }
+
+    @Test
+    public void testJSONObjectWrite() {
+        System.out.println("--[[ Write JSONObject ]] --");
+
+        JSONObject json = new JSONObject();
+        json.put("key", new JSONType<String>("value"));
+        json.put("number", new JSONType<Long>(10l));
+
+        JSONTokenizer tokenizer = new JSONTokenizer(JSONTokenizer.writeObject(json));
+        JSONType object = tokenizer.parseNext();
+
+        Assert.assertTrue(object instanceof JSONType);
+        Assert.assertEquals(JSONTypes.OBJECT, object.getType());
+
+        JSONObject array = object.getAsObject();
+        Assert.assertEquals(2, array.size());
+
+        Assert.assertEquals(json.get("key"), array.get("key"));
+        Assert.assertEquals(json.get("number"), array.get("number"));
+
+        Assert.assertNull(tokenizer.parseNext());
+
+        System.out.println("Success: Valid JSON information");
+    }
 }
