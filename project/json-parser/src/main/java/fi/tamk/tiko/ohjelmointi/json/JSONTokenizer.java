@@ -330,6 +330,152 @@ public class JSONTokenizer implements Iterable<JSONType> {
 
     /**
      *
+     *
+     * @param value
+     * @return
+     */
+    public static String writeNumber(Long value) {
+        return String.format("%d", value);
+    }
+
+    /**
+     *
+     *
+     * @param value
+     * @return
+     */
+    public static String writeDecimal(Double value) {
+        return String.format("%f", value);
+    }
+
+    /**
+     *
+     *
+     * @param value
+     * @return
+     */
+    public static String writeString(String value) {
+        return String.format("\"%s\"", value);
+    }
+
+    /**
+     *
+     *
+     * @param object
+     * @return
+     */
+    public static String writeObject(JSONObject object) {
+        AtomicBoolean hasPreviousItem = new AtomicBoolean();
+        StringBuilder output = new StringBuilder("{");
+
+        object.forEach((key, value) -> {
+            String item = null;
+
+            switch (value.getType()) {
+                case NUMBER:
+                    item = writeNumber(value.getAsNumber());
+                    break;
+                case DECIMAL:
+                    item = writeDecimal(value.getAsDecimal());
+                    break;
+                case BOOLEAN:
+                    item = writeBoolean(value.getAsBoolean());
+                    break;
+                case STRING:
+                    item = writeString(value.getAsString());
+                    break;
+                case OBJECT:
+                    item = writeObject(value.getAsObject());
+                    break;
+                case ARRAY:
+                    item = writeArray(value.getAsArray());
+                    break;
+                default:
+                    item = writeNull();
+                    break;
+            }
+
+            if (hasPreviousItem.get()) {
+                output.append(", ");
+            }
+
+            output.append(String.format("%s: %s", writeString(key), item));
+            hasPreviousItem.set(true);
+        });
+
+        return output.append("}").toString();
+    }
+
+    /**
+     *
+     *
+     * @param array
+     * @return
+     */
+    public static String writeArray(JSONArray array) {
+        AtomicBoolean hasPreviousItem = new AtomicBoolean();
+        StringBuilder output = new StringBuilder("[");
+
+        array.stream().forEach(value -> {
+            String item = null;
+
+            switch (value.getType()) {
+                case NUMBER:
+                    item = writeNumber(value.getAsNumber());
+                    break;
+                case DECIMAL:
+                    item = writeDecimal(value.getAsDecimal());
+                    break;
+                case BOOLEAN:
+                    item = writeBoolean(value.getAsBoolean());
+                    break;
+                case STRING:
+                    item = writeString(value.getAsString());
+                    break;
+                case OBJECT:
+                    item = writeObject(value.getAsObject());
+                    break;
+                case ARRAY:
+                    item = writeArray(value.getAsArray());
+                    break;
+                default:
+                    item = writeNull();
+                    break;
+            }
+
+            if (hasPreviousItem.get()) {
+                output.append(", ");
+            }
+
+            output.append(item);
+            hasPreviousItem.set(true);
+        });
+
+        return output.append("]").toString();
+    }
+
+    /**
+     *
+     *
+     * @param value
+     * @return
+     */
+    public static String writeBoolean(Boolean value) {
+        return value ? "true" : "false";
+    }
+
+    /**
+     *
+     *
+     * @param value
+     * @return
+     */
+    public static String writeNull() {
+        return "null";
+    }
+
+    /**
+     *
      */
     private class JSONTokenIterator implements Iterator<JSONType> {
 
