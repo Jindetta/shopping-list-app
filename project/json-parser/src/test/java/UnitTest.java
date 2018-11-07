@@ -9,9 +9,10 @@ public class UnitTest {
      */
     @Test
     public void testJSONArray() {
-        final String JSON_STRING = "['item1', 'item2', 'item3']";
+        System.out.println("--[[ Tokenize JSONArray ]] --");
+        final String JSON = "['item1', 'item2', 'item3']";
 
-        JSONTokenizer tokenizer = new JSONTokenizer(JSON_STRING);
+        JSONTokenizer tokenizer = new JSONTokenizer(JSON);
         JSONType object = tokenizer.parseNext();
 
         Assert.assertTrue(object instanceof JSONType);
@@ -21,10 +22,10 @@ public class UnitTest {
         Assert.assertEquals(3, array.size());
 
         for (int i = 0; i < array.size(); i++) {
-            final String ITEM_STRING = String.format("item%d", i + 1);
+            final String VALUE = String.format("item%d", i + 1);
 
-            Assert.assertEquals(ITEM_STRING, array.get(i).getAsString());
-            System.out.printf("Success: \"%s\" was found at [%d]%n", ITEM_STRING, i);
+            Assert.assertEquals(VALUE, array.get(i).getAsString());
+            System.out.printf("Success: \"%s\" was found at [%d]%n", VALUE, i);
         }
 
         Assert.assertNull(tokenizer.parseNext());
