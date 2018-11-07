@@ -26,6 +26,15 @@ public class JSONObject {
 
     /**
      *
+     *
+     * @return
+     */
+    public int size() {
+        return data.size();
+    }
+
+    /**
+     *
      */
     public JSONObject() {
         data = new HashMap<>();
