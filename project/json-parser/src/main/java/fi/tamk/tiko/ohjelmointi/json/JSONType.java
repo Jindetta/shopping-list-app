@@ -104,6 +104,19 @@ public class JSONType<T> {
 
     /**
      *
+     *
+     * @return
+     */
+    public Double getAsDecimal() {
+        if (type.equals(JSONTypes.DECIMAL)) {
+            return (Double) get();
+        }
+
+        throw new JSONException("Unable to cast as Double (%s)", type);
+    }
+
+    /**
+     *
      */
     public JSONType() {
         this(null);
