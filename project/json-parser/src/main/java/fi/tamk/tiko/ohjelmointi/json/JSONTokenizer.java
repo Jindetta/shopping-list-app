@@ -111,7 +111,7 @@ public class JSONTokenizer {
             int result = 0;
 
             for (int i = 0; i < value.length(); i++) {
-                char key = (value.charAt(i);
+                char key = value.charAt(i);
                 result *= 16;
 
                 if (key >= 'a' && key <= 'f') {
