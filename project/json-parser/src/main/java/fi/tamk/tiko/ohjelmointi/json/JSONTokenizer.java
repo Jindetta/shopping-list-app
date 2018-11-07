@@ -21,15 +21,42 @@ public class JSONTokenizer {
 
     /**
      *
+     */
+    private Character expectedToken;
+
+    /**
      *
-     * @param findEOL
      * @return
      */
-    private int skipVoidTokens(boolean findEOL) {
+    public int getPosition() {
+        return position;
+    }
+
+    /**
+     *
+     */
+    public void setExpectedToken(Character token) {
+        expectedToken = token;
+    }
+
+    /**
+     *
+     */
+    public boolean isExpectedToken(Character token) {
+        return expectedToken != null && expectedToken.equals(token);
+    }
+
+    /**
+     *
+     *
+     * @param skipToEOL
+     * @return
+     */
+    private int skipVoidTokens(boolean skipToEOL) {
         while (position < input.length()) {
             int character = input.charAt(position++);
 
-            if (!findEOL) {
+            if (!skipToEOL) {
                 switch (character) {
                     case ' ':
                     case '\t':
@@ -76,7 +103,91 @@ public class JSONTokenizer {
      *
      * @return
      */
-    private Object parseLiteral() {
+    private char parseUnicode() {
+        final int UNICODE_SIZE = 4;
+        String value = input.substring(position, UNICODE_SIZE).toLowerCase();
+
+        if (value.matches("^[\\da-f]+$")) {
+            int result = 0;
+
+            for (int i = 0; i < value.length(); i++) {
+                char key = (value.charAt(i);
+                result *= 16;
+
+                if (key >= 'a' && key <= 'f') {
+                    result += 10 + (key - 'a');
+                } else {
+                    result += key - '0';
+                }
+
+                position++;
+            }
+
+            return (char) result;
+        }
+
+        throw new JSONException("Unrecognized unicode pattern.");
+    }
+
+    /**
+     *
+     *
+     * @return
+     */
+    private JSONType<JSONArray> parseArray() {
+        JSONTokenizer tokenizer = new JSONTokenizer(input, position);
+
+        JSONArray objects = new JSONArray();
+        JSONType token = null;
+
+        while ((token = tokenizer.parseNext()) != null) {
+            objects.add(token);
+            tokenizer.setExpectedToken(',');
+        }
+
+        position += tokenizer.getPosition();
+        return new JSONType<>(objects);
+    }
+
+    /**
+     *
+     *
+     * @return
+     */
+    private JSONType<JSONObject> parseObject() {
+        JSONTokenizer tokenizer = new JSONTokenizer(input, position);
+
+        JSONObject objects = new JSONObject();
+        JSONType token = null;
+        String key = null;
+
+        while ((token = tokenizer.parseNext()) != null) {
+            if (key == null) {
+                try {
+                    key = token.getAsString();
+                    tokenizer.setExpectedToken(':');
+
+                    continue;
+                } catch (JSONException e) {
+                    throw new JSONException("Unrecognizeable key value.");
+                }
+            }
+
+            objects.put(key, token);
+            tokenizer.setExpectedToken(',');
+            key = null;
+        }
+
+        position += tokenizer.getPosition();
+        return new JSONType<>(objects);
+    }
+
+    /**
+     *
+     *
+     * @return
+     */
+    private JSONType<? extends Object> parseLiteral() {
         int startPosition = position;
 
         while (position < input.length()) {
@@ -86,17 +197,19 @@ public class JSONTokenizer {
             if (key == ',' || key == ']' || key == '}') {
                 String value = input.substring(startPosition, currentPosition - startPosition).trim();
 
-                if (value.matches("^[+\-]?(?:0|[1-9]\d*)(?:[eE][+\-]?\d+)?$")) {
-                    return Long.parseLong(value);
-                } else if (value.matches("^[+\-]?(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?$")) {
-                    return Double.parseDouble(value);
-                } else if (value.matches("^(?i:(true|false|null))$")) {
-                    return value.equalsIgnoreCase("null") ? null : Boolean.parseBoolean(value);
+                if (value.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:[eE][+\\-]?\\d+)?$")) {
+                    return new JSONType<Long>(Long.parseLong(value));
+                } else if (value.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?$")) {
+                    return new JSONType<Double>(Double.parseDouble(value));
+                } else if (value.matches("^(?i:(true|false))$")) {
+                    return new JSONType<Boolean>(Boolean.parseBoolean(value));
+                } else if (value.equalsIgnoreCase("null")) {
+                    return new JSONType<>();
                 }
             }
         }
 
-        throw new JSONException("Malformed literal.");
+        throw new JSONException("Unrecognized literal.");
     }
 
     /**
@@ -105,7 +218,7 @@ public class JSONTokenizer {
      * @param quoteType
      * @return
      */
-    private String parseString(char quoteType) {
+    private JSONType<String> parseString(char quoteType) {
         StringBuilder output = new StringBuilder();
         boolean escapeString = false;
 
@@ -121,8 +234,7 @@ public class JSONTokenizer {
                     case 't': key = '\t'; break;
                     case 'b': key = '\b'; break;
                     case 'f': key = '\f'; break;
-                    // TODO: Handle unicode characters
-                    // case 'u': ...
+                    case 'u': key = parseUnicode(); break;
 
                     case '"':
                     case '\'':
@@ -133,11 +245,11 @@ public class JSONTokenizer {
                     default:
                         throw new JSONException("Unexpected symbol");
                 }
-            } else if (key == '\\')
+            } else if (key == '\\') {
                 escapeString = true;
                 continue;
             } else if (key == quoteType) {
-                return output.toString();
+                return new JSONType<>(output.toString());
             }
 
             output.append(key);
@@ -151,35 +263,52 @@ public class JSONTokenizer {
      *
      * @return
      */
-    public Object parseNext() {
+    public JSONType<? extends Object> parseNext() {
         int token = skipVoidTokens(false);
 
-        if (token != -1) {
-            switch (token) {
-                case '{':
-                    return null; // TODO: Create JSONObject
-
+        if (expectedToken == null || !isExpectedToken((char) token)) {
+	        switch (token) {
                 case '[':
-                    return null; // TODO: Create JSONArray
+                    return parseArray();
+
+                case '{':
+                    return parseObject();
 
                 case '"':
                 case '\'':
                     return parseString((char) token);
+
+                case -1:
+                case ']':
+                case '}':
+                    return null;
             }
 
             return parseLiteral();
         }
 
-        throw new JSONException("End of file encountered while parsing.");
+        setExpectedToken(null);
+        return parseNext();
     }
 
     /**
      *
      *
-     * @param input
+     * @param stream
      */
-    public JSONTokenizer(String input) {
-        this.input = input;
-        position = 0;
+    private JSONTokenizer(String stream, int position) {
+        setExpectedToken(null);
+
+        this.position = position;
+        this.input = stream;
+    }
+
+    /**
+     *
+     *
+     * @param stream
+     */
+    public JSONTokenizer(String stream) {
+        this(stream, 0);
     }
 }
