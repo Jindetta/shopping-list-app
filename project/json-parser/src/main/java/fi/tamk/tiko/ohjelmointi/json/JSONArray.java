@@ -9,33 +9,6 @@ import java.util.ArrayList;
  * @version 2018.1101
  * @since   11
  */
-public class JSONArray {
+public class JSONArray extends ArrayList<JSONType> {
 
-    /**
-     *
-     */
-    private ArrayList<JSONType> values;
-
-    /**
-     *
-     *
-     * @param
-     */
-    public void add(JSONType object) {
-        values.add(object);
-    }
-
-    /**
-     *
-     */
-    public int size() {
-        return values.size();
-    }
-
-    /**
-     *
-     */
-    public JSONArray() {
-        values = new ArrayList<>();
-    }
 }
