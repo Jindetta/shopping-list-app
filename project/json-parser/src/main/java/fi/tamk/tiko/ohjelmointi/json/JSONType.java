@@ -78,6 +78,19 @@ public class JSONType<T> {
 
     /**
      *
+     *
+     * @return
+     */
+    public JSONObject getAsObject() {
+        if (type.equals(JSONTypes.OBJECT)) {
+            return (JSONObject) get();
+        }
+
+        throw new JSONException("Unable to cast as JSONObject (%s)", type);
+    }
+
+    /**
+     *
      */
     public JSONType() {
         this(null);
