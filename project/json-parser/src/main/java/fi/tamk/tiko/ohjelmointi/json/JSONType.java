@@ -165,4 +165,46 @@ public class JSONType<T> {
     public JSONType(T object) {
         set(object);
     }
+
+    /**
+     *
+     *
+     * @param object
+     * @return
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof JSONType) {
+            JSONType t = (JSONType) object;
+
+            return type.equals(t.getType()) && toString().equals(t.toString());
+        }
+
+        return false;
+    }
+
+    /**
+     *
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        switch (getType()) {
+            case NUMBER:
+                return JSONTokenizer.writeNumber(getAsNumber());
+            case DECIMAL:
+                return JSONTokenizer.writeDecimal(getAsDecimal());
+            case BOOLEAN:
+                return JSONTokenizer.writeBoolean(getAsBoolean());
+            case STRING:
+                return JSONTokenizer.writeString(getAsString());
+            case OBJECT:
+                return JSONTokenizer.writeObject(getAsObject());
+            case ARRAY:
+                return JSONTokenizer.writeArray(getAsArray());
+        }
+
+        return JSONTokenizer.writeNull();
+    }
 }
