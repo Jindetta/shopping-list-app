@@ -65,6 +65,19 @@ public class JSONType<T> {
 
     /**
      *
+     *
+     * @return
+     */
+    public JSONArray getAsArray() {
+        if (type.equals(JSONTypes.ARRAY)) {
+            return (JSONArray) get();
+        }
+
+        throw new JSONException("Unable to cast as JSONArray (%s)", type);
+    }
+
+    /**
+     *
      */
     public JSONType() {
         this(null);
