@@ -191,14 +191,14 @@ public class JSONTokenizer implements Iterable<JSONType> {
      * @return
      */
     private JSONType parseLiteral() {
-        int startPosition = position;
+        int startPosition = position - 1;
 
         while (position < input.length()) {
             int currentPosition = position++;
             char key = input.charAt(currentPosition);
 
             if (key == ',' || key == ']' || key == '}') {
-                String value = input.substring(startPosition, currentPosition - startPosition).trim();
+                String value = input.substring(startPosition, currentPosition).trim();
 
                 if (value.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:[eE][+\\-]?\\d+)?$")) {
                     return new JSONType<Long>(Long.parseLong(value));
@@ -209,6 +209,8 @@ public class JSONTokenizer implements Iterable<JSONType> {
                 } else if (value.equalsIgnoreCase("null")) {
                     return new JSONType<>();
                 }
+
+                break;
             }
         }
 
@@ -369,37 +371,11 @@ public class JSONTokenizer implements Iterable<JSONType> {
         StringBuilder output = new StringBuilder("{");
 
         object.forEach((key, value) -> {
-            String item = null;
-
-            switch (value.getType()) {
-                case NUMBER:
-                    item = writeNumber(value.getAsNumber());
-                    break;
-                case DECIMAL:
-                    item = writeDecimal(value.getAsDecimal());
-                    break;
-                case BOOLEAN:
-                    item = writeBoolean(value.getAsBoolean());
-                    break;
-                case STRING:
-                    item = writeString(value.getAsString());
-                    break;
-                case OBJECT:
-                    item = writeObject(value.getAsObject());
-                    break;
-                case ARRAY:
-                    item = writeArray(value.getAsArray());
-                    break;
-                default:
-                    item = writeNull();
-                    break;
-            }
-
             if (hasPreviousItem.get()) {
                 output.append(", ");
             }
 
-            output.append(String.format("%s: %s", writeString(key), item));
+            output.append(String.format("%s: %s", writeString(key), value));
             hasPreviousItem.set(true);
         });
 
@@ -417,37 +393,11 @@ public class JSONTokenizer implements Iterable<JSONType> {
         StringBuilder output = new StringBuilder("[");
 
         array.stream().forEach(value -> {
-            String item = null;
-
-            switch (value.getType()) {
-                case NUMBER:
-                    item = writeNumber(value.getAsNumber());
-                    break;
-                case DECIMAL:
-                    item = writeDecimal(value.getAsDecimal());
-                    break;
-                case BOOLEAN:
-                    item = writeBoolean(value.getAsBoolean());
-                    break;
-                case STRING:
-                    item = writeString(value.getAsString());
-                    break;
-                case OBJECT:
-                    item = writeObject(value.getAsObject());
-                    break;
-                case ARRAY:
-                    item = writeArray(value.getAsArray());
-                    break;
-                default:
-                    item = writeNull();
-                    break;
-            }
-
             if (hasPreviousItem.get()) {
                 output.append(", ");
             }
 
-            output.append(item);
+            output.append(value);
             hasPreviousItem.set(true);
         });
 
