@@ -28,6 +28,13 @@ public class JSONArray {
     /**
      *
      */
+    public int size() {
+        return values.size();
+    }
+
+    /**
+     *
+     */
     public JSONArray() {
         values = new ArrayList<>();
     }
