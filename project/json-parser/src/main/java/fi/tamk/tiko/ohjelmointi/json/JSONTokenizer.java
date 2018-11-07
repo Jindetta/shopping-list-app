@@ -189,7 +189,7 @@ public class JSONTokenizer implements Iterator<JSONType> {
      *
      * @return
      */
-    private JSONType<? extends Object> parseLiteral() {
+    private JSONType parseLiteral() {
         int startPosition = position;
 
         while (position < input.length()) {
@@ -265,7 +265,7 @@ public class JSONTokenizer implements Iterator<JSONType> {
      *
      * @return
      */
-    public JSONType<? extends Object> parseNext() {
+    public JSONType parseNext() {
         int token = skipVoidTokens(false);
 
         if (expectedToken == null || !isExpectedToken((char) token)) {
