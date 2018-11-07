@@ -130,6 +130,19 @@ public class JSONType<T> {
 
     /**
      *
+     *
+     * @return
+     */
+    public Boolean getAsBoolean() {
+        if (type.equals(JSONTypes.BOOLEAN)) {
+            return (Boolean) get();
+        }
+
+        throw new JSONException("Unable to cast as Boolean (%s)", type);
+    }
+
+    /**
+     *
      */
     public JSONType() {
         this(null);
