@@ -117,6 +117,19 @@ public class JSONType<T> {
 
     /**
      *
+     *
+     * @return
+     */
+    public Long getAsNumber() {
+        if (type.equals(JSONTypes.NUMBER)) {
+            return (Long) get();
+        }
+
+        throw new JSONException("Unable to cast as Long (%s)", type);
+    }
+
+    /**
+     *
      */
     public JSONType() {
         this(null);
