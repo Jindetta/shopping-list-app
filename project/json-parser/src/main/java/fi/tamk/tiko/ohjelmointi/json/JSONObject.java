@@ -20,25 +20,14 @@ public class JSONObject {
     /**
      *
      */
-    public JSONObject() {
-        data = new HashMap<>();
+    public void add(String key, JSONType object) {
+        data.put(key, object);
     }
 
     /**
      *
      */
-    private class JSONType {
-
-        /**
-         *
-         */
-        private JSONTypes type;
-
-        /**
-         *
-         */
-        public JSONType() {
-            type = JSONTypes.NULL;
-        }
+    public JSONObject() {
+        data = new HashMap<>();
     }
 }
