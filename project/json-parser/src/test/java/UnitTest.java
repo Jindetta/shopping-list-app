@@ -84,4 +84,30 @@ public class UnitTest {
 
         System.out.println("Success: Valid JSON information");
     }
+
+    @Test
+    public void testJSONArrayWrite() {
+        System.out.println("--[[ Write JSONArray ]] --");
+
+        JSONArray json = new JSONArray();
+        json.add(new JSONType<String>("value"));
+        json.add(new JSONType<Long>(10l));
+
+        JSONTokenizer tokenizer = new JSONTokenizer(JSONTokenizer.writeArray(json));
+        JSONType object = tokenizer.parseNext();
+
+        Assert.assertTrue(object instanceof JSONType);
+        Assert.assertEquals(JSONTypes.ARRAY, object.getType());
+
+        JSONArray array = object.getAsArray();
+        Assert.assertEquals(2, array.size());
+
+        for (int i = 0; i < array.size(); i++) {
+            Assert.assertEquals(json.get(i), array.get(i));
+        }
+
+        Assert.assertNull(tokenizer.parseNext());
+
+        System.out.println("Success: Valid JSON information");
+    }
 }
