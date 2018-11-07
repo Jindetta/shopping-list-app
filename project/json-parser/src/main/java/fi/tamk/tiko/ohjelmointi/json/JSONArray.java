@@ -20,6 +20,6 @@ public class JSONArray {
      *
      */
     public JSONArray() {
-        
+        values = new ArrayList<>();
     }
 }
