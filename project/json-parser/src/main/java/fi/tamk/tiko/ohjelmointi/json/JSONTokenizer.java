@@ -1,5 +1,7 @@
 package fi.tamk.tiko.ohjelmointi.json;
 
+import java.util.Iterator;
+
 /**
  *
  *
@@ -289,6 +291,16 @@ public class JSONTokenizer {
 
         setExpectedToken(null);
         return parseNext();
+    }
+
+    /**
+     *
+     *
+     * @return
+     */
+    @Override
+    public JSONType iterator() {
+
     }
 
     /**
