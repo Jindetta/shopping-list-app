@@ -9,7 +9,7 @@ import java.util.Iterator;
  * @version 2018.1101
  * @since   11
  */
-public class JSONTokenizer {
+public class JSONTokenizer implements Iterator<JSONType> {
 
     /**
      *
@@ -299,8 +299,22 @@ public class JSONTokenizer {
      * @return
      */
     @Override
-    public JSONType iterator() {
+    public boolean hasNext() {
+        int storedPosition = position;
+        JSONType nextObject = next();
+        position = storedPosition;
 
+        return nextObject != null;
+    }
+
+    /**
+     *
+     *
+     * @return
+     */
+    @Override
+    public JSONType next() {
+        return parseNext();
     }
 
     /**
