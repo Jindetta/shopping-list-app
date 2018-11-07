@@ -1,7 +1,6 @@
 package fi.tamk.tiko.ohjelmointi.json;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
@@ -10,33 +9,6 @@ import java.util.Map;
  * @version 2018.1101
  * @since   11
  */
-public class JSONObject {
+public class JSONObject extends HashMap<String, JSONType> {
 
-    /**
-     *
-     */
-    private Map<String, JSONType> data;
-
-    /**
-     *
-     */
-    public void add(String key, JSONType object) {
-        data.put(key, object);
-    }
-
-    /**
-     *
-     *
-     * @return
-     */
-    public int size() {
-        return data.size();
-    }
-
-    /**
-     *
-     */
-    public JSONObject() {
-        data = new HashMap<>();
-    }
 }
