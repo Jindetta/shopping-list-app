@@ -91,6 +91,19 @@ public class JSONType<T> {
 
     /**
      *
+     *
+     * @return
+     */
+    public String getAsString() {
+        if (type.equals(JSONTypes.STRING)) {
+            return (String) get();
+        }
+
+        throw new JSONException("Unable to cast as String (%s)", type);
+    }
+
+    /**
+     *
      */
     public JSONType() {
         this(null);
