@@ -143,6 +143,15 @@ public class JSONType<T> {
 
     /**
      *
+     *
+     * @return
+     */
+    public boolean isNull() {
+        return get() == null && type.equals(JSONTypes.NULL);
+    }
+
+    /**
+     *
      */
     public JSONType() {
         this(null);
