@@ -35,9 +35,10 @@ public class UnitTest {
      */
     @Test
     public void testJSONObject() {
-        final String JSON_STRING = "{'key1': 'item1', 'key2': 'item2', 'key3': 'item3'}";
+        System.out.println("--[[ Tokenize JSONObject ]] --");
+        final String JSON = "{'key1': 'item1', 'key2': 'item2', 'key3': 'item3'}";
 
-        JSONTokenizer tokenizer = new JSONTokenizer(JSON_STRING);
+        JSONTokenizer tokenizer = new JSONTokenizer(JSON);
         JSONType object = tokenizer.parseNext();
 
         Assert.assertTrue(object instanceof JSONType);
@@ -47,12 +48,12 @@ public class UnitTest {
         Assert.assertEquals(3, array.size());
 
         for (int i = 0; i < array.size(); i++) {
-            final String KEY_STRING = String.format("key%d", i + 1);
-            final String ITEM_STRING = String.format("item%d", i + 1);
+            final String KEY = String.format("key%d", i + 1);
+            final String VALUE = String.format("item%d", i + 1);
 
-            Assert.assertTrue(array.containsKey(KEY_STRING));
-            Assert.assertEquals(ITEM_STRING, array.get(KEY_STRING).getAsString());
-            System.out.printf("Success: \"%s\" was found at [\"%s\"]%n", ITEM_STRING, KEY_STRING);
+            Assert.assertTrue(array.containsKey(KEY));
+            Assert.assertEquals(VALUE, array.get(KEY).getAsString());
+            System.out.printf("Success: \"%s\" was found at [\"%s\"]%n", VALUE, KEY);
         }
 
         Assert.assertNull(tokenizer.parseNext());
