@@ -60,6 +60,9 @@ public class UnitTest {
         Assert.assertNull(tokenizer.parseNext());
     }
 
+    /**
+     *
+     */
     @Test
     public void testJSONObjectWrite() {
         System.out.println("--[[ Write JSONObject ]] --");
@@ -85,6 +88,9 @@ public class UnitTest {
         System.out.println("Success: Valid JSON information");
     }
 
+    /**
+     *
+     */
     @Test
     public void testJSONArrayWrite() {
         System.out.println("--[[ Write JSONArray ]] --");
@@ -111,6 +117,9 @@ public class UnitTest {
         System.out.println("Success: Valid JSON information");
     }
 
+    /**
+     *
+     */
     @Test
     public void testSingleUnits() {
         JSONTokenizer tokenizer;
