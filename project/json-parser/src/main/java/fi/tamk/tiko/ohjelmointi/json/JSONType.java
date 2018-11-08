@@ -7,7 +7,7 @@ package fi.tamk.tiko.ohjelmointi.json;
  * @version 2018.1101
  * @since   11
  */
-public class JSONType<T> {
+public class JSONType {
 
     /**
      *
@@ -17,7 +17,7 @@ public class JSONType<T> {
     /**
      *
      */
-    private T object;
+    private Object object;
 
     /**
      *
@@ -33,7 +33,7 @@ public class JSONType<T> {
      *
      * @param value
      */
-    public void set(T value) {
+    public void set(Object value) {
         if (value instanceof Long) {
             type = JSONTypes.NUMBER;
         } else if (value instanceof Double) {
@@ -59,7 +59,7 @@ public class JSONType<T> {
      *
      * @return
      */
-    public T get() {
+    public Object get() {
         return object;
     }
 
@@ -162,7 +162,7 @@ public class JSONType<T> {
      *
      * @param object
      */
-    public JSONType(T object) {
+    public JSONType(Object object) {
         set(object);
     }
 
