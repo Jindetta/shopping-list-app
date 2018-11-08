@@ -12,6 +12,11 @@ public class JSONReader {
     /**
      *
      */
+    private JSONTokenizer tokenizer;
+
+    /**
+     *
+     */
     public JSONReader() {
 
     }
