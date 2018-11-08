@@ -187,6 +187,15 @@ public class JSONType {
     /**
      *
      *
+     * @return
+     */
+    public static JSONType createString(String value) {
+        return new JSONType(value);
+    }
+
+    /**
+     *
+     *
      * @param object
      * @return
      */
