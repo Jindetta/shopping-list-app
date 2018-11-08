@@ -195,7 +195,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
                     tokenizer.setExpectedToken(':');
 
                     continue;
-                } catch (JSONException e) {
+                } catch (ClassCastException e) {
                     throw new JSONException("Identifier mismatch - <key> missing at position: %d", position);
                 }
             }
