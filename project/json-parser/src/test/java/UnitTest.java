@@ -136,29 +136,36 @@ public class UnitTest {
         tokenizer = new JSONTokenizer("null");
         Assert.assertEquals(NULL_VALUE, tokenizer.parseNext());
         System.out.println("Success: Null object");
+        Assert.assertNull(tokenizer.parseNext());
 
         tokenizer = new JSONTokenizer("44332211");
         Assert.assertEquals(LONG_VALUE, tokenizer.parseNext());
         System.out.println("Success: Long object");
+        Assert.assertNull(tokenizer.parseNext());
 
         tokenizer = new JSONTokenizer("1.23456789");
         Assert.assertEquals(DOUBLE_VALUE, tokenizer.parseNext());
         System.out.println("Success: Double object");
+        Assert.assertNull(tokenizer.parseNext());
 
         tokenizer = new JSONTokenizer("\"String_value!\n\"");
         Assert.assertEquals(STRING_VALUE, tokenizer.parseNext());
         System.out.println("Success: String object");
+        Assert.assertNull(tokenizer.parseNext());
 
         tokenizer = new JSONTokenizer("[]");
         Assert.assertEquals(ARRAY_VALUE, tokenizer.parseNext());
         System.out.println("Success: Array object");
+        Assert.assertNull(tokenizer.parseNext());
 
         tokenizer = new JSONTokenizer("{}");
         Assert.assertEquals(OBJECT_VALUE, tokenizer.parseNext());
         System.out.println("Success: Object object");
+        Assert.assertNull(tokenizer.parseNext());
 
         tokenizer = new JSONTokenizer("true");
         Assert.assertEquals(BOOLEAN_VALUE, tokenizer.parseNext());
         System.out.println("Success: Boolean object");
+        Assert.assertNull(tokenizer.parseNext());
     }
 }
