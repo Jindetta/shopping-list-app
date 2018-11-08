@@ -22,7 +22,41 @@ public class JSONReader {
     /**
      *
      */
-    public JSONReader() {
+    private BufferedReader reader;
+
+    /**
+     *
+     *
+     * @return
+     */
+    public JSONType readNext() throws IOException {
+        if (tokenizer == null) {
+            StringBuilder contents = new StringBuilder();
+            String line = null;
+
+            while ((line = reader.readLine()) != null) {
+                contents.append(line);
+            }
+
+            tokenizer = new JSONTokenizer(contents.toString());
+        }
+
+        return tokenizer.parseNext();
+    }
+
+    /**
+     *
+     */
+    public JSONReader(String filePath) throws IOException, FileNotFoundException {
+        this(new File(filePath));
+    }
+
+    /**
+     *
+     */
+    public JSONReader(File file) throws IOException, FileNotFoundException {
+        reader = new BufferedReader(new FileReader(file));
+    }
 
     }
 }
