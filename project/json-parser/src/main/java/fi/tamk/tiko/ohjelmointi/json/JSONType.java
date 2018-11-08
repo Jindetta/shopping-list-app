@@ -178,6 +178,15 @@ public class JSONType {
     /**
      *
      *
+     * @return
+     */
+    public static JSONType createObject(JSONObject object) {
+        return new JSONType(object);
+    }
+
+    /**
+     *
+     *
      * @param object
      * @return
      */
