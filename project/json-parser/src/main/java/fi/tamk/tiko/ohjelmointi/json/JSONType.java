@@ -214,6 +214,15 @@ public class JSONType {
     /**
      *
      *
+     * @return
+     */
+    public static JSONType createNumber(Long value) {
+        return new JSONType(value);
+    }
+
+    /**
+     *
+     *
      * @param object
      * @return
      */
