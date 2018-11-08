@@ -205,6 +205,15 @@ public class JSONType {
     /**
      *
      *
+     * @return
+     */
+    public static JSONType createDecimal(Double value) {
+        return new JSONType(value);
+    }
+
+    /**
+     *
+     *
      * @param object
      * @return
      */
