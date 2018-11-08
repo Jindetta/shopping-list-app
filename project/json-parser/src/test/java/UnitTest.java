@@ -110,4 +110,46 @@ public class UnitTest {
 
         System.out.println("Success: Valid JSON information");
     }
+
+    @Test
+    public void testSingleUnits() {
+        JSONTokenizer tokenizer;
+        JSONType value;
+
+        final JSONType<Boolean> BOOLEAN_VALUE = new JSONType<>(true);
+        final JSONType<JSONObject> OBJECT_VALUE = new JSONType<>(new JSONObject());
+        final JSONType<JSONArray> ARRAY_VALUE = new JSONType<>(new JSONArray());
+        final JSONType<String> STRING_VALUE = new JSONType<>("String_value!\n");
+        final JSONType<Double> DOUBLE_VALUE = new JSONType<>(1.23456789);
+        final JSONType<Long> LONG_VALUE = new JSONType<>(44332211l);
+        final JSONType<Object> NULL_VALUE = new JSONType<>();
+
+        tokenizer = new JSONTokenizer("null");
+        Assert.assertEquals(NULL_VALUE, tokenizer.parseNext());
+        System.out.println("Success: Null object");
+
+        tokenizer = new JSONTokenizer("44332211");
+        Assert.assertEquals(LONG_VALUE, tokenizer.parseNext());
+        System.out.println("Success: Long object");
+
+        tokenizer = new JSONTokenizer("1.23456789");
+        Assert.assertEquals(DOUBLE_VALUE, tokenizer.parseNext());
+        System.out.println("Success: Double object");
+
+        tokenizer = new JSONTokenizer("\"String_value!\n\"");
+        Assert.assertEquals(STRING_VALUE, tokenizer.parseNext());
+        System.out.println("Success: String object");
+
+        tokenizer = new JSONTokenizer("[]");
+        Assert.assertEquals(ARRAY_VALUE, tokenizer.parseNext());
+        System.out.println("Success: Array object");
+
+        tokenizer = new JSONTokenizer("{}");
+        Assert.assertEquals(OBJECT_VALUE, tokenizer.parseNext());
+        System.out.println("Success: Object object");
+
+        tokenizer = new JSONTokenizer("true");
+        Assert.assertEquals(BOOLEAN_VALUE, tokenizer.parseNext());
+        System.out.println("Success: Boolean object");
+    }
 }
