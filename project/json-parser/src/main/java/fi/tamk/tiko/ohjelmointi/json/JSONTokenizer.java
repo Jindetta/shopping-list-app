@@ -78,7 +78,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
                                     int endIndex = input.indexOf("*/", ++position);
 
                                     if (endIndex == -1) {
-                                        throw new JSONException("Unterminated comment.");
+                                        throw new JSONException("Malformed identifier - <unterminated comment> at position: %d", position);
                                     }
 
                                     position = endIndex + 2;
@@ -133,7 +133,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
             }
         }
 
-        throw new JSONException("Unrecognized unicode pattern.");
+        throw new JSONException("Malformed identifier - invalid <unicode sequence> at position: %d", position);
     }
 
     /**
@@ -153,7 +153,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
             return new JSONType<>();
         }
 
-        throw new JSONException("Unrecognized literal.");
+        throw new JSONException("Malformed identifier - invalid <literal> at position: %d", position);
     }
 
     /**
@@ -196,13 +196,17 @@ public class JSONTokenizer implements Iterable<JSONType> {
 
                     continue;
                 } catch (JSONException e) {
-                    throw new JSONException("Unrecognizeable key value.");
+                    throw new JSONException("Identifier mismatch - <key> missing at position: %d", position);
                 }
             }
 
             objects.put(key, token);
             tokenizer.setExpectedToken(',');
             key = null;
+        }
+
+        if (key != null) {
+            throw new JSONException("Identifier mismatch - <value> missing at position: %d", position);
         }
 
         position += tokenizer.getPosition();
@@ -267,7 +271,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
                         break;
 
                     default:
-                        throw new JSONException("Unexpected symbol");
+                        throw new JSONException("Malformed identifier - <unexpected symbol> at position: %d", position);
                 }
             } else if (key == '\\') {
                 escapeString = true;
@@ -279,7 +283,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
             output.append(key);
         }
 
-        throw new JSONException("Unable to parse string.");
+        throw new JSONException("Malformed identifier - invalid <string> at position: %d", position);
     }
 
     /**
@@ -325,7 +329,13 @@ public class JSONTokenizer implements Iterable<JSONType> {
         }
 
         setExpectedToken(null);
-        return parseNext();
+        JSONType nextToken = parseNext();
+
+        if (nextToken == null) {
+            throw new JSONException("Identifier mismatch - <value> missing at position: %d", position);
+        }
+
+        return nextToken;
     }
 
     /**
