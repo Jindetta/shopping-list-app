@@ -191,27 +191,32 @@ public class JSONTokenizer implements Iterable<JSONType> {
      * @return
      */
     private JSONType parseLiteral() {
-        int startPosition = position - 1;
+        int startPosition = --position;
+        String value = null;
 
-        while (position < input.length()) {
-            int currentPosition = position++;
-            char key = input.charAt(currentPosition);
+        while (value == null) {
+            if (position < input.length()) {
+                char key = input.charAt(position);
 
-            if (key == ',' || key == ']' || key == '}') {
-                String value = input.substring(startPosition, currentPosition).trim();
-
-                if (value.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:[eE][+\\-]?\\d+)?$")) {
-                    return new JSONType<Long>(Long.parseLong(value));
-                } else if (value.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?$")) {
-                    return new JSONType<Double>(Double.parseDouble(value));
-                } else if (value.matches("^(?i:(true|false))$")) {
-                    return new JSONType<Boolean>(Boolean.parseBoolean(value));
-                } else if (value.equalsIgnoreCase("null")) {
-                    return new JSONType<>();
+                if (key == ',' || key == ']' || key == '}') {
+                    value = input.substring(startPosition, position).trim();
                 }
 
-                break;
+                position++;
+                continue;
             }
+
+            value = input.substring(startPosition).trim();
+        }
+
+        if (value.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:[eE][+\\-]?\\d+)?$")) {
+            return new JSONType<Long>(Long.parseLong(value));
+        } else if (value.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?$")) {
+            return new JSONType<Double>(Double.parseDouble(value));
+        } else if (value.matches("^(?i:(true|false))$")) {
+            return new JSONType<Boolean>(Boolean.parseBoolean(value));
+        } else if (value.equalsIgnoreCase("null")) {
+            return new JSONType<>();
         }
 
         throw new JSONException("Unrecognized literal.");
