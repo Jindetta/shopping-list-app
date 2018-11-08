@@ -110,7 +110,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
         final int UNICODE_SIZE = 4;
         int endIndex = position + UNICODE_SIZE;
 
-        if (endIndex < input.length()) {
+        if (endIndex <= input.length()) {
             String value = input.substring(position, endIndex).toLowerCase();
 
             if (value.matches("^[\\da-f]+$")) {
@@ -144,13 +144,13 @@ public class JSONTokenizer implements Iterable<JSONType> {
      */
     private JSONType getValidatedLiteral(String literal) {
         if (literal.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:[eE][+\\-]?\\d+)?$")) {
-            return new JSONType<Long>(Long.parseLong(literal));
+            return JSONType.createNumber(Long.parseLong(literal));
         } else if (literal.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?$")) {
-            return new JSONType<Double>(Double.parseDouble(literal));
+            return JSONType.createDecimal(Double.parseDouble(literal));
         } else if (literal.matches("^(?i:(true|false))$")) {
-            return new JSONType<Boolean>(Boolean.parseBoolean(literal));
+            return JSONType.createBoolean(Boolean.parseBoolean(literal));
         } else if (literal.equalsIgnoreCase("null")) {
-            return new JSONType<>();
+            return JSONType.createNull();
         }
 
         throw new JSONException("Malformed identifier - invalid <literal> at position: %d", position);
@@ -161,19 +161,19 @@ public class JSONTokenizer implements Iterable<JSONType> {
      *
      * @return
      */
-    private JSONType<JSONArray> parseArray() {
+    private JSONType parseArray() {
         JSONTokenizer tokenizer = new JSONTokenizer(input, position);
 
-        JSONArray objects = new JSONArray();
+        JSONArray array = new JSONArray();
         JSONType token = null;
 
         while ((token = tokenizer.parseNext()) != null) {
-            objects.add(token);
+            array.add(token);
             tokenizer.setExpectedToken(',');
         }
 
         position += tokenizer.getPosition();
-        return new JSONType<>(objects);
+        return JSONType.createArray(array);
     }
 
     /**
@@ -181,10 +181,10 @@ public class JSONTokenizer implements Iterable<JSONType> {
      *
      * @return
      */
-    private JSONType<JSONObject> parseObject() {
+    private JSONType parseObject() {
         JSONTokenizer tokenizer = new JSONTokenizer(input, position);
 
-        JSONObject objects = new JSONObject();
+        JSONObject object = new JSONObject();
         JSONType token = null;
         String key = null;
 
@@ -200,7 +200,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
                 }
             }
 
-            objects.put(key, token);
+            object.put(key, token);
             tokenizer.setExpectedToken(',');
             key = null;
         }
@@ -210,7 +210,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
         }
 
         position += tokenizer.getPosition();
-        return new JSONType<>(objects);
+        return JSONType.createObject(object);
     }
 
     /**
@@ -246,7 +246,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
      * @param quoteType
      * @return
      */
-    private JSONType<String> parseString(char quoteType) {
+    private JSONType parseString(char quoteType) {
         StringBuilder output = new StringBuilder();
         boolean escapeString = false;
 
@@ -277,7 +277,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
                 escapeString = true;
                 continue;
             } else if (key == quoteType) {
-                return new JSONType<>(output.toString());
+                return JSONType.createString(output.toString());
             }
 
             output.append(key);
