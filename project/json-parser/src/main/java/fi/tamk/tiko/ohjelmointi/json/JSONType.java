@@ -223,6 +223,15 @@ public class JSONType {
     /**
      *
      *
+     * @return
+     */
+    public static JSONType createNull() {
+        return new JSONType();
+    }
+
+    /**
+     *
+     *
      * @param object
      * @return
      */
