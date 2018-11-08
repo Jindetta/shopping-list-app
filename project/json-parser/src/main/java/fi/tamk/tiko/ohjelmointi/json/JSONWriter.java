@@ -1,5 +1,8 @@
 package fi.tamk.tiko.ohjelmointi.json;
 
+import java.io.Writer;
+import java.io.IOException;
+
 /**
  *
  *
