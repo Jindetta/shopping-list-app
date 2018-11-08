@@ -63,7 +63,7 @@ public class JSONReader implements AutoCloseable {
      *
      */
     @Override
-    public void close() {
+    public void close() throws Exception {
         if (reader != null) {
             reader.close();
         }
