@@ -73,7 +73,7 @@ public class JSONType {
             return (JSONArray) get();
         }
 
-        throw new JSONException("Unable to cast as JSONArray (%s)", type);
+        throw new ClassCastException("Unable to cast as JSONArray");
     }
 
     /**
@@ -86,7 +86,7 @@ public class JSONType {
             return (JSONObject) get();
         }
 
-        throw new JSONException("Unable to cast as JSONObject (%s)", type);
+        throw new ClassCastException("Unable to cast as JSONObject");
     }
 
     /**
@@ -99,7 +99,7 @@ public class JSONType {
             return (String) get();
         }
 
-        throw new JSONException("Unable to cast as String (%s)", type);
+        throw new ClassCastException("Unable to cast as String");
     }
 
     /**
@@ -112,7 +112,7 @@ public class JSONType {
             return (Double) get();
         }
 
-        throw new JSONException("Unable to cast as Double (%s)", type);
+        throw new ClassCastException("Unable to cast as Double");
     }
 
     /**
@@ -125,7 +125,7 @@ public class JSONType {
             return (Long) get();
         }
 
-        throw new JSONException("Unable to cast as Long (%s)", type);
+        throw new ClassCastException("Unable to cast as Long");
     }
 
     /**
@@ -138,7 +138,7 @@ public class JSONType {
             return (Boolean) get();
         }
 
-        throw new JSONException("Unable to cast as Boolean (%s)", type);
+        throw new ClassCastException("Unable to cast as Boolean");
     }
 
     /**
