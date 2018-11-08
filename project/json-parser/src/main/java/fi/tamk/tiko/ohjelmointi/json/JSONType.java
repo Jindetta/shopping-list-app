@@ -169,6 +169,15 @@ public class JSONType {
     /**
      *
      *
+     * @return
+     */
+    public static JSONType createArray(JSONArray array) {
+        return new JSONType(array);
+    }
+
+    /**
+     *
+     *
      * @param object
      * @return
      */
