@@ -135,6 +135,26 @@ public class JSONTokenizer implements Iterable<JSONType> {
     /**
      *
      *
+     * @param literal
+     * @return
+     */
+    private JSONType getValidatedLiteral(String literal) {
+        if (literal.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:[eE][+\\-]?\\d+)?$")) {
+            return new JSONType<Long>(Long.parseLong(literal));
+        } else if (literal.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?$")) {
+            return new JSONType<Double>(Double.parseDouble(literal));
+        } else if (literal.matches("^(?i:(true|false))$")) {
+            return new JSONType<Boolean>(Boolean.parseBoolean(literal));
+        } else if (literal.equalsIgnoreCase("null")) {
+            return new JSONType<>();
+        }
+
+        throw new JSONException("Unrecognized literal.");
+    }
+
+    /**
+     *
+     *
      * @return
      */
     private JSONType<JSONArray> parseArray() {
@@ -199,27 +219,17 @@ public class JSONTokenizer implements Iterable<JSONType> {
                 char key = input.charAt(position);
 
                 if (key == ',' || key == ']' || key == '}') {
-                    value = input.substring(startPosition, position).trim();
+                    value = input.substring(startPosition, position);
                 }
 
                 position++;
                 continue;
             }
 
-            value = input.substring(startPosition).trim();
+            value = input.substring(startPosition);
         }
 
-        if (value.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:[eE][+\\-]?\\d+)?$")) {
-            return new JSONType<Long>(Long.parseLong(value));
-        } else if (value.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?$")) {
-            return new JSONType<Double>(Double.parseDouble(value));
-        } else if (value.matches("^(?i:(true|false))$")) {
-            return new JSONType<Boolean>(Boolean.parseBoolean(value));
-        } else if (value.equalsIgnoreCase("null")) {
-            return new JSONType<>();
-        }
-
-        throw new JSONException("Unrecognized literal.");
+        return getValidatedLiteral(value.trim());
     }
 
     /**
