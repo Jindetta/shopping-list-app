@@ -196,6 +196,15 @@ public class JSONType {
     /**
      *
      *
+     * @return
+     */
+    public static JSONType createBoolean(Boolean value) {
+        return new JSONType(value);
+    }
+
+    /**
+     *
+     *
      * @param object
      * @return
      */
