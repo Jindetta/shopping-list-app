@@ -218,7 +218,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
         int startPosition = --position;
         String value = null;
 
-        while (value == null) {
+        do {
             if (position < input.length()) {
                 char key = input.charAt(position);
 
@@ -231,7 +231,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
             }
 
             value = input.substring(startPosition);
-        }
+        } while (value == null);
 
         return getValidatedLiteral(value.trim());
     }
