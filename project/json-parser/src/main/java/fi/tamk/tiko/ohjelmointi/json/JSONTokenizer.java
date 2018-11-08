@@ -108,25 +108,29 @@ public class JSONTokenizer implements Iterable<JSONType> {
      */
     private char parseUnicode() {
         final int UNICODE_SIZE = 4;
-        String value = input.substring(position, UNICODE_SIZE).toLowerCase();
+        int endIndex = position + UNICODE_SIZE;
 
-        if (value.matches("^[\\da-f]+$")) {
-            int result = 0;
+        if (endIndex < input.length()) {
+            String value = input.substring(position, endIndex).toLowerCase();
 
-            for (int i = 0; i < value.length(); i++) {
-                char key = value.charAt(i);
-                result *= 16;
+            if (value.matches("^[\\da-f]+$")) {
+                int result = 0;
 
-                if (key >= 'a' && key <= 'f') {
-                    result += 10 + (key - 'a');
-                } else {
-                    result += key - '0';
+                for (int i = 0; i < value.length(); i++) {
+                    char key = value.charAt(i);
+                    result *= 16;
+
+                    if (key >= 'a' && key <= 'f') {
+                        result += 10 + (key - 'a');
+                    } else {
+                        result += key - '0';
+                    }
+
+                    position++;
                 }
 
-                position++;
+                return (char) result;
             }
-
-            return (char) result;
         }
 
         throw new JSONException("Unrecognized unicode pattern.");
