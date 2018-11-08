@@ -12,7 +12,7 @@ import java.io.FileReader;
  * @version 2018.1101
  * @since   11
  */
-public class JSONReader {
+public class JSONReader implements AutoCloseable {
 
     /**
      *
@@ -58,5 +58,13 @@ public class JSONReader {
         reader = new BufferedReader(new FileReader(file));
     }
 
+    /**
+     *
+     */
+    @Override
+    public void close() {
+        if (reader != null) {
+            reader.close();
+        }
     }
 }
