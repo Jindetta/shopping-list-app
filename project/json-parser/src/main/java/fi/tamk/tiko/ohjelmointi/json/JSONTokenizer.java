@@ -440,7 +440,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
      * @return
      */
     public static String writeBoolean(Boolean value) {
-        return value ? "true" : "false";
+        return value.toString();
     }
 
     /**
