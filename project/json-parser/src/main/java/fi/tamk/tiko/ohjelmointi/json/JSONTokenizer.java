@@ -366,7 +366,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
      * @return
      */
     public static String writeNumber(Long value) {
-        return String.format("%d", value);
+        return String.valueOf(value);
     }
 
     /**
@@ -376,7 +376,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
      * @return
      */
     public static String writeDecimal(Double value) {
-        return String.format("%f", value);
+        return String.valueOf(value);
     }
 
     /**
