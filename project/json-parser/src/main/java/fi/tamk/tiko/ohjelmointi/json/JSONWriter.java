@@ -22,7 +22,7 @@ public class JSONWriter implements AutoCloseable {
      *
      * @param value
      */
-    public void writeNext(JSONType value) {
+    public void writeNext(JSONType value) throws IOException {
         writer.write(value.toString());
     }
 
