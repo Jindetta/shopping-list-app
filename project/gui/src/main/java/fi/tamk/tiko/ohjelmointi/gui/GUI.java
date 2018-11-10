@@ -8,7 +8,7 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 
 /**
- * Class that, constructs the GUI for Shopping List application.
+ * Constructs the GUI for Shopping List application.
  *
  * @author  Joonas Lauhala {@literal <joonas.lauhala@cs.tamk.fi>}
  * @version 2018.1101
