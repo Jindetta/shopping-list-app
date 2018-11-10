@@ -29,9 +29,10 @@ public class JSONType {
     }
 
     /**
+     * Sets object type and value.
      *
-     *
-     * @param value
+     * @param value Insertable object.
+     * @see Object
      */
     public void set(Object value) {
         if (value == null) {
