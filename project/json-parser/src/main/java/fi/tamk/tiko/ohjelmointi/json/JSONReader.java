@@ -1,13 +1,11 @@
 package fi.tamk.tiko.ohjelmointi.json;
 
 import java.io.IOException;
-import java.io.FileNotFoundException;
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.File;
+import java.io.Reader;
 
 /**
- *
+ * Class that, reads JSON formatted data.
  *
  * @author  Joonas Lauhala {@literal <joonas.lauhala@cs.tamk.fi>}
  * @version 2018.1101
@@ -16,19 +14,21 @@ import java.io.File;
 public class JSONReader implements AutoCloseable {
 
     /**
-     * Stores tokenizer.
+     * Stores {@link JSONTokenizer}.
      */
     private JSONTokenizer tokenizer;
 
     /**
-     * Stores buffered reader.
+     * Stores {@link BufferedReader}.
      */
     private BufferedReader reader;
 
     /**
+     * Reads next available JSONType from stream.
      *
-     *
-     * @return
+     * @return Valid JSONType or null.
+     * @throws IOException
+     * @see JSONType
      */
     public JSONType readNext() throws IOException {
         if (tokenizer == null) {
@@ -46,21 +46,18 @@ public class JSONReader implements AutoCloseable {
     }
 
     /**
+     * Overrides default constructor.
      *
-     */
-    public JSONReader(String filePath) throws IOException, FileNotFoundException {
-        this(new File(filePath));
-    }
-
-    /**
-     *
+     * @param reader Reader object.
+     * @throws IOException
+     * @see Reader
      */
     public JSONReader(Reader reader) throws IOException {
         this.reader = new BufferedReader(reader);
     }
 
     /**
-     *
+     * @see AutoCloseable#close close
      */
     @Override
     public void close() throws Exception {
