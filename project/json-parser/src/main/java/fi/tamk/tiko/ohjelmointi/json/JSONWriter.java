@@ -15,7 +15,12 @@ public class JSONWriter {
     /**
      *
      */
-    public JSONWriter() {
+    private Writer writer;
 
+    /**
+     *
+     */
+    public JSONWriter(Writer writer) {
+        this.writer = writer;
     }
 }
