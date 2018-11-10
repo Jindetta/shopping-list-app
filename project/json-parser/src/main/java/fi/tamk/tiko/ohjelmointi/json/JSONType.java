@@ -34,7 +34,9 @@ public class JSONType {
      * @param value
      */
     public void set(Object value) {
-        if (value instanceof Long) {
+        if (value == null) {
+            type = JSONTypes.NULL;
+        } else if (value instanceof Long) {
             type = JSONTypes.NUMBER;
         } else if (value instanceof Double) {
             type = JSONTypes.DECIMAL;
@@ -47,8 +49,7 @@ public class JSONType {
         } else if (value instanceof JSONArray) {
             type = JSONTypes.ARRAY;
         } else {
-            type = JSONTypes.NULL;
-            value = null;
+            throw new IllegalArgumentException("Unknown object type.");
         }
 
         object = value;
