@@ -5,7 +5,7 @@ import java.io.BufferedReader;
 import java.io.Reader;
 
 /**
- * Class that, reads JSON formatted data.
+ * Reads JSON formatted data.
  *
  * @author  Joonas Lauhala {@literal <joonas.lauhala@cs.tamk.fi>}
  * @version 2018.1101
