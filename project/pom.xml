@@ -43,6 +43,8 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven.javadoc.version}</version>
                 <configuration>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                    <additionalOptions>-Xdoclint:none</additionalOptions>
                     <reportOutputDirectory>${documentation}</reportOutputDirectory>
                     <destDir>doc</destDir>
                 </configuration>
