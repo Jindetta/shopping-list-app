@@ -25,15 +25,4 @@ public class GUI extends Application {
         stage.setOnCloseRequest(e -> Platform.exit());
         stage.show();
     }
-
-    /**
-     * Starts the program.
-     *
-     * @param args Command-line arguments.
-     */
-    public static void main(String[] args) {
-        System.out.println("Author: Joonas Lauhala");
-
-        launch(args);
-    }
 }
