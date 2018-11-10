@@ -33,7 +33,7 @@
                 <version>1.6.0</version>
                 <configuration>
                     <skip>false</skip>
-                    <mainClass>fi.tamk.tiko.ohjelmointi.gui.GUI</mainClass>
+                    <mainClass>fi.tamk.tiko.ohjelmointi.gui.Launcher</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -58,7 +58,7 @@
 					</descriptorRefs>
 					<archive>
                         <manifest>
-                            <mainClass>fi.tamk.tiko.ohjelmointi.gui.GUI</mainClass>
+                            <mainClass>fi.tamk.tiko.ohjelmointi.gui.Launcher</mainClass>
                         </manifest>
 					</archive>
 				</configuration>
