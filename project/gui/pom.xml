@@ -4,7 +4,7 @@
     <parent>
         <groupId>fi.tamk.tiko.ohjelmointi</groupId>
         <artifactId>shopping-list-app</artifactId>
-        <version>1</version>
+        <version>RELEASE-1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>fi.tamk.tiko.ohjelmointi.gui</groupId>
@@ -16,21 +16,21 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>11</version>
+            <version>${javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>fi.tamk.tiko.ohjelmointi.json</groupId>
             <artifactId>json-parser</artifactId>
-            <version>0.1</version>
+            <version>0.3</version>
         </dependency>
     </dependencies>
     <build>
-        <finalName>gui</finalName>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
+                <version>${exec.plugin.version}</version>
                 <configuration>
                     <skip>false</skip>
                     <mainClass>fi.tamk.tiko.ohjelmointi.gui.Launcher</mainClass>
@@ -38,7 +38,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
+                <version>${maven.jar.version}</version>
                 <executions>
                     <execution>
                         <id>default-jar</id>
@@ -49,7 +49,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.4.1</version>
+				<version>${maven.assembly.version}</version>
 				<configuration>
                     <outputDirectory>${binaries}</outputDirectory>
                     <appendAssemblyId>false</appendAssemblyId>
