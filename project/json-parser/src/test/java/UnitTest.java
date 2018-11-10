@@ -160,4 +160,11 @@ public class UnitTest {
         System.out.println("Success: Boolean object");
         Assert.assertNull(tokenizer.parseNext());
     }
+
+    @Test
+    public void testWriteString() {
+        final String STRING_VALUE = "\"{Word\\n\\\"P/e\\\\r\\\"\\nLine!\\n\"";
+
+        Assert.assertEquals(STRING_VALUE, JSONTokenizer.writeString("{Word\n\"P/e\\r\"\nLine!\n"));
+    }
 }
