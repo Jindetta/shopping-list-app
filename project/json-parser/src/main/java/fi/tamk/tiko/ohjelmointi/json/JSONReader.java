@@ -55,8 +55,8 @@ public class JSONReader implements AutoCloseable {
     /**
      *
      */
-    public JSONReader(File file) throws IOException, FileNotFoundException {
-        reader = new BufferedReader(new FileReader(file));
+    public JSONReader(Reader reader) throws IOException {
+        this.reader = new BufferedReader(reader);
     }
 
     /**
