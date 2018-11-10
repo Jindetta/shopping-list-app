@@ -10,7 +10,7 @@ import java.io.IOException;
  * @version 2018.1101
  * @since   11
  */
-public class JSONWriter {
+public class JSONWriter implements AutoCloseable {
 
     /**
      *
@@ -22,5 +22,15 @@ public class JSONWriter {
      */
     public JSONWriter(Writer writer) {
         this.writer = writer;
+    }
+
+    /**
+     * @see AutoCloseable#close close
+     */
+    @Override
+    public void close() throws Exception {
+        if (writer != null) {
+            writer.close();
+        }
     }
 }
