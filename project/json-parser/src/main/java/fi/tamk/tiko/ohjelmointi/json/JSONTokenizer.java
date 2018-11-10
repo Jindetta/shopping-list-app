@@ -386,7 +386,25 @@ public class JSONTokenizer implements Iterable<JSONType> {
      * @return
      */
     public static String writeString(String value) {
-        return String.format("\"%s\"", value);
+        StringBuilder output = new StringBuilder("\"");
+
+        for (int i = 0; i < value.length(); i++) {
+            String key = value.substring(i, i + 1);
+
+            switch (key) {
+                case "\t": key = "\\t"; break;
+                case "\r": key = "\\r"; break;
+                case "\n": key = "\\n"; break;
+                case "\f": key = "\\f"; break;
+                case "\b": key = "\\b"; break;
+                case "\"": key = "\\\""; break;
+                case "\\": key = "\\\\"; break;
+            }
+
+            output.append(key);
+        }
+
+        return output.append("\"").toString();
     }
 
     /**
