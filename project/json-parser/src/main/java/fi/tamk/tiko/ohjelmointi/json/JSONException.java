@@ -1,7 +1,7 @@
 package fi.tamk.tiko.ohjelmointi.json;
 
 /**
- * Class that, defines custom exceptions for JSON parsing.
+ * Defines custom exceptions for JSON parsing.
  *
  * @author  Joonas Lauhala {@literal <joonas.lauhala@cs.tamk.fi>}
  * @version 2018.1101
