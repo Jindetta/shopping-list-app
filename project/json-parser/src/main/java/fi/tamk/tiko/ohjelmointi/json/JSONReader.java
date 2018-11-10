@@ -27,7 +27,6 @@ public class JSONReader implements AutoCloseable {
      * Reads next available JSONType from stream.
      *
      * @return Valid JSONType or null.
-     * @throws IOException
      * @see JSONType
      */
     public JSONType readNext() throws IOException {
@@ -49,7 +48,6 @@ public class JSONReader implements AutoCloseable {
      * Overrides default constructor.
      *
      * @param reader Reader object.
-     * @throws IOException
      * @see Reader
      */
     public JSONReader(Reader reader) throws IOException {
