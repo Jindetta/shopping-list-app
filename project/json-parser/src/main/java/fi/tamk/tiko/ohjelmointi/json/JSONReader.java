@@ -16,12 +16,12 @@ import java.io.File;
 public class JSONReader implements AutoCloseable {
 
     /**
-     *
+     * Stores tokenizer.
      */
     private JSONTokenizer tokenizer;
 
     /**
-     *
+     * Stores buffered reader.
      */
     private BufferedReader reader;
 
