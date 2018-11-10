@@ -7,13 +7,21 @@
     <artifactId>shopping-list-app</artifactId>
     <name>Shopping List Application</name>
     <packaging>pom</packaging>
-    <version>1</version>
+    <version>RELEASE-1</version>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <documentation>${project.parent.basedir}/../..</documentation>
         <binaries>${project.parent.basedir}/../bin</binaries>
+        <maven.assembly.version>3.1.0</maven.assembly.version>
+        <maven.javadoc.version>3.0.1</maven.javadoc.version>
+        <exec.plugin.version>1.6.0</exec.plugin.version>
+        <maven.jar.version>3.0.2</maven.jar.version>
+        <javafx.version>11</javafx.version>
+        <junit.version>4.12</junit.version>
+        <json.version>0.3</json.version>
+        <gui.version>0.2</gui.version>
     </properties>
     <modules>
         <module>gui</module>
@@ -24,7 +32,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
+                <version>${exec.plugin.version}</version>
                 <configuration>
                     <skip>true</skip>
                     <mainClass>none</mainClass>
@@ -33,7 +41,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>${maven.javadoc.version}</version>
                 <configuration>
                     <reportOutputDirectory>${documentation}</reportOutputDirectory>
                     <destDir>doc</destDir>
