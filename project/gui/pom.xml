@@ -18,6 +18,11 @@
             <artifactId>javafx-controls</artifactId>
             <version>11</version>
         </dependency>
+        <dependency>
+            <groupId>fi.tamk.tiko.ohjelmointi.json</groupId>
+            <artifactId>json-parser</artifactId>
+            <version>0.1</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
