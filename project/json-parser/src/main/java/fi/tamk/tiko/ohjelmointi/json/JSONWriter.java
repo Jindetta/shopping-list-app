@@ -19,6 +19,15 @@ public class JSONWriter implements AutoCloseable {
 
     /**
      *
+     *
+     * @param value
+     */
+    public void writeNext(JSONType value) {
+        writer.write(value.toString());
+    }
+
+    /**
+     *
      */
     public JSONWriter(Writer writer) {
         this.writer = writer;
