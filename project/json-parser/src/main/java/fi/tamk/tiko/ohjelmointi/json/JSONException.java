@@ -1,7 +1,7 @@
 package fi.tamk.tiko.ohjelmointi.json;
 
 /**
- *
+ * Class that, defines custom exceptions for JSON parsing.
  *
  * @author  Joonas Lauhala {@literal <joonas.lauhala@cs.tamk.fi>}
  * @version 2018.1101
@@ -10,17 +10,19 @@ package fi.tamk.tiko.ohjelmointi.json;
 public class JSONException extends RuntimeException {
 
     /**
+     * Calls super-class constructor.
      *
-     * @param message
+     * @param message Exception message.
      */
     public JSONException(String message) {
         super(message);
     }
 
     /**
+     * Calls in-class constructor with formatted String.
      *
-     * @param messageFormat
-     * @param args
+     * @param messageFormat String format.
+     * @param args          List of arguments.
      */
     public JSONException(String messageFormat, Object... args) {
         this(String.format(messageFormat, args));
