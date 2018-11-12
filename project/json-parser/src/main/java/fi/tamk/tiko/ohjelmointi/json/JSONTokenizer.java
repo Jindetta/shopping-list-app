@@ -326,12 +326,11 @@ public class JSONTokenizer implements Iterable<JSONType> {
                 case '\'':
                     return parseString((char) token);
 
-                case -1:
                 case ']':
                 case '}':
-                    if (token != -1) {
-                        setExpectedToken((char) token);
-                    }
+                    setExpectedToken((char) token);
+
+                case -1:
                     return null;
             }
 
