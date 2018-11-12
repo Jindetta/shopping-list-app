@@ -278,6 +278,8 @@ public class JSONTokenizer implements Iterable<JSONType> {
                     default:
                         throw new JSONException("Malformed identifier - <unexpected symbol> at position: %d", position);
                 }
+            } else if (key == '\r' || key == '\n') {
+                throw new JSONException("Malformed identifier - <illegal newline> at position: %d", position);
             } else if (key == '\\') {
                 escapeString = true;
                 continue;
