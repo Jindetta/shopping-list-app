@@ -393,28 +393,53 @@ public class JSONTokenizer implements Iterable<JSONType> {
      *
      *
      * @param value
+     * @param quoteType
      * @return
      */
-    public static String writeString(String value) {
-        StringBuilder output = new StringBuilder("\"");
+    private static String writeString(String value, String quoteType) {
+        StringBuilder output = new StringBuilder(quoteType);
 
         for (int i = 0; i < value.length(); i++) {
             String key = value.substring(i, i + 1);
 
-            switch (key) {
-                case "\t": key = "\\t"; break;
-                case "\r": key = "\\r"; break;
-                case "\n": key = "\\n"; break;
-                case "\f": key = "\\f"; break;
-                case "\b": key = "\\b"; break;
-                case "\"": key = "\\\""; break;
-                case "\\": key = "\\\\"; break;
+            if (!key.equals(quoteType)) {
+                switch (key) {
+                    case "\t": key = "\\t"; break;
+                    case "\r": key = "\\r"; break;
+                    case "\n": key = "\\n"; break;
+                    case "\f": key = "\\f"; break;
+                    case "\b": key = "\\b"; break;
+                    case "\"": key = "\\\""; break;
+                    case "\\": key = "\\\\"; break;
+                }
+            } else {
+                output.append("\\");
             }
 
             output.append(key);
         }
 
-        return output.append("\"").toString();
+        return output.append(quoteType).toString();
+    }
+
+    /**
+     *
+     *
+     * @param value
+     * @return
+     */
+    public static String writeString(String value) {
+        return writeString(value, "\"");
+    }
+
+    /**
+     *
+     *
+     * @param value
+     * @return
+     */
+    public static String writeSingleQuoteString(String value) {
+        return writeString(value, "'");
     }
 
     /**
