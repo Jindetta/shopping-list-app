@@ -1,8 +1,13 @@
 import org.junit.*;
 
+import org.junit.rules.ExpectedException;
+
 import fi.tamk.tiko.ohjelmointi.json.*;
 
 public class UnitTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     /**
      *
@@ -166,5 +171,13 @@ public class UnitTest {
         final String STRING_VALUE = "\"{Word\\n\\\"P/e\\\\r\\\"\\nLine!\\n\"";
 
         Assert.assertEquals(STRING_VALUE, JSONTokenizer.writeString("{Word\n\"P/e\\r\"\nLine!\n"));
+    }
+
+    @Test
+    public void testJSONExceptions() {
+        JSONTokenizer tokenizer = new JSONTokenizer("[{},]");
+
+        thrown.expect(JSONException.class);
+        tokenizer.parseNext();
     }
 }
