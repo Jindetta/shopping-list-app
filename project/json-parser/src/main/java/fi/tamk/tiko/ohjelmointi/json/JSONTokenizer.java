@@ -237,11 +237,9 @@ public class JSONTokenizer implements Iterable<JSONType> {
                 } else {
                     position++;
                 }
-
-                continue;
+            } else {
+                value = input.substring(startPosition);
             }
-
-            value = input.substring(startPosition);
         } while (value == null);
 
         return getValidatedLiteral(value.trim());
