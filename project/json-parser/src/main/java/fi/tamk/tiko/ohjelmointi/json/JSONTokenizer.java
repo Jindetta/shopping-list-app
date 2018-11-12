@@ -172,6 +172,10 @@ public class JSONTokenizer implements Iterable<JSONType> {
             tokenizer.setExpectedToken(',');
         }
 
+        if (!tokenizer.isExpectedToken(']')) {
+            throw new JSONException("Malformed identifier - invalid <array> at position: %d", position);
+        }
+
         position += tokenizer.getPosition();
         return JSONType.createArray(array);
     }
@@ -207,6 +211,8 @@ public class JSONTokenizer implements Iterable<JSONType> {
 
         if (key != null) {
             throw new JSONException("Identifier mismatch - <value> missing at position: %d", position);
+        } else if (!tokenizer.isExpectedToken('}')) {
+            throw new JSONException("Malformed identifier - invalid <object> at position: %d", position);
         }
 
         position += tokenizer.getPosition();
@@ -228,9 +234,10 @@ public class JSONTokenizer implements Iterable<JSONType> {
 
                 if (key == ',' || key == ']' || key == '}') {
                     value = input.substring(startPosition, position);
+                } else {
+                    position++;
                 }
 
-                position++;
                 continue;
             }
 
@@ -322,6 +329,9 @@ public class JSONTokenizer implements Iterable<JSONType> {
                 case -1:
                 case ']':
                 case '}':
+                    if (token != -1) {
+                        setExpectedToken((char) token);
+                    }
                     return null;
             }
 
