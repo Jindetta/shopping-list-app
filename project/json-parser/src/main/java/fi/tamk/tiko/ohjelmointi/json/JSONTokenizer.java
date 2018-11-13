@@ -457,10 +457,10 @@ public class JSONTokenizer implements Iterable<JSONType> {
 
         object.forEach((key, value) -> {
             if (hasPreviousItem.get()) {
-                output.append(", ");
+                output.append(",");
             }
 
-            output.append(String.format("%s: %s", writeString(key), value));
+            output.append(String.format("%s:%s", writeString(key), value));
             hasPreviousItem.set(true);
         });
 
@@ -479,7 +479,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
 
         array.stream().forEach(value -> {
             if (hasPreviousItem.get()) {
-                output.append(", ");
+                output.append(",");
             }
 
             output.append(value);
