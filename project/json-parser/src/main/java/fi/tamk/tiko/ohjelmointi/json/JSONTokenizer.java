@@ -395,7 +395,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
      * @param quoteType
      * @return
      */
-    private static String writeString(String value, String quoteType) {
+    private static String writeString(String value, final String quoteType) {
         StringBuilder output = new StringBuilder(quoteType);
 
         for (int i = 0; i < value.length(); i++) {
