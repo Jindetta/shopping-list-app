@@ -145,7 +145,7 @@ public class UnitTest {
         System.out.println("Success: Double object");
         Assert.assertNull(tokenizer.parseNext());
 
-        tokenizer = new JSONTokenizer("\"String_value!\n\"");
+        tokenizer = new JSONTokenizer("\"String_value!\\n\"");
         Assert.assertEquals(JSONType.createString("String_value!\n"), tokenizer.parseNext());
         System.out.println("Success: String object");
         Assert.assertNull(tokenizer.parseNext());
