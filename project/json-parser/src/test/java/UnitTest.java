@@ -127,6 +127,7 @@ public class UnitTest {
      */
     @Test
     public void testSingleUnits() {
+        System.out.println("--[[ Single Units ]] --");
         JSONTokenizer tokenizer;
         JSONType value;
 
@@ -168,6 +169,7 @@ public class UnitTest {
 
     @Test
     public void testWriteString() {
+        System.out.println("--[[ Write String ]] --");
         final String STRING_VALUE = "\"{Word\\n\\\"P/e\\\\r\\\"\\nLine!\\n\"";
 
         Assert.assertEquals(STRING_VALUE, JSONTokenizer.writeString("{Word\n\"P/e\\r\"\nLine!\n"));
@@ -175,9 +177,11 @@ public class UnitTest {
 
     @Test
     public void testJSONExceptions() {
-        JSONTokenizer tokenizer = new JSONTokenizer("[{},]");
+        System.out.println("--[[ Exceptions ]] --");
+        JSONTokenizer tokenizer;
 
         thrown.expect(JSONException.class);
+        tokenizer = new JSONTokenizer("{");
         tokenizer.parseNext();
     }
 }
