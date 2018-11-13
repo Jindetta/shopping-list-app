@@ -38,16 +38,29 @@ public class JSONTokenizer implements Iterable<JSONType> {
 
     /**
      *
+     * @param identifier
      */
-    public void setExpectedToken(Character token) {
-        expectedToken = token;
+    public void requireIdentifier(Character identifier) {
+        identifiers.push(identifier);
     }
 
     /**
      *
+     *
+     * @param identifier
      */
-    public boolean isExpectedToken(Character token) {
-        return expectedToken != null && expectedToken.equals(token);
+    public void removeIdentifier(Character identifier, JSONException exception) {
+        if (!identifiers.empty() && identifier.equals(identifiers.peek())) {
+            identifiers.pop();
+
+            return;
+        }
+
+        if (exception == null) {
+            exception = new JSONException("Identifier mismatch - missing <%c> at position: %d", identifier, position);
+        }
+
+        throw exception;
     }
 
     /**
@@ -169,15 +182,16 @@ public class JSONTokenizer implements Iterable<JSONType> {
         JSONType token = null;
 
         while ((token = tokenizer.parseNext()) != null) {
-            array.add(token);
-            tokenizer.setExpectedToken(',');
-        }
+            if (!array.isEmpty()) {
+                JSONException exception = new JSONException("Malformed array - missing <,> at position: %d", tokenizer.getPosition());
+                tokenizer.removeIdentifier(',', exception);
+            }
 
-        if (!tokenizer.isExpectedToken(']')) {
-            throw new JSONException("Malformed identifier - invalid <array> at position: %d", position);
+            array.add(token);
         }
 
         position += tokenizer.getPosition();
+        tokenizer.removeIdentifier(']', new JSONException("Malformed array - missing <]> at position: %d", position));
         return JSONType.createArray(array);
     }
 
@@ -197,26 +211,28 @@ public class JSONTokenizer implements Iterable<JSONType> {
             if (key == null) {
                 try {
                     key = token.getAsString();
-                    tokenizer.setExpectedToken(':');
 
                     continue;
                 } catch (ClassCastException e) {
-                    throw new JSONException("Identifier mismatch - <key> missing at position: %d", position);
+                    throw new JSONException("Identifier mismatch - missing <key> at position: %d", tokenizer.getPosition());
                 }
             }
 
+            tokenizer.removeIdentifier(':', new JSONException("Malformed identifier - missing <identifier> at position: %d", tokenizer.getPosition()));
+            if (!object.isEmpty()) {
+                tokenizer.removeIdentifier(',', new JSONException("Malformed identifier - missing <identifier> at position: %d", tokenizer.getPosition()));
+            }
+
             object.put(key, token);
-            tokenizer.setExpectedToken(',');
             key = null;
         }
 
         if (key != null) {
-            throw new JSONException("Identifier mismatch - <value> missing at position: %d", position);
-        } else if (!tokenizer.isExpectedToken('}')) {
-            throw new JSONException("Malformed identifier - invalid <object> at position: %d", position);
+            throw new JSONException("Identifier mismatch - missing <value> at position: %d", position);
         }
 
         position += tokenizer.getPosition();
+        tokenizer.removeIdentifier('}', new JSONException("Malformed object - missing <}> at position: %d", position));
         return JSONType.createObject(object);
     }
 
@@ -317,37 +333,29 @@ public class JSONTokenizer implements Iterable<JSONType> {
     public JSONType parseNext() {
         int token = skipVoidTokens(false);
 
-        if (expectedToken == null || !isExpectedToken((char) token)) {
-	        switch (token) {
-                case '[':
-                    return parseArray();
+        switch (token) {
+            case '[':
+                return parseArray();
 
-                case '{':
-                    return parseObject();
+            case '{':
+                return parseObject();
 
-                case '"':
-                case '\'':
-                    return parseString((char) token);
+            case '"':
+            case '\'':
+                return parseString((char) token);
 
-                case ']':
-                case '}':
-                    setExpectedToken((char) token);
+            case ',':
+            case ':':
+            case ']':
+            case '}':
+                requireIdentifier((char) token);
+                return parseNext();
 
-                case -1:
-                    return null;
-            }
-
-            return parseLiteral();
+            case -1:
+                return null;
         }
 
-        setExpectedToken(null);
-        JSONType nextToken = parseNext();
-
-        if (nextToken == null) {
-            throw new JSONException("Identifier mismatch - <value> missing at position: %d", position);
-        }
-
-        return nextToken;
+        return parseLiteral();
     }
 
     /**
