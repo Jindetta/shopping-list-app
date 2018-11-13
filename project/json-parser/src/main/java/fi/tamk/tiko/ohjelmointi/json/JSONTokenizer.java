@@ -78,7 +78,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
                                     int endIndex = input.indexOf("*/", ++position);
 
                                     if (endIndex == -1) {
-                                        throw new JSONException("Malformed identifier - <unterminated comment> at position: %d", position);
+                                        throw new JSONException("Malformed comment - missing <*/> at position: %d", position);
                                     }
 
                                     position = endIndex + 2;
