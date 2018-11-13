@@ -276,10 +276,10 @@ public class JSONTokenizer implements Iterable<JSONType> {
                         break;
 
                     default:
-                        throw new JSONException("Malformed identifier - <unexpected symbol> at position: %d", position);
+                        throw new JSONException("Malformed string - unexpected <%c> at position: %d", key, position);
                 }
             } else if (key == '\r' || key == '\n') {
-                throw new JSONException("Malformed identifier - <illegal newline> at position: %d", position);
+                throw new JSONException("Malformed string - illegal <newline> at position: %d", position);
             } else if (key == '\\') {
                 escapeString = true;
                 continue;
@@ -290,7 +290,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
             output.append(key);
         }
 
-        throw new JSONException("Malformed identifier - invalid <string> at position: %d", position);
+        throw new JSONException("Malformed string - invalid <string> at position: %d", position);
     }
 
     /**
