@@ -234,6 +234,8 @@ public class JSONTokenizer implements Iterable<JSONType> {
 
                 if (key == ',' || key == ']' || key == '}') {
                     value = input.substring(startPosition, position);
+                } else if (key == '\r' || key == '\n') {
+                    throw new JSONException("Malformed literal - illegal <newline> at position: %d", position);
                 } else {
                     position++;
                 }
