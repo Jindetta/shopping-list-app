@@ -2,6 +2,7 @@ package fi.tamk.tiko.ohjelmointi.json;
 
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.Stack;
 
 /**
  *
@@ -25,7 +26,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
     /**
      *
      */
-    private Character expectedToken;
+    private Stack<Character> identifiers;
 
     /**
      *
@@ -353,12 +354,13 @@ public class JSONTokenizer implements Iterable<JSONType> {
      *
      *
      * @param stream
+     * @param startPosition
      */
-    private JSONTokenizer(String stream, int position) {
-        setExpectedToken(null);
+    private JSONTokenizer(String stream, int startPosition) {
+        identifiers = new Stack<>();
 
-        this.position = position;
-        this.input = stream;
+        position = startPosition;
+        input = stream;
     }
 
     /**
