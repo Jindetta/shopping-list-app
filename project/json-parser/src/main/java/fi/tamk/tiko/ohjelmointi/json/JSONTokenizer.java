@@ -153,7 +153,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
             return JSONType.createNull();
         }
 
-        throw new JSONException("Malformed identifier - invalid <literal> at position: %d", position);
+        throw new JSONException("Malformed literal - unknown value <%s> at position: %d", literal, position);
     }
 
     /**
