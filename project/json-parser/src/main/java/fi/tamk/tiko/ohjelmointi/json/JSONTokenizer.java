@@ -133,7 +133,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
             }
         }
 
-        throw new JSONException("Malformed identifier - invalid <unicode sequence> at position: %d", position);
+        throw new JSONException("Malformed character - invalid <unicode sequence> at position: %d", position);
     }
 
     /**
