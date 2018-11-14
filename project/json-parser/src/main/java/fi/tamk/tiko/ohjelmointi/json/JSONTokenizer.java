@@ -111,9 +111,9 @@ public class JSONTokenizer implements Iterable<JSONType> {
     }
 
     /**
+     * Parses single Unicode character.
      *
-     *
-     * @return
+     * @return Valid character.
      */
     private char parseUnicode() {
         final int UNICODE_SIZE = 4;
