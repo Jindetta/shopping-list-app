@@ -59,10 +59,10 @@ public class JSONTokenizer implements Iterable<JSONType> {
     }
 
     /**
+     * Finds next valid token.
      *
-     *
-     * @param skipToEOL
-     * @return
+     * @param skipToEOL Skip to next newline.
+     * @return Valid token or -1.
      */
     private int skipVoidTokens(boolean skipToEOL) {
         while (position.get() < input.length()) {
