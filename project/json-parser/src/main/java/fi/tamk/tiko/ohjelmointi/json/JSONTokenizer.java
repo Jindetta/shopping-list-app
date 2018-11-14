@@ -20,7 +20,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
     private AtomicInteger position;
 
     /**
-     *
+     * Stores input data.
      */
     private String input;
 
