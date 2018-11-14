@@ -15,7 +15,7 @@ import java.util.Stack;
 public class JSONTokenizer implements Iterable<JSONType> {
 
     /**
-     *
+     * Stores current position.
      */
     private AtomicInteger position;
 
