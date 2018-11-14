@@ -511,7 +511,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
     }
 
     /**
-     *
+     * Implements Iterator for JSONTokenizer class.
      */
     private class JSONTokenIterator implements Iterator<JSONType> {
 
