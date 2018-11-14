@@ -394,11 +394,11 @@ public class JSONTokenizer implements Iterable<JSONType> {
     }
 
     /**
+     * Writes JSON formatted String.
      *
-     *
-     * @param value
-     * @param quoteType
-     * @return
+     * @param value     String value.
+     * @param quoteType Quote type.
+     * @return JSON formatted String.
      */
     private static String writeString(String value, final String quoteType) {
         StringBuilder output = new StringBuilder(quoteType);
