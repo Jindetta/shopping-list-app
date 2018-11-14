@@ -40,9 +40,9 @@ public class JSONTokenizer implements Iterable<JSONType> {
     }
 
     /**
+     * Removes given identifier.
      *
-     *
-     * @param identifier
+     * @param identifier Identifier value.
      */
     public void removeIdentifier(Character identifier, JSONException exception) {
         if (!identifiers.empty() && identifier.equals(identifiers.peek())) {
