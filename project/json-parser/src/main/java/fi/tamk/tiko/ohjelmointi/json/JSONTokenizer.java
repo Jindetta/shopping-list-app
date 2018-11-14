@@ -30,8 +30,10 @@ public class JSONTokenizer implements Iterable<JSONType> {
     private Stack<Character> identifiers;
 
     /**
+     * Adds a new identifier.
      *
-     * @param identifier
+     * @param identifier Identifier value.
+     * @see Character
      */
     public void requireIdentifier(Character identifier) {
         identifiers.push(identifier);
