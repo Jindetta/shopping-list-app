@@ -25,7 +25,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
     private String input;
 
     /**
-     *
+     * Stores special identifiers.
      */
     private Stack<Character> identifiers;
 
