@@ -437,10 +437,10 @@ public class JSONTokenizer implements Iterable<JSONType> {
     }
 
     /**
+     * Writes JSON formatted String with single-quotes.
      *
-     *
-     * @param value
-     * @return
+     * @param value String value.
+     * @return JSON formatted String.
      */
     public static String writeSingleQuoteString(String value) {
         return writeString(value, "'");
