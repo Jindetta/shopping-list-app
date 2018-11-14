@@ -146,10 +146,10 @@ public class JSONTokenizer implements Iterable<JSONType> {
     }
 
     /**
+     * Validates given literal.
      *
-     *
-     * @param literal
-     * @return
+     * @param literal Literal value.
+     * @return Literal as JSONType.
      */
     private JSONType getValidatedLiteral(String literal) {
         if (literal.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:[eE][+\\-]?\\d+)?$")) {
