@@ -427,10 +427,10 @@ public class JSONTokenizer implements Iterable<JSONType> {
     }
 
     /**
+     * Writes JSON formatted String with double-quotes.
      *
-     *
-     * @param value
-     * @return
+     * @param value String value.
+     * @return JSON formatted String.
      */
     public static String writeString(String value) {
         return writeString(value, "\"");
