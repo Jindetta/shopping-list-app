@@ -17,7 +17,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
     /**
      *
      */
-    private int position;
+    private AtomicInteger position;
 
     /**
      *
@@ -28,14 +28,6 @@ public class JSONTokenizer implements Iterable<JSONType> {
      *
      */
     private Stack<Character> identifiers;
-
-    /**
-     *
-     * @return
-     */
-    public int getPosition() {
-        return position;
-    }
 
     /**
      *
@@ -58,7 +50,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
         }
 
         if (exception == null) {
-            exception = new JSONException("Identifier mismatch - missing <%c> at position: %d", identifier, position);
+            exception = new JSONException("Identifier mismatch - missing <%c> at position: %d", identifier, position.get());
         }
 
         throw exception;
@@ -71,8 +63,8 @@ public class JSONTokenizer implements Iterable<JSONType> {
      * @return
      */
     private int skipVoidTokens(boolean skipToEOL) {
-        while (position < input.length()) {
-            int character = input.charAt(position++);
+        while (position.get() < input.length()) {
+            int character = input.charAt(position.getAndIncrement());
 
             if (!skipToEOL) {
                 switch (character) {
@@ -87,16 +79,16 @@ public class JSONTokenizer implements Iterable<JSONType> {
                         continue;
 
                     case '/':
-                        if (position < input.length()) {
-                            switch (input.charAt(position)) {
+                        if (position.get() < input.length()) {
+                            switch (input.charAt(position.get())) {
                                 case '*':
-                                    int endIndex = input.indexOf("*/", ++position);
+                                    int endIndex = input.indexOf("*/", position.incrementAndGet());
 
                                     if (endIndex == -1) {
-                                        throw new JSONException("Malformed comment - missing <*/> at position: %d", position);
+                                        throw new JSONException("Malformed comment - missing <*/> at position: %d", position.get());
                                     }
 
-                                    position = endIndex + 2;
+                                    position.set(endIndex + 2);
                                     continue;
 
                                 case '/':
@@ -123,10 +115,10 @@ public class JSONTokenizer implements Iterable<JSONType> {
      */
     private char parseUnicode() {
         final int UNICODE_SIZE = 4;
-        int endIndex = position + UNICODE_SIZE;
+        int endIndex = position.get() + UNICODE_SIZE;
 
         if (endIndex <= input.length()) {
-            String value = input.substring(position, endIndex).toLowerCase();
+            String value = input.substring(position.get(), endIndex).toLowerCase();
 
             if (value.matches("^[\\da-f]+$")) {
                 int result = 0;
@@ -141,14 +133,14 @@ public class JSONTokenizer implements Iterable<JSONType> {
                         result += key - '0';
                     }
 
-                    position++;
+                    position.getAndIncrement();
                 }
 
                 return (char) result;
             }
         }
 
-        throw new JSONException("Malformed character - invalid <unicode sequence> at position: %d", position);
+        throw new JSONException("Malformed character - invalid <unicode sequence> at position: %d", position.get());
     }
 
     /**
@@ -168,7 +160,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
             return JSONType.createNull();
         }
 
-        throw new JSONException("Malformed literal - unknown value <%s> at position: %d", literal, position);
+        throw new JSONException("Malformed literal - unknown value <%s> at position: %d", literal, position.get());
     }
 
     /**
@@ -184,15 +176,14 @@ public class JSONTokenizer implements Iterable<JSONType> {
 
         while ((token = tokenizer.parseNext()) != null) {
             if (!array.isEmpty()) {
-                JSONException exception = new JSONException("Malformed array - missing <,> at position: %d", tokenizer.getPosition());
+                JSONException exception = new JSONException("Malformed array - missing <,> at position: %d", position.get());
                 tokenizer.removeIdentifier(',', exception);
             }
 
             array.add(token);
         }
 
-        position += tokenizer.getPosition();
-        tokenizer.removeIdentifier(']', new JSONException("Malformed array - missing <]> at position: %d", position));
+        tokenizer.removeIdentifier(']', new JSONException("Malformed array - missing <]> at position: %d", position.get()));
         return JSONType.createArray(array);
     }
 
@@ -215,13 +206,13 @@ public class JSONTokenizer implements Iterable<JSONType> {
 
                     continue;
                 } catch (ClassCastException e) {
-                    throw new JSONException("Identifier mismatch - missing <key> at position: %d", tokenizer.getPosition());
+                    throw new JSONException("Identifier mismatch - missing <key> at position: %d", position.get());
                 }
             }
 
-            tokenizer.removeIdentifier(':', new JSONException("Malformed identifier - missing <identifier> at position: %d", tokenizer.getPosition()));
+            tokenizer.removeIdentifier(':', new JSONException("Malformed identifier - missing <identifier> at position: %d", position.get()));
             if (!object.isEmpty()) {
-                tokenizer.removeIdentifier(',', new JSONException("Malformed identifier - missing <identifier> at position: %d", tokenizer.getPosition()));
+                tokenizer.removeIdentifier(',', new JSONException("Malformed identifier - missing <identifier> at position: %d", position.get()));
             }
 
             object.put(key, token);
@@ -229,11 +220,10 @@ public class JSONTokenizer implements Iterable<JSONType> {
         }
 
         if (key != null) {
-            throw new JSONException("Identifier mismatch - missing <value> at position: %d", position);
+            throw new JSONException("Identifier mismatch - missing <value> at position: %d", position.get());
         }
 
-        position += tokenizer.getPosition();
-        tokenizer.removeIdentifier('}', new JSONException("Malformed object - missing <}> at position: %d", position));
+        tokenizer.removeIdentifier('}', new JSONException("Malformed object - missing <}> at position: %d", position.get()));
         return JSONType.createObject(object);
     }
 
@@ -243,19 +233,19 @@ public class JSONTokenizer implements Iterable<JSONType> {
      * @return
      */
     private JSONType parseLiteral() {
-        int startPosition = --position;
+        int startPosition = position.decrementAndGet();
         String value = null;
 
         do {
-            if (position < input.length()) {
-                char key = input.charAt(position);
+            if (position.get() < input.length()) {
+                char key = input.charAt(position.get());
 
                 if (key == ',' || key == ']' || key == '}') {
-                    value = input.substring(startPosition, position);
+                    value = input.substring(startPosition, position.get());
                 } else if (key == '\r' || key == '\n') {
-                    throw new JSONException("Malformed literal - illegal <newline> at position: %d", position);
+                    throw new JSONException("Malformed literal - illegal <newline> at position: %d", position.get());
                 } else {
-                    position++;
+                    position.getAndIncrement();
                 }
             } else {
                 value = input.substring(startPosition);
@@ -275,8 +265,8 @@ public class JSONTokenizer implements Iterable<JSONType> {
         StringBuilder output = new StringBuilder();
         boolean escapeString = false;
 
-        while (position < input.length()) {
-            char key = input.charAt(position++);
+        while (position.get() < input.length()) {
+            char key = input.charAt(position.getAndIncrement());
 
             if (escapeString) {
                 escapeString = false;
@@ -296,10 +286,10 @@ public class JSONTokenizer implements Iterable<JSONType> {
                         break;
 
                     default:
-                        throw new JSONException("Malformed string - unexpected <%c> at position: %d", key, position);
+                        throw new JSONException("Malformed string - unexpected <%c> at position: %d", key, position.get());
                 }
             } else if (key == '\r' || key == '\n') {
-                throw new JSONException("Malformed string - illegal <newline> at position: %d", position);
+                throw new JSONException("Malformed string - illegal <newline> at position: %d", position.get());
             } else if (key == '\\') {
                 escapeString = true;
                 continue;
@@ -310,7 +300,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
             output.append(key);
         }
 
-        throw new JSONException("Malformed string - invalid <string> at position: %d", position);
+        throw new JSONException("Malformed string - invalid <string> at position: %d", position.get());
     }
 
     /**
@@ -319,9 +309,9 @@ public class JSONTokenizer implements Iterable<JSONType> {
      * @return
      */
     private JSONType skipNext() {
-        int storedPosition = position;
+        int storedPosition = position.get();
         JSONType token = parseNext();
-        position = storedPosition;
+        position.set(storedPosition);
 
         return token;
     }
@@ -365,7 +355,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
      * @param stream
      * @param startPosition
      */
-    private JSONTokenizer(String stream, int startPosition) {
+    private JSONTokenizer(String stream, AtomicInteger startPosition) {
         identifiers = new Stack<>();
 
         position = startPosition;
@@ -378,7 +368,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
      * @param stream
      */
     public JSONTokenizer(String stream) {
-        this(stream, 0);
+        this(stream, new AtomicInteger());
     }
 
     /**
