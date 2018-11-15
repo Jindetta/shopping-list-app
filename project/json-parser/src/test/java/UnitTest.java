@@ -180,8 +180,13 @@ public class UnitTest {
         System.out.println("--[[ Exceptions ]] --");
         JSONTokenizer tokenizer;
 
-        thrown.expect(JSONException.class);
-        tokenizer = new JSONTokenizer("{");
-        tokenizer.parseNext();
+        try {
+            tokenizer = new JSONTokenizer("null,");
+            tokenizer.parseNext();
+
+            Assert.fail("No exception was thrown");
+        } catch (JSONException e) {
+            System.out.println("Success: Exception thrown");
+        }
     }
 }
