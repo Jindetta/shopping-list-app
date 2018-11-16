@@ -242,7 +242,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
             if (position.get() < input.length()) {
                 char key = input.charAt(position.get());
 
-                if (key == ',' || key == ']' || key == '}') {
+                if (key == ' ' || key == ',' || key == ']' || key == '}') {
                     value = input.substring(startPosition, position.get());
                 } else if (key == '\r' || key == '\n') {
                     throw new JSONException("Malformed literal - illegal <newline> at position: %d", position.get());
