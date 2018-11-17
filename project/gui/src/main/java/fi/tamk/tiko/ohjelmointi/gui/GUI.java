@@ -52,13 +52,13 @@ public class GUI extends Application {
             for (Item item : items) {
                 JSONObject object = new JSONObject();
 
-                object.put("name", JSONType.createString(item.getItemName()));
-                object.put("amount", JSONType.createNumber((long) item.getItemAmount()));
+                object.putString("name", item.getItemName());
+                object.putNumber("amount", (long) item.getItemAmount());
 
-                array.add(JSONType.createObject(object));
+                array.addObject(object);
             }
 
-            json.writeNext(JSONType.createArray(array));
+            json.writeArray(array);
         } catch (Exception e) {
             Alert alert = new Alert(AlertType.ERROR);
 
