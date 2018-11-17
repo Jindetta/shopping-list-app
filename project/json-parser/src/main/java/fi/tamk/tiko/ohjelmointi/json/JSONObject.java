@@ -60,4 +60,13 @@ public class JSONObject extends HashMap<String, JSONType> {
     public void putNumber(String key, Long value) {
         put(key, JSONType.createNumber(value));
     }
+
+    /**
+     * 
+     * @param key
+     * @param value
+     */
+    public void putBoolean(String key, Boolean value) {
+        put(key, JSONType.createBoolean(value));
+    }
 }
