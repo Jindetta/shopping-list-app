@@ -14,9 +14,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 
@@ -58,7 +60,13 @@ public class GUI extends Application {
         try (JSONWriter writer = new JSONWriter(new FileWriter("list.json"))) {
             writer.writeNext(JSONType.createArray(array));
         } catch (Exception e) {
+            Alert alert = new Alert(AlertType.ERROR);
 
+            alert.setTitle("Cannot save file");
+            alert.setContentText(e.getMessage());
+            alert.setHeaderText(null);
+
+            alert.show();
         }
     }
 
