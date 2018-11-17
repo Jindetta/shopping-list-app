@@ -41,7 +41,7 @@ public class JSONReader implements AutoCloseable {
             tokenizer = new JSONTokenizer(contents.toString());
         }
 
-        return tokenizer.parseNext();
+        return tokenizer.parse();
     }
 
     /**

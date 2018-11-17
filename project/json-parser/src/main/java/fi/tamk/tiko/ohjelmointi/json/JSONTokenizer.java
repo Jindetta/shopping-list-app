@@ -384,7 +384,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
      *
      * @return
      */
-    public JSONType parseNext() {
+    public JSONType parse() {
         JSONType value = parseToken(true);
 
         if (!identifiers.empty()) {
@@ -575,7 +575,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
          */
         @Override
         public JSONType next() {
-            return parseNext();
+            return parse();
         }
     }
 

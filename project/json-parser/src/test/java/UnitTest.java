@@ -18,7 +18,7 @@ public class UnitTest {
         final String JSON = "['item1', 'item2', 'item3']";
 
         JSONTokenizer tokenizer = new JSONTokenizer(JSON);
-        JSONType object = tokenizer.parseNext();
+        JSONType object = tokenizer.parse();
 
         Assert.assertTrue(object instanceof JSONType);
         Assert.assertEquals(JSONTypes.ARRAY, object.getType());
@@ -33,7 +33,7 @@ public class UnitTest {
             System.out.printf("Success: \"%s\" was found at [%d]%n", VALUE, i);
         }
 
-        Assert.assertNull(tokenizer.parseNext());
+        Assert.assertNull(tokenizer.parse());
     }
 
     /**
@@ -45,7 +45,7 @@ public class UnitTest {
         final String JSON = "{'key1': 'item1', 'key2': 'item2', 'key3': 'item3'}";
 
         JSONTokenizer tokenizer = new JSONTokenizer(JSON);
-        JSONType object = tokenizer.parseNext();
+        JSONType object = tokenizer.parse();
 
         Assert.assertTrue(object instanceof JSONType);
         Assert.assertEquals(JSONTypes.OBJECT, object.getType());
@@ -62,7 +62,7 @@ public class UnitTest {
             System.out.printf("Success: \"%s\" was found at [\"%s\"]%n", VALUE, KEY);
         }
 
-        Assert.assertNull(tokenizer.parseNext());
+        Assert.assertNull(tokenizer.parse());
     }
 
     /**
@@ -77,7 +77,7 @@ public class UnitTest {
         json.put("number", JSONType.createNumber(10l));
 
         JSONTokenizer tokenizer = new JSONTokenizer(JSONTokenizer.writeObject(json));
-        JSONType object = tokenizer.parseNext();
+        JSONType object = tokenizer.parse();
 
         Assert.assertTrue(object instanceof JSONType);
         Assert.assertEquals(JSONTypes.OBJECT, object.getType());
@@ -88,7 +88,7 @@ public class UnitTest {
         Assert.assertEquals(json.get("key"), array.get("key"));
         Assert.assertEquals(json.get("number"), array.get("number"));
 
-        Assert.assertNull(tokenizer.parseNext());
+        Assert.assertNull(tokenizer.parse());
 
         System.out.println("Success: Valid JSON information");
     }
@@ -105,7 +105,7 @@ public class UnitTest {
         json.add(JSONType.createNumber(10l));
 
         JSONTokenizer tokenizer = new JSONTokenizer(JSONTokenizer.writeArray(json));
-        JSONType object = tokenizer.parseNext();
+        JSONType object = tokenizer.parse();
 
         Assert.assertTrue(object instanceof JSONType);
         Assert.assertEquals(JSONTypes.ARRAY, object.getType());
@@ -117,7 +117,7 @@ public class UnitTest {
             Assert.assertEquals(json.get(i), array.get(i));
         }
 
-        Assert.assertNull(tokenizer.parseNext());
+        Assert.assertNull(tokenizer.parse());
 
         System.out.println("Success: Valid JSON information");
     }
@@ -131,39 +131,39 @@ public class UnitTest {
         JSONTokenizer tokenizer;
 
         tokenizer = new JSONTokenizer("null");
-        Assert.assertEquals(JSONType.createNull(), tokenizer.parseNext());
+        Assert.assertEquals(JSONType.createNull(), tokenizer.parse());
         System.out.println("Success: Null object");
-        Assert.assertNull(tokenizer.parseNext());
+        Assert.assertNull(tokenizer.parse());
 
         tokenizer = new JSONTokenizer("44332211");
-        Assert.assertEquals(JSONType.createNumber(44332211l), tokenizer.parseNext());
+        Assert.assertEquals(JSONType.createNumber(44332211l), tokenizer.parse());
         System.out.println("Success: Long object");
-        Assert.assertNull(tokenizer.parseNext());
+        Assert.assertNull(tokenizer.parse());
 
         tokenizer = new JSONTokenizer("1.23456789");
-        Assert.assertEquals(JSONType.createDecimal(1.23456789), tokenizer.parseNext());
+        Assert.assertEquals(JSONType.createDecimal(1.23456789), tokenizer.parse());
         System.out.println("Success: Double object");
-        Assert.assertNull(tokenizer.parseNext());
+        Assert.assertNull(tokenizer.parse());
 
         tokenizer = new JSONTokenizer("\"String_value!\\n\"");
-        Assert.assertEquals(JSONType.createString("String_value!\n"), tokenizer.parseNext());
+        Assert.assertEquals(JSONType.createString("String_value!\n"), tokenizer.parse());
         System.out.println("Success: String object");
-        Assert.assertNull(tokenizer.parseNext());
+        Assert.assertNull(tokenizer.parse());
 
         tokenizer = new JSONTokenizer("[]");
-        Assert.assertEquals(JSONType.createArray(new JSONArray()), tokenizer.parseNext());
+        Assert.assertEquals(JSONType.createArray(new JSONArray()), tokenizer.parse());
         System.out.println("Success: Array object");
-        Assert.assertNull(tokenizer.parseNext());
+        Assert.assertNull(tokenizer.parse());
 
         tokenizer = new JSONTokenizer("{}");
-        Assert.assertEquals(JSONType.createObject(new JSONObject()), tokenizer.parseNext());
+        Assert.assertEquals(JSONType.createObject(new JSONObject()), tokenizer.parse());
         System.out.println("Success: Object object");
-        Assert.assertNull(tokenizer.parseNext());
+        Assert.assertNull(tokenizer.parse());
 
         tokenizer = new JSONTokenizer("true");
-        Assert.assertEquals(JSONType.createBoolean(true), tokenizer.parseNext());
+        Assert.assertEquals(JSONType.createBoolean(true), tokenizer.parse());
         System.out.println("Success: Boolean object");
-        Assert.assertNull(tokenizer.parseNext());
+        Assert.assertNull(tokenizer.parse());
     }
 
     @Test
@@ -180,8 +180,8 @@ public class UnitTest {
         JSONTokenizer tokenizer;
 
         try {
-            tokenizer = new JSONTokenizer("null,");
-            tokenizer.parseNext();
+            tokenizer = new JSONTokenizer("[null,]");
+            tokenizer.parse();
 
             Assert.fail("No exception was thrown");
         } catch (JSONException e) {
