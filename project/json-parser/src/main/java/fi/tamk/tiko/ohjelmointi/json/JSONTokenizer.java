@@ -305,6 +305,13 @@ public class JSONTokenizer {
         throw new JSONException("Malformed string - invalid <string> at position: %d", position);
     }
 
+    /*private String simplifyJSONData() {
+        String data = input.substring(position).replaceAll("\\s", "");
+        data = data.replaceAll("(\"|').*?(\\1)", "$1");
+
+        return data.replaceAll("(.).*?([,}]]|$)", "$1");
+    }*/
+
     /**
      *
      *
