@@ -121,6 +121,7 @@ public class GUI extends Application {
         stage.setTitle("Shopping List App");
         stage.setScene(createSceneContainer());
         stage.setOnCloseRequest(e -> Platform.exit());
+        stage.centerOnScreen();
         stage.show();
     }
 }
