@@ -48,4 +48,14 @@ public class JSONIdentifier {
         this.exception = new JSONException(message, args);
         this.identifier = identifier;
     }
+
+    /**
+     *
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        return String.format("Identifier: %c", identifier);
+    }
 }
