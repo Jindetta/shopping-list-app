@@ -24,6 +24,8 @@ import javafx.scene.Scene;
 
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
+
 /**
  * Constructs the GUI for Shopping List application.
  *
@@ -42,7 +44,22 @@ public class GUI extends Application {
      * 
      */
     private void saveToFile() {
+        JSONArray array = new JSONArray();
 
+        for (Item item : items) {
+            JSONObject object = new JSONObject();
+
+            object.put("name", JSONType.createString(item.getItemName()));
+            object.put("amount", JSONType.createNumber((long) item.getItemAmount()));
+
+            array.add(JSONType.createObject(object));
+        }
+
+        try (JSONWriter writer = new JSONWriter(new FileWriter("list.json"))) {
+            writer.writeNext(JSONType.createArray(array));
+        } catch (Exception e) {
+
+        }
     }
 
     /**
