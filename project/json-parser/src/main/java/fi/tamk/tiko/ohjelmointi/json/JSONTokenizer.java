@@ -188,15 +188,15 @@ public class JSONTokenizer implements Iterable<JSONType> {
      * @return
      */
     private JSONType parseArray() {
-        JSONTokenizer tokenizer = new JSONTokenizer(input, position, identifiers);
-        tokenizer.pushIdentifier(']', "Malformed array - missing <]> at position: %d", position.get());
+        JSONTokenizer lexer = new JSONTokenizer(input, position, identifiers);
+        lexer.pushIdentifier(']', "Malformed array - missing <]> at position: %d", position.get());
 
         JSONArray array = new JSONArray();
         JSONType value = null;
 
-        while ((value = tokenizer.parseToken(false)) != null) {
+        while ((value = lexer.parseToken(false)) != null) {
             array.add(value);
-            tokenizer.pushIdentifier(',', "Malformed array - missing <,> at position: %d", position.get());
+            lexer.pushIdentifier(',', "Malformed array - missing <,> at position: %d", position.get());
         }
 
         return JSONType.createArray(array);
@@ -208,18 +208,18 @@ public class JSONTokenizer implements Iterable<JSONType> {
      * @return
      */
     private JSONType parseObject() {
-        JSONTokenizer tokenizer = new JSONTokenizer(input, position, identifiers);
-        tokenizer.pushIdentifier('}', "Malformed object - missing <}> at position: %d", position.get());
+        JSONTokenizer lexer = new JSONTokenizer(input, position, identifiers);
+        lexer.pushIdentifier('}', "Malformed object - missing <}> at position: %d", position.get());
 
         JSONObject object = new JSONObject();
         JSONType value = null;
         String key = null;
 
-        while ((value = tokenizer.parseToken(false)) != null) {
+        while ((value = lexer.parseToken(false)) != null) {
             if (key == null) {
                 try {
                     key = value.getAsString();
-                    tokenizer.pushIdentifier(':', "Malformed object - missing <:> at position: %d", position.get());
+                    lexer.pushIdentifier(':', "Malformed object - missing <:> at position: %d", position.get());
 
                     continue;
                 } catch (ClassCastException e) {
@@ -228,7 +228,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
             }
 
             if (!object.isEmpty()) {
-                tokenizer.pushIdentifier(',', "Malformed object - missing <,> at position: %d", position.get());
+                lexer.pushIdentifier(',', "Malformed object - missing <,> at position: %d", position.get());
             }
 
             object.put(key, value);
