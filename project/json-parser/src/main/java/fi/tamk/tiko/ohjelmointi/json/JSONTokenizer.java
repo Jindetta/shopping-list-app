@@ -380,7 +380,7 @@ public class JSONTokenizer {
             }
 
             onError(
-                topLevel && value != null && skipVoidTokens(false) != -1,
+                topLevel && value != null && hasNext(),
                 "Malformed identifier - illegal <%c> at position: %d", (char) token, position
             );
         }
