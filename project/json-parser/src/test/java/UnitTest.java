@@ -129,7 +129,6 @@ public class UnitTest {
     public void testSingleUnits() {
         System.out.println("--[[ Single Units ]] --");
         JSONTokenizer tokenizer;
-        JSONType value;
 
         tokenizer = new JSONTokenizer("null");
         Assert.assertEquals(JSONType.createNull(), tokenizer.parseNext());
