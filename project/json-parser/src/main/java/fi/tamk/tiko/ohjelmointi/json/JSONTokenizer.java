@@ -1,7 +1,6 @@
 package fi.tamk.tiko.ohjelmointi.json;
 
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Stack;
 
 /**
@@ -16,7 +15,7 @@ public class JSONTokenizer {
     /**
      * Stores current position.
      */
-    private AtomicInteger position;
+    private int position;
 
     /**
      * Stores input data.
@@ -57,7 +56,7 @@ public class JSONTokenizer {
             exception = lastIdentifier.getException();
         }
 
-        onError(exception == null, "Malformed identifier - missing <%c> at position: %d", identifier, position.get());
+        onError(exception == null, "Malformed identifier - missing <%c> at position: %d", identifier, position);
         throw exception;
     }
 
@@ -68,8 +67,8 @@ public class JSONTokenizer {
      * @return Valid token or -1.
      */
     private int skipVoidTokens(boolean skipToEOL) {
-        while (position.get() < input.length()) {
-            int character = input.charAt(position.getAndIncrement());
+        while (position < input.length()) {
+            int character = input.charAt(position++);
 
             if (!skipToEOL) {
                 switch (character) {
@@ -84,12 +83,12 @@ public class JSONTokenizer {
                         continue;
 
                     case '/':
-                        if (position.get() < input.length()) {
-                            switch (input.charAt(position.get())) {
+                        if (position < input.length()) {
+                            switch (input.charAt(position)) {
                                 case '*':
-                                    int endIndex = input.indexOf("*/", position.incrementAndGet());
-                                    onError(endIndex == -1, "Malformed comment - missing <*/> at position: %d", position.get());
-                                    position.set(endIndex + 2);
+                                    int endIndex = input.indexOf("*/", position++);
+                                    onError(endIndex == -1, "Malformed comment - missing <*/> at position: %d", position);
+                                    position = endIndex + 2;
                                     continue;
 
                                 case '/':
@@ -116,10 +115,10 @@ public class JSONTokenizer {
      */
     private char parseUnicode() {
         final int UNICODE_SIZE = 4;
-        int endIndex = position.get() + UNICODE_SIZE;
+        int endIndex = position + UNICODE_SIZE;
 
         if (endIndex <= input.length()) {
-            String value = input.substring(position.get(), endIndex).toLowerCase();
+            String value = input.substring(position, endIndex).toLowerCase();
 
             if (value.matches("^[\\da-f]+$")) {
                 int result = 0;
@@ -134,14 +133,14 @@ public class JSONTokenizer {
                         result += key - '0';
                     }
 
-                    position.getAndIncrement();
+                    position++;
                 }
 
                 return (char) result;
             }
         }
 
-        throw new JSONException("Malformed character - invalid <unicode sequence> at position: %d", position.get());
+        throw new JSONException("Malformed character - invalid <unicode sequence> at position: %d", position);
     }
 
     /**
@@ -163,7 +162,7 @@ public class JSONTokenizer {
             }
         }
 
-        throw new JSONException("Malformed literal - illegal value <%s> at position: %d", literal, position.get());
+        throw new JSONException("Malformed literal - illegal value <%s> at position: %d", literal, position);
     }
 
     /**
@@ -172,14 +171,14 @@ public class JSONTokenizer {
      * @return
      */
     private JSONType parseArray() {
-        pushIdentifier(']', "Malformed array - missing <]> at position: %d", position.get());
+        pushIdentifier(']', "Malformed array - missing <]> at position: %d", position);
 
         JSONArray array = new JSONArray();
         JSONType value = null;
 
         while ((value = parseToken(false)) != null) {
             if (hasNext()) {
-                pushIdentifier(',', "Malformed array - missing <,> at position: %d", position.get());
+                pushIdentifier(',', "Malformed array - missing <,> at position: %d", position);
             }
 
             array.add(value);
@@ -194,7 +193,7 @@ public class JSONTokenizer {
      * @return
      */
     private JSONType parseObject() {
-        pushIdentifier('}', "Malformed object - missing <}> at position: %d", position.get());
+        pushIdentifier('}', "Malformed object - missing <}> at position: %d", position);
 
         JSONObject object = new JSONObject();
         JSONType value = null;
@@ -204,23 +203,23 @@ public class JSONTokenizer {
             if (key == null) {
                 try {
                     key = value.getAsString();
-                    pushIdentifier(':', "Malformed object - missing <:> at position: %d", position.get());
+                    pushIdentifier(':', "Malformed object - missing <:> at position: %d", position);
 
                     continue;
                 } catch (ClassCastException e) {
-                    onError("Malformed object - missing <key> at position: %d", position.get());
+                    onError("Malformed object - missing <key> at position: %d", position);
                 }
             }
 
             if (hasNext()) {
-                pushIdentifier(',', "Malformed object - missing <,> at position: %d", position.get());
+                pushIdentifier(',', "Malformed object - missing <,> at position: %d", position);
             }
 
             object.put(key, value);
             key = null;
         }
 
-        onError(key != null, "Malformed object - missing <value> at position: %d", position.get());
+        onError(key != null, "Malformed object - missing <value> at position: %d", position);
         return JSONType.createObject(object);
     }
 
@@ -230,26 +229,26 @@ public class JSONTokenizer {
      * @return
      */
     private JSONType parseLiteral() {
-        int startPosition = position.decrementAndGet();
+        int startPosition = --position;
         String value = null;
 
         do {
-            if (position.get() < input.length()) {
-                switch (input.charAt(position.get())) {
+            if (position < input.length()) {
+                switch (input.charAt(position)) {
                     case ',':
                     case ']':
                     case '}':
                     case ' ':
                     case '\t':
-                        value = input.substring(startPosition, position.get());
+                        value = input.substring(startPosition, position);
                         break;
 
                     case '\r':
                     case '\n':
-                        onError("Malformed literal - illegal <newline> at position: %d", position.get());
+                        onError("Malformed literal - illegal <newline> at position: %d", position);
 
                     default:
-                        position.getAndIncrement();
+                        position++;
                 }
             } else {
                 value = input.substring(startPosition);
@@ -269,9 +268,9 @@ public class JSONTokenizer {
         StringBuilder output = new StringBuilder();
         boolean escapeString = false;
 
-        while (position.get() < input.length()) {
-            char key = input.charAt(position.getAndIncrement());
-            onError(key == '\r' || key == '\n', "Malformed string - illegal <newline> at position: %d", position.get());
+        while (position < input.length()) {
+            char key = input.charAt(position++);
+            onError(key == '\r' || key == '\n', "Malformed string - illegal <newline> at position: %d", position);
 
             if (escapeString) {
                 escapeString = false;
@@ -291,7 +290,7 @@ public class JSONTokenizer {
                         break;
 
                     default:
-                        onError("Malformed string - unexpected <%c> at position: %d", key, position.get());
+                        onError("Malformed string - unexpected <%c> at position: %d", key, position);
                 }
             } else if (key == quoteType) {
                 return JSONType.createString(output.toString());
@@ -303,7 +302,7 @@ public class JSONTokenizer {
             output.append(key);
         }
 
-        throw new JSONException("Malformed string - invalid <string> at position: %d", position.get());
+        throw new JSONException("Malformed string - invalid <string> at position: %d", position);
     }
 
     /**
@@ -312,7 +311,7 @@ public class JSONTokenizer {
      * @return
      */
     private boolean hasNext() {
-        int storedPosition = position.get();
+        int storedPosition = position;
         int token = skipVoidTokens(false);
         boolean hasNext = false;
 
@@ -329,7 +328,7 @@ public class JSONTokenizer {
                 hasNext = true;
         }
 
-        position.set(storedPosition);
+        position = storedPosition;
         return hasNext;
     }
 
@@ -375,7 +374,7 @@ public class JSONTokenizer {
 
             onError(
                 topLevel && value != null && skipVoidTokens(false) != -1,
-                "Malformed identifier - illegal <%c> at position: %d", (char) token, position.get()
+                "Malformed identifier - illegal <%c> at position: %d", (char) token, position
             );
         }
 
@@ -403,10 +402,10 @@ public class JSONTokenizer {
      * @param stream
      */
     public JSONTokenizer(String stream) {
-        position = new AtomicInteger();
         identifiers = new Stack<>();
 
         input = stream;
+        position = 0;
     }
 
     /**
