@@ -15,4 +15,13 @@ public class JSONObject extends HashMap<String, JSONType> {
      * Stores auto-generated identifier.
      */
     private static final long serialVersionUID = 3588870534679760142L;
+
+    /**
+     *
+     * @param key
+     * @param value
+     */
+    public void putArray(String key, JSONArray value) {
+        put(key, JSONType.createArray(value));
+    }
 }
