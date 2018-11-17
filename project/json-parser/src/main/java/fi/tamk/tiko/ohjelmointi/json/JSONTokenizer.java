@@ -58,10 +58,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
             exception = lastIdentifier.getException();
         }
 
-        if (exception == null) {
-            exception = new JSONException("Identifier mismatch - missing <%c> at position: %d", identifier, position.get());
-        }
-
+        onError(exception == null, "Malformed identifier - missing <%c> at position: %d", identifier, position.get());
         throw exception;
     }
 
@@ -92,11 +89,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
                             switch (input.charAt(position.get())) {
                                 case '*':
                                     int endIndex = input.indexOf("*/", position.incrementAndGet());
-
-                                    if (endIndex == -1) {
-                                        throw new JSONException("Malformed comment - missing <*/> at position: %d", position.get());
-                                    }
-
+                                    onError(endIndex == -1, "Malformed comment - missing <*/> at position: %d", position.get());
                                     position.set(endIndex + 2);
                                     continue;
 
@@ -223,7 +216,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
 
                     continue;
                 } catch (ClassCastException e) {
-                    throw new JSONException("Malformed object - missing <key> at position: %d", position.get());
+                    onError("Malformed object - missing <key> at position: %d", position.get());
                 }
             }
 
@@ -235,10 +228,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
             key = null;
         }
 
-        if (key != null) {
-            throw new JSONException("Malformed object - missing <value> at position: %d", position.get());
-        }
-
+        onError(key != null, "Malformed object - missing <value> at position: %d", position.get());
         return JSONType.createObject(object);
     }
 
@@ -281,7 +271,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
 
         while (position.get() < input.length()) {
             char key = input.charAt(position.getAndIncrement());
-            throwOnNewline(key, "Malformed string - illegal <newline> at position: %d", position.get());
+            onError(key == '\r' || key == '\n', "Malformed string - illegal <newline> at position: %d", position.get());
 
             if (escapeString) {
                 escapeString = false;
@@ -301,7 +291,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
                         break;
 
                     default:
-                        throw new JSONException("Malformed string - unexpected <%c> at position: %d", key, position.get());
+                        onError("Malformed string - unexpected <%c> at position: %d", key, position.get());
                 }
             } else if (key == quoteType) {
                 return JSONType.createString(output.toString());
@@ -371,9 +361,10 @@ public class JSONTokenizer implements Iterable<JSONType> {
                     break;
             }
 
-            if (topLevel && value != null && skipVoidTokens(false) != -1) {
-                throw new JSONException("Malformed identifier - illegal <%c> at position: %d", (char) token, position.get());
-            }
+            onError(
+                topLevel && value != null && skipVoidTokens(false) != -1,
+                "Malformed identifier - illegal <%c> at position: %d", (char) token, position.get()
+            );
         }
 
         return value;
