@@ -11,4 +11,8 @@ import java.util.HashMap;
  */
 public class JSONObject extends HashMap<String, JSONType> {
 
+    /**
+     * Stores auto-generated identifier.
+     */
+    private static final long serialVersionUID = 3588870534679760142L;
 }
