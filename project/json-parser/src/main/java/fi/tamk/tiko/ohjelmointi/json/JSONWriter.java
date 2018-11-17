@@ -81,6 +81,14 @@ public class JSONWriter implements AutoCloseable {
     }
 
     /**
+     * 
+     * @throws IOException
+     */
+    public void writeNull() throws IOException {
+        write(JSONType.createNull());
+    }
+
+    /**
      *
      */
     public JSONWriter(Writer writer) {
