@@ -47,4 +47,12 @@ public class JSONArray extends ArrayList<JSONType> {
     public void addDecimal(Double value) {
         add(JSONType.createDecimal(value));
     }
+
+    /**
+     * 
+     * @param value
+     */
+    public void addNumber(Long value) {
+        add(JSONType.createNumber(value));
+    }
 }
