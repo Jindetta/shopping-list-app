@@ -111,6 +111,16 @@ public class JSONTokenizer implements Iterable<JSONType> {
     }
 
     /**
+     *
+     *
+     */
+    private void throwOnNewline(char key, String message, Object... args) {
+        if (key == '\r' || key == '\n') {
+            throw new JSONException(message, args);
+        }
+    }
+
+    /**
      * Parses single Unicode character.
      *
      * @return Valid character.
@@ -241,11 +251,10 @@ public class JSONTokenizer implements Iterable<JSONType> {
         do {
             if (position.get() < input.length()) {
                 char key = input.charAt(position.get());
+                throwOnNewline(key, "Malformed literal - illegal <newline> at position: %d", position.get());
 
                 if (key == ' ' || key == ',' || key == ']' || key == '}') {
                     value = input.substring(startPosition, position.get());
-                } else if (key == '\r' || key == '\n') {
-                    throw new JSONException("Malformed literal - illegal <newline> at position: %d", position.get());
                 } else {
                     position.getAndIncrement();
                 }
@@ -269,6 +278,7 @@ public class JSONTokenizer implements Iterable<JSONType> {
 
         while (position.get() < input.length()) {
             char key = input.charAt(position.getAndIncrement());
+            throwOnNewline(key, "Malformed string - illegal <newline> at position: %d", position.get());
 
             if (escapeString) {
                 escapeString = false;
@@ -290,13 +300,11 @@ public class JSONTokenizer implements Iterable<JSONType> {
                     default:
                         throw new JSONException("Malformed string - unexpected <%c> at position: %d", key, position.get());
                 }
-            } else if (key == '\r' || key == '\n') {
-                throw new JSONException("Malformed string - illegal <newline> at position: %d", position.get());
+            } else if (key == quoteType) {
+                return JSONType.createString(output.toString());
             } else if (key == '\\') {
                 escapeString = true;
                 continue;
-            } else if (key == quoteType) {
-                return JSONType.createString(output.toString());
             }
 
             output.append(key);
