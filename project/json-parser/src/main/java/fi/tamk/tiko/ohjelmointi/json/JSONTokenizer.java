@@ -234,13 +234,21 @@ public class JSONTokenizer {
 
         do {
             if (position.get() < input.length()) {
-                char key = input.charAt(position.get());
-                throwOnNewline(key, "Malformed literal - illegal <newline> at position: %d", position.get());
+                switch (input.charAt(position.get())) {
+                    case ',':
+                    case ']':
+                    case '}':
+                    case ' ':
+                    case '\t':
+                        value = input.substring(startPosition, position.get());
+                        break;
 
-                if (key == ' ' || key == '\t' || key == ',' || key == ']' || key == '}') {
-                    value = input.substring(startPosition, position.get());
-                } else {
-                    position.getAndIncrement();
+                    case '\r':
+                    case '\n':
+                        onError("Malformed literal - illegal <newline> at position: %d", position.get());
+
+                    default:
+                        position.getAndIncrement();
                 }
             } else {
                 value = input.substring(startPosition);
