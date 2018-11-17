@@ -55,4 +55,12 @@ public class JSONArray extends ArrayList<JSONType> {
     public void addNumber(Long value) {
         add(JSONType.createNumber(value));
     }
+
+    /**
+     * 
+     * @param value
+     */
+    public void addBoolean(Boolean value) {
+        add(JSONType.createBoolean(value));
+    }
 }
