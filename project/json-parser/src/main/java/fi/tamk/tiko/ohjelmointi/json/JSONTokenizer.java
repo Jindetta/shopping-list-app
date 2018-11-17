@@ -310,12 +310,26 @@ public class JSONTokenizer {
      *
      * @return
      */
-    private JSONType skipNext() {
+    private boolean hasNext() {
         int storedPosition = position.get();
-        JSONType token = parseNext();
-        position.set(storedPosition);
+        int token = skipVoidTokens(false);
+        boolean hasNext = false;
 
-        return token;
+        switch (token) {
+            case ',':
+                hasNext = hasNext();
+
+            case -1:
+            case ']':
+            case '}':
+                break;
+
+            default:
+                hasNext = true;
+        }
+
+        position.set(storedPosition);
+        return hasNext;
     }
 
     /**
