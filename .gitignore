@@ -2,6 +2,7 @@ bin/
 doc/
 target/
 .settings/
+.vscode/
 
 .project
 .classpath
