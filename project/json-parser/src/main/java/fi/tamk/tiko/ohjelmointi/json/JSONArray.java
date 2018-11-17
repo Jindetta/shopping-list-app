@@ -39,4 +39,12 @@ public class JSONArray extends ArrayList<JSONType> {
     public void addString(String value) {
         add(JSONType.createString(value));
     }
+
+    /**
+     * 
+     * @param value
+     */
+    public void addDecimal(Double value) {
+        add(JSONType.createDecimal(value));
+    }
 }
