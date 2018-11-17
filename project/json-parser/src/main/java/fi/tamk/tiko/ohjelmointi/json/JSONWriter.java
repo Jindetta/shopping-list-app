@@ -54,6 +54,15 @@ public class JSONWriter implements AutoCloseable {
     }
 
     /**
+     * 
+     * @param value
+     * @throws IOException
+     */
+    public void writeDecimal(Double value) throws IOException {
+        write(JSONType.createDecimal(value));
+    }
+
+    /**
      *
      */
     public JSONWriter(Writer writer) {
