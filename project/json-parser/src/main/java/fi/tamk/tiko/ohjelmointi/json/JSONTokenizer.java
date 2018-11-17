@@ -151,17 +151,19 @@ public class JSONTokenizer {
      * @return Literal as JSONType.
      */
     private JSONType getValidatedLiteral(String literal) {
-        if (literal.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:[eE][+\\-]?\\d+)?$")) {
-            return JSONType.createNumber(Long.parseLong(literal));
-        } else if (literal.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?$")) {
-            return JSONType.createDecimal(Double.parseDouble(literal));
-        } else if (literal.matches("^(?i:(true|false))$")) {
-            return JSONType.createBoolean(Boolean.parseBoolean(literal));
-        } else if (literal.equalsIgnoreCase("null")) {
-            return JSONType.createNull();
+        if (literal != null && !literal.isEmpty()) {
+            if (literal.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:[eE][+\\-]?\\d+)?$")) {
+                return JSONType.createNumber(Long.parseLong(literal));
+            } else if (literal.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?$")) {
+                return JSONType.createDecimal(Double.parseDouble(literal));
+            } else if (literal.matches("^(?i:(true|false))$")) {
+                return JSONType.createBoolean(Boolean.parseBoolean(literal));
+            } else if (literal.equalsIgnoreCase("null")) {
+                return JSONType.createNull();
+            }
         }
 
-        throw new JSONException("Malformed literal - unknown value <%s> at position: %d", literal, position.get());
+        throw new JSONException("Malformed literal - illegal value <%s> at position: %d", literal, position.get());
     }
 
     /**
