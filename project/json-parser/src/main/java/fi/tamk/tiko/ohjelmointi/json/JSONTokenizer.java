@@ -179,8 +179,11 @@ public class JSONTokenizer {
         JSONType value = null;
 
         while ((value = lexer.parseToken(false)) != null) {
+            if (lexer.hasNext()) {
+                lexer.pushIdentifier(',', "Malformed array - missing <,> at position: %d", position.get());
+            }
+
             array.add(value);
-            lexer.pushIdentifier(',', "Malformed array - missing <,> at position: %d", position.get());
         }
 
         return JSONType.createArray(array);
@@ -211,7 +214,7 @@ public class JSONTokenizer {
                 }
             }
 
-            if (!object.isEmpty()) {
+            if (lexer.hasNext()) {
                 lexer.pushIdentifier(',', "Malformed object - missing <,> at position: %d", position.get());
             }
 
@@ -370,8 +373,6 @@ public class JSONTokenizer {
                     if (token == ',' || token == ':') {
                         value = parseToken(topLevel);
                     }
-
-                    break;
             }
 
             onError(
