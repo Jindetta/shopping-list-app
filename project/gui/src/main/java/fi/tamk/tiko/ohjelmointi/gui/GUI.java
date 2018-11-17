@@ -14,6 +14,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -51,6 +53,17 @@ public class GUI extends Application {
         MenuBar menu = new MenuBar();
 
         Menu file = new Menu("File");
+
+        MenuItem save = new MenuItem("Save");
+        save.setOnAction(e -> saveToFile());
+
+        SeparatorMenuItem divider = new SeparatorMenuItem();
+
+        MenuItem exit = new MenuItem("Exit");
+        exit.setOnAction(e -> Platform.exit());
+
+        file.getItems().addAll(save, divider, exit);
+
         Menu edit = new Menu("Edit");
         Menu about = new Menu("About");
 
