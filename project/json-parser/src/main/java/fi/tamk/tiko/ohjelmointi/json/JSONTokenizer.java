@@ -172,15 +172,14 @@ public class JSONTokenizer {
      * @return
      */
     private JSONType parseArray() {
-        JSONTokenizer lexer = new JSONTokenizer(input, position, identifiers);
-        lexer.pushIdentifier(']', "Malformed array - missing <]> at position: %d", position.get());
+        pushIdentifier(']', "Malformed array - missing <]> at position: %d", position.get());
 
         JSONArray array = new JSONArray();
         JSONType value = null;
 
-        while ((value = lexer.parseToken(false)) != null) {
-            if (lexer.hasNext()) {
-                lexer.pushIdentifier(',', "Malformed array - missing <,> at position: %d", position.get());
+        while ((value = parseToken(false)) != null) {
+            if (hasNext()) {
+                pushIdentifier(',', "Malformed array - missing <,> at position: %d", position.get());
             }
 
             array.add(value);
@@ -195,18 +194,17 @@ public class JSONTokenizer {
      * @return
      */
     private JSONType parseObject() {
-        JSONTokenizer lexer = new JSONTokenizer(input, position, identifiers);
-        lexer.pushIdentifier('}', "Malformed object - missing <}> at position: %d", position.get());
+        pushIdentifier('}', "Malformed object - missing <}> at position: %d", position.get());
 
         JSONObject object = new JSONObject();
         JSONType value = null;
         String key = null;
 
-        while ((value = lexer.parseToken(false)) != null) {
+        while ((value = parseToken(false)) != null) {
             if (key == null) {
                 try {
                     key = value.getAsString();
-                    lexer.pushIdentifier(':', "Malformed object - missing <:> at position: %d", position.get());
+                    pushIdentifier(':', "Malformed object - missing <:> at position: %d", position.get());
 
                     continue;
                 } catch (ClassCastException e) {
@@ -214,8 +212,8 @@ public class JSONTokenizer {
                 }
             }
 
-            if (lexer.hasNext()) {
-                lexer.pushIdentifier(',', "Malformed object - missing <,> at position: %d", position.get());
+            if (hasNext()) {
+                pushIdentifier(',', "Malformed object - missing <,> at position: %d", position.get());
             }
 
             object.put(key, value);
