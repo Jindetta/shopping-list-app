@@ -33,4 +33,13 @@ public class JSONObject extends HashMap<String, JSONType> {
     public void putObject(String key, JSONObject value) {
         put(key, JSONType.createObject(value));
     }
+
+    /**
+     * 
+     * @param key
+     * @param value
+     */
+    public void putString(String key, String value) {
+        put(key, JSONType.createString(value));
+    }
 }
