@@ -72,6 +72,15 @@ public class JSONWriter implements AutoCloseable {
     }
 
     /**
+     * 
+     * @param value
+     * @throws IOException
+     */
+    public void writeBoolean(Boolean value) throws IOException {
+        write(JSONType.createBoolean(value));
+    }
+
+    /**
      *
      */
     public JSONWriter(Writer writer) {
