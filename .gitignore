@@ -1,6 +1,9 @@
-**bin/
-**doc/
-**target/
+bin/
+doc/
+target/
+.settings/
 
-**.stackdump
-**.log
+.project
+.classpath
+.stackdump
+.log
