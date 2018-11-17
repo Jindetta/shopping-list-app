@@ -23,4 +23,12 @@ public class JSONArray extends ArrayList<JSONType> {
     public void addArray(JSONArray value) {
         add(JSONType.createArray(value));
     }
+
+    /**
+     * 
+     * @param value
+     */
+    public void addObject(JSONObject value) {
+        add(JSONType.createObject(value));
+    }
 }
