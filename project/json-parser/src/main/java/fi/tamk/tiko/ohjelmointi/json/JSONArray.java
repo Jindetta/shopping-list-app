@@ -11,4 +11,8 @@ import java.util.ArrayList;
  */
 public class JSONArray extends ArrayList<JSONType> {
 
+    /**
+     * Stores auto-generated identifier.
+     */
+    private static final long serialVersionUID = 8948315495137219901L;
 }
