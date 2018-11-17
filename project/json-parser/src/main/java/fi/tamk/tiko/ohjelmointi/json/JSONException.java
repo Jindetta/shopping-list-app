@@ -10,6 +10,11 @@ package fi.tamk.tiko.ohjelmointi.json;
 public class JSONException extends RuntimeException {
 
     /**
+     * Stores auto-generated identifier.
+     */
+    private static final long serialVersionUID = -2364958504251163329L;
+
+    /**
      * Calls super-class constructor.
      *
      * @param message Exception message.
