@@ -417,6 +417,28 @@ public class JSONTokenizer implements Iterable<JSONType> {
     }
 
     /**
+     * 
+     * 
+     * @param message
+     * @param args
+     */
+    private static void onError(String message, Object... args) {
+        throw new JSONException(message, args);
+    }
+
+    /**
+     * 
+     * @param condition
+     * @param message
+     * @param args
+     */
+    private static void onError(boolean condition, String message, Object... args) {
+        if (condition) {
+            onError(message, args);
+        }
+    }
+
+    /**
      *
      *
      * @param value
