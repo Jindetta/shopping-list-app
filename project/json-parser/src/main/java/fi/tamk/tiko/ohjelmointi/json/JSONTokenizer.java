@@ -1,6 +1,5 @@
 package fi.tamk.tiko.ohjelmointi.json;
 
-import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Stack;
@@ -12,7 +11,7 @@ import java.util.Stack;
  * @version 2018.1101
  * @since   11
  */
-public class JSONTokenizer implements Iterable<JSONType> {
+public class JSONTokenizer {
 
     /**
      * Stores current position.
@@ -564,41 +563,5 @@ public class JSONTokenizer implements Iterable<JSONType> {
      */
     public static String writeNull() {
         return "null";
-    }
-
-    /**
-     * Implements Iterator for JSONTokenizer class.
-     */
-    private class JSONTokenIterator implements Iterator<JSONType> {
-
-        /**
-         *
-         *
-         * @return
-         */
-        @Override
-        public boolean hasNext() {
-            return skipNext() != null;
-        }
-
-        /**
-         *
-         *
-         * @return
-         */
-        @Override
-        public JSONType next() {
-            return parse();
-        }
-    }
-
-    /**
-     *
-     *
-     * @return
-     */
-    @Override
-    public Iterator<JSONType> iterator() {
-        return new JSONTokenIterator();
     }
 }
