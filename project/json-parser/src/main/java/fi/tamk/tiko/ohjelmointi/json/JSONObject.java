@@ -42,4 +42,13 @@ public class JSONObject extends HashMap<String, JSONType> {
     public void putString(String key, String value) {
         put(key, JSONType.createString(value));
     }
+
+    /**
+     * 
+     * @param key
+     * @param value
+     */
+    public void putDecimal(String key, Double value) {
+        put(key, JSONType.createDecimal(value));
+    }
 }
