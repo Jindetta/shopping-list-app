@@ -63,6 +63,15 @@ public class JSONWriter implements AutoCloseable {
     }
 
     /**
+     * 
+     * @param value
+     * @throws IOException
+     */
+    public void writeNumber(Long value) throws IOException {
+        write(JSONType.createNumber(value));
+    }
+
+    /**
      *
      */
     public JSONWriter(Writer writer) {
