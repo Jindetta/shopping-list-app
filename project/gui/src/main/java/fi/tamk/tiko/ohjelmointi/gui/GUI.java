@@ -38,6 +38,13 @@ public class GUI extends Application {
 
     /**
      * 
+     */
+    private void saveToFile() {
+
+    }
+
+    /**
+     * 
      * @return
      */
     private MenuBar createMenuBar() {
