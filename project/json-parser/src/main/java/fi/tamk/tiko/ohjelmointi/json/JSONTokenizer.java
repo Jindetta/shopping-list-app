@@ -110,16 +110,6 @@ public class JSONTokenizer {
     }
 
     /**
-     *
-     *
-     */
-    private void throwOnNewline(char key, String message, Object... args) {
-        if (key == '\r' || key == '\n') {
-            throw new JSONException(message, args);
-        }
-    }
-
-    /**
      * Parses single Unicode character.
      *
      * @return Valid character.
