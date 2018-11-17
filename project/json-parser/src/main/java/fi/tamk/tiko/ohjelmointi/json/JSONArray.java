@@ -63,4 +63,11 @@ public class JSONArray extends ArrayList<JSONType> {
     public void addBoolean(Boolean value) {
         add(JSONType.createBoolean(value));
     }
+
+    /**
+     * 
+     */
+    public void addNull() {
+        add(JSONType.createNull());
+    }
 }
