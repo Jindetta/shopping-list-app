@@ -20,8 +20,6 @@
         <maven.jar.version>3.0.2</maven.jar.version>
         <javafx.version>11</javafx.version>
         <junit.version>4.12</junit.version>
-        <json.version>0.3</json.version>
-        <gui.version>0.2</gui.version>
     </properties>
     <modules>
         <module>gui</module>
