@@ -401,22 +401,12 @@ public class JSONTokenizer {
      *
      *
      * @param stream
-     * @param startPosition
-     * @param identifiers
-     */
-    private JSONTokenizer(String stream, AtomicInteger startPosition, Stack<JSONIdentifier> identifiers) {
-        this.identifiers = identifiers;
-        position = startPosition;
-        input = stream;
-    }
-
-    /**
-     *
-     *
-     * @param stream
      */
     public JSONTokenizer(String stream) {
-        this(stream, new AtomicInteger(), new Stack<>());
+        position = new AtomicInteger();
+        identifiers = new Stack<>();
+
+        input = stream;
     }
 
     /**
