@@ -46,19 +46,19 @@ public class GUI extends Application {
      * 
      */
     private void saveToFile() {
-        JSONArray array = new JSONArray();
+        try (JSONWriter json = new JSONWriter(new FileWriter("list.json"))) {
+            JSONArray array = new JSONArray();
 
-        for (Item item : items) {
-            JSONObject object = new JSONObject();
+            for (Item item : items) {
+                JSONObject object = new JSONObject();
 
-            object.put("name", JSONType.createString(item.getItemName()));
-            object.put("amount", JSONType.createNumber((long) item.getItemAmount()));
+                object.put("name", JSONType.createString(item.getItemName()));
+                object.put("amount", JSONType.createNumber((long) item.getItemAmount()));
 
-            array.add(JSONType.createObject(object));
-        }
+                array.add(JSONType.createObject(object));
+            }
 
-        try (JSONWriter writer = new JSONWriter(new FileWriter("list.json"))) {
-            writer.writeNext(JSONType.createArray(array));
+            json.writeNext(JSONType.createArray(array));
         } catch (Exception e) {
             Alert alert = new Alert(AlertType.ERROR);
 
