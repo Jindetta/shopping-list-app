@@ -66,7 +66,7 @@ public class JSONTokenizer {
      * @param skipToEOL Skip to next newline.
      * @return Valid token or -1.
      */
-    private int skipVoidTokens(boolean skipToEOL) {
+    private int skipWhitespace(boolean skipToEOL) {
         while (position < input.length()) {
             int character = input.charAt(position++);
 
@@ -79,7 +79,7 @@ public class JSONTokenizer {
                         continue;
 
                     case '#':
-                        skipVoidTokens(true);
+                        skipWhitespace(true);
                         continue;
 
                     case '/':
@@ -92,7 +92,7 @@ public class JSONTokenizer {
                                     continue;
 
                                 case '/':
-                                    skipVoidTokens(true);
+                                    skipWhitespace(true);
                                     continue;
                             }
                         }
@@ -312,7 +312,7 @@ public class JSONTokenizer {
      */
     private boolean hasNext() {
         int storedPosition = position;
-        int token = skipVoidTokens(false);
+        int token = skipWhitespace(false);
         boolean hasNext = false;
 
         switch (token) {
@@ -339,7 +339,7 @@ public class JSONTokenizer {
      * @return
      */
     private JSONType parseToken(boolean topLevel) {
-        int token = skipVoidTokens(false);
+        int token = skipWhitespace(false);
         JSONType value = null;
 
         if (token != -1) {
