@@ -256,6 +256,8 @@ public class JSONType {
     @Override
     public String toString() {
         switch (getType()) {
+            case NULL:
+                return JSONTokenizer.writeNull();
             case NUMBER:
                 return JSONTokenizer.writeNumber(getAsNumber());
             case DECIMAL:
@@ -270,6 +272,6 @@ public class JSONType {
                 return JSONTokenizer.writeArray(getAsArray());
         }
 
-        return JSONTokenizer.writeNull();
+        throw new IllegalStateException("JSONType contains illegal object.");
     }
 }
