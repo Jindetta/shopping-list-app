@@ -23,6 +23,11 @@ public class JSONTokenizer {
     private String input;
 
     /**
+     * 
+     */
+    private int currentLine;
+
+    /**
      * Stores special identifiers.
      */
     private Stack<JSONIdentifier> identifiers;
