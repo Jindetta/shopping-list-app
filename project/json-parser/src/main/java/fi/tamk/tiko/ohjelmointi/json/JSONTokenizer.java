@@ -562,16 +562,15 @@ public class JSONTokenizer {
      * @return
      */
     public static String writeObject(JSONObject object) {
-        AtomicBoolean hasPreviousItem = new AtomicBoolean();
+        AtomicBoolean hasPrevious = new AtomicBoolean();
         StringBuilder output = new StringBuilder("{");
 
         object.forEach((key, value) -> {
-            if (hasPreviousItem.get()) {
+            if (hasPrevious.getAndSet(true)) {
                 output.append(",");
             }
 
             output.append(String.format("%s:%s", writeString(key), value));
-            hasPreviousItem.set(true);
         });
 
         return output.append("}").toString();
