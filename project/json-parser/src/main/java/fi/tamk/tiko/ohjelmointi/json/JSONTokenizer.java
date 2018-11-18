@@ -114,17 +114,18 @@ public class JSONTokenizer {
         while (position < input.length()) {
             int character = input.charAt(position++);
 
+            lineIndex++;
+
             switch (character) {
                 case '\r':
                 case '\n':
-                    lineNumber++;
                     isComment.set(false);
                     lineIndex = 0;
+                    lineNumber++;
                     continue;
 
                 case ' ':
                 case '\t':
-                    lineIndex++;
                     continue;
 
                 case '#':
