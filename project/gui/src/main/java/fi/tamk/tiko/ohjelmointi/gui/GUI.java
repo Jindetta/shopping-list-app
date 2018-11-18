@@ -119,7 +119,8 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Creates initial scene.
+     * @return Scene.
      */
     private Scene createSceneContainer() {
         BorderPane panel = new BorderPane();
