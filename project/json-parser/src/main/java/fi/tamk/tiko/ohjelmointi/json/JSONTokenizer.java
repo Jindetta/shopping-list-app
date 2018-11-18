@@ -409,9 +409,8 @@ public class JSONTokenizer {
      * @param stream
      */
     public JSONTokenizer(String stream) {
+        input = stream.replaceAll("\r\n?", "\n");
         identifiers = new Stack<>();
-
-        input = stream;
         position = 0;
     }
 
