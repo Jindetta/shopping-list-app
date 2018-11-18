@@ -25,7 +25,7 @@ public class JSONTokenizer {
     /**
      * 
      */
-    private int currentLine;
+    private int lineNumber;
 
     /**
      * 
@@ -82,7 +82,7 @@ public class JSONTokenizer {
                     case '*':
                         int endIndex = input.indexOf("*/", ++position);
                         onError(endIndex == -1, "Malformed comment - missing <*/> at EOF");
-                        currentLine += input.substring(position, endIndex).replaceAll("[^\n]", "").length();
+                        lineNumber += input.substring(position, endIndex).replaceAll("[^\n]", "").length();
                         position = endIndex + 2;
                         return true;
 
@@ -113,7 +113,7 @@ public class JSONTokenizer {
             switch (character) {
                 case '\r':
                 case '\n':
-                    currentLine++;
+                    lineNumber++;
                     isComment.set(false);
                     lineIndex = 0;
 
