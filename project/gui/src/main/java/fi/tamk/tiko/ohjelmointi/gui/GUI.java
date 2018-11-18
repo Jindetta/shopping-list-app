@@ -97,6 +97,10 @@ public class GUI extends Application {
         return menu;
     }
 
+    /**
+     * Creates table view.
+     * @return TableView.
+     */
     private TableView<Item> createTableView() {
         TableView<Item> table = new TableView<>();
 
