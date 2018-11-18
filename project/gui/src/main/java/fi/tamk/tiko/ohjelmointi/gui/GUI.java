@@ -52,7 +52,7 @@ public class GUI extends Application {
             for (Item item : items) {
                 JSONObject object = new JSONObject();
 
-                object.putString("name", item.getItemName());
+                object.putString("item", item.getItemName());
                 object.putNumber("amount", (long) item.getItemAmount());
 
                 array.addObject(object);
