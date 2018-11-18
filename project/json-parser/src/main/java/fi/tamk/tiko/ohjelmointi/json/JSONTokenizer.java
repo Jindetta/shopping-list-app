@@ -66,7 +66,7 @@ public class JSONTokenizer {
             exception = lastIdentifier.getException();
         }
 
-        onError(exception == null, "Malformed identifier - missing <%c> at position: %d", identifier, position);
+        onError(exception == null, "Malformed identifier - missing <%c> at line: %d, %d", identifier, lineNumber, lineIndex);
         throw exception;
     }
 
@@ -168,7 +168,7 @@ public class JSONTokenizer {
             }
         }
 
-        throw new JSONException("Malformed character - invalid <unicode sequence> at position: %d", position);
+        throw new JSONException("Malformed character - invalid <unicode sequence> at line: %d, %d", lineNumber, lineIndex);
     }
 
     /**
@@ -190,7 +190,7 @@ public class JSONTokenizer {
             }
         }
 
-        throw new JSONException("Malformed literal - illegal value <%s> at position: %d", literal, position);
+        throw new JSONException("Malformed literal - illegal value <%s> at line: %d, %d", literal, lineNumber, lineIndex);
     }
 
     /**
@@ -199,14 +199,14 @@ public class JSONTokenizer {
      * @return
      */
     private JSONType parseArray() {
-        pushIdentifier(']', "Malformed array - missing <]> at position: %d", position);
+        pushIdentifier(']', "Malformed array - missing <]> at line: %d, %d", lineNumber, lineIndex);
 
         JSONArray array = new JSONArray();
         JSONType value = null;
 
         while ((value = parseToken(false)) != null) {
             if (hasNext()) {
-                pushIdentifier(',', "Malformed array - missing <,> at position: %d", position);
+                pushIdentifier(',', "Malformed array - missing <,> at line: %d, %d", lineNumber, lineIndex);
             }
 
             array.add(value);
@@ -221,7 +221,7 @@ public class JSONTokenizer {
      * @return
      */
     private JSONType parseObject() {
-        pushIdentifier('}', "Malformed object - missing <}> at position: %d", position);
+        pushIdentifier('}', "Malformed object - missing <}> at line: %d, %d", lineNumber, lineIndex);
 
         JSONObject object = new JSONObject();
         JSONType value = null;
@@ -231,23 +231,23 @@ public class JSONTokenizer {
             if (key == null) {
                 try {
                     key = value.getAsString();
-                    pushIdentifier(':', "Malformed object - missing <:> at position: %d", position);
+                    pushIdentifier(':', "Malformed object - missing <:> at line: %d, %d", lineNumber, lineIndex);
 
                     continue;
                 } catch (ClassCastException e) {
-                    onError("Malformed object - missing <key> at position: %d", position);
+                    onError("Malformed object - missing <key> at line: %d, %d", lineNumber, lineIndex);
                 }
             }
 
             if (hasNext()) {
-                pushIdentifier(',', "Malformed object - missing <,> at position: %d", position);
+                pushIdentifier(',', "Malformed object - missing <,> at line: %d, %d", lineNumber, lineIndex);
             }
 
             object.put(key, value);
             key = null;
         }
 
-        onError(key != null, "Malformed object - missing <value> at position: %d", position);
+        onError(key != null, "Malformed object - missing <value> at line: %d, %d", lineNumber, lineIndex);
         return JSONType.createObject(object);
     }
 
@@ -273,7 +273,7 @@ public class JSONTokenizer {
 
                     case '\r':
                     case '\n':
-                        onError("Malformed literal - illegal <newline> at position: %d", position);
+                        onError("Malformed literal - illegal <newline> at line: %d, %d", lineNumber, lineIndex);
 
                     default:
                         position++;
@@ -298,7 +298,7 @@ public class JSONTokenizer {
 
         while (position < input.length()) {
             char key = input.charAt(position++);
-            onError(key == '\r' || key == '\n', "Malformed string - illegal <newline> at position: %d", position);
+            onError(key == '\r' || key == '\n', "Malformed string - illegal <newline> at line: %d, %d", lineNumber, lineIndex);
 
             if (escapeString) {
                 escapeString = false;
@@ -318,7 +318,7 @@ public class JSONTokenizer {
                         break;
 
                     default:
-                        onError("Malformed string - unexpected <%c> at position: %d", key, position);
+                        onError("Malformed string - unexpected <%c> at line: %d, %d", key, lineNumber, lineIndex);
                 }
             } else if (key == quoteType) {
                 return JSONType.createString(output.toString());
@@ -330,7 +330,7 @@ public class JSONTokenizer {
             output.append(key);
         }
 
-        throw new JSONException("Malformed string - invalid <string> at position: %d", position);
+        throw new JSONException("Malformed string - invalid <string> at line: %d, %d", lineNumber, lineIndex);
     }
 
     /*private String simplifyJSONData() {
@@ -409,7 +409,7 @@ public class JSONTokenizer {
 
             onError(
                 topLevel && value != null && hasNext(),
-                "Malformed identifier - illegal <%c> at position: %d", (char) token, position
+                "Malformed identifier - illegal <%c> at line: %d, %d", (char) token, lineNumber, lineIndex
             );
         }
 
@@ -439,6 +439,9 @@ public class JSONTokenizer {
     public JSONTokenizer(String stream) {
         input = stream.replaceAll("\r\n?", "\n");
         identifiers = new Stack<>();
+
+        lineNumber = 1;
+        lineIndex = 0;
         position = 0;
     }
 
