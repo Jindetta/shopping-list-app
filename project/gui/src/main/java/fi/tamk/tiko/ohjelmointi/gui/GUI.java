@@ -128,7 +128,7 @@ public class GUI extends Application {
     }
 
     /**
-     * @see javafx.application.Application#init init
+     * @see Application#init init
      */
     @Override
     public void init() {
@@ -139,7 +139,7 @@ public class GUI extends Application {
     }
 
     /**
-     * @see javafx.application.Application#start(javafx.stage.Stage) start
+     * @see Application#start(Stage) start
      */
     @Override
     public void start(Stage stage) {
