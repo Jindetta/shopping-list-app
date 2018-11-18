@@ -71,8 +71,8 @@ public class GUI extends Application {
     }
 
     /**
-     * 
-     * @return
+     * Creates menu bar.
+     * @return MenuBar.
      */
     private MenuBar createMenuBar() {
         MenuBar menu = new MenuBar();
