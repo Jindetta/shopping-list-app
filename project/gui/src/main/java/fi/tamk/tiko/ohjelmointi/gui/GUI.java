@@ -128,7 +128,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * @see javafx.application.Application#init init
      */
     @Override
     public void init() {
