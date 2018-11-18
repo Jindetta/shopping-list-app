@@ -102,44 +102,33 @@ public class JSONTokenizer {
     /**
      * Finds next valid token.
      *
-     * @param skipToEOL Skip to next newline.
      * @return Valid token or -1.
      */
-    private int skipWhitespace(boolean skipToEOL) {
+    private int skipWhitespace() {
+        AtomicBoolean isComment = new AtomicBoolean();
+
         while (position < input.length()) {
             int character = input.charAt(position++);
 
-            if (!skipToEOL) {
-                switch (character) {
-                    case ' ':
-                    case '\t':
-                    case '\r':
-                    case '\n':
+            switch (character) {
+                case '\r':
+                case '\n':
+                    currentLine++;
+                    isComment.set(false);
+                    lineIndex = 0;
+
+                case ' ':
+                case '\t':
+                    continue;
+
+                case '#':
+                case '/':
+                    if (skipComment(character, isComment)) {
                         continue;
+                    }
+            }
 
-                    case '#':
-                        skipWhitespace(true);
-                        continue;
-
-                    case '/':
-                        if (position < input.length()) {
-                            switch (input.charAt(position)) {
-                                case '*':
-                                    int endIndex = input.indexOf("*/", position++);
-                                    onError(endIndex == -1, "Malformed comment - missing <*/> at position: %d", position);
-                                    position = endIndex + 2;
-                                    continue;
-
-                                case '/':
-                                    skipWhitespace(true);
-                                    continue;
-                            }
-                        }
-
-                    default:
-                        return character;
-                }
-            } else if (character == '\r' || character == '\n') {
+            if (!isComment.get()) {
                 return character;
             }
         }
@@ -358,7 +347,7 @@ public class JSONTokenizer {
      */
     private boolean hasNext() {
         int storedPosition = position;
-        int token = skipWhitespace(false);
+        int token = skipWhitespace();
         boolean hasNext = false;
 
         switch (token) {
@@ -385,7 +374,7 @@ public class JSONTokenizer {
      * @return
      */
     private JSONType parseToken(boolean topLevel) {
-        int token = skipWhitespace(false);
+        int token = skipWhitespace();
         JSONType value = null;
 
         if (token != -1) {
