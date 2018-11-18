@@ -71,6 +71,35 @@ public class JSONTokenizer {
     }
 
     /**
+     * 
+     * @param character
+     * @return
+     */
+    private boolean skipComment(int character, AtomicBoolean mode) {
+        if (!mode.get() && character == '/') {
+            if (position < input.length()) {
+                switch (input.charAt(position)) {
+                    case '*':
+                        int endIndex = input.indexOf("*/", ++position);
+                        onError(endIndex == -1, "Malformed comment - missing <*/> at position: %d", position);
+                        //currentLineNumber += input.substring(position, endIndex).replaceAll("[^\n]", "").length();
+                        position = endIndex + 2;
+                        return true;
+
+                    case '/':
+                        mode.set(true);
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        mode.set(true);
+        return true;
+    }
+
+    /**
      * Finds next valid token.
      *
      * @param skipToEOL Skip to next newline.
