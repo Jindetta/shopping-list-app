@@ -43,7 +43,7 @@ public class GUI extends Application {
     private ObservableList<Item> items;
 
     /**
-     * 
+     * Saves data to a file.
      */
     private void saveToFile() {
         try (JSONWriter json = new JSONWriter(new FileWriter("list.json"))) {
