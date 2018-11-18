@@ -583,16 +583,15 @@ public class JSONTokenizer {
      * @return
      */
     public static String writeArray(JSONArray array) {
-        AtomicBoolean hasPreviousItem = new AtomicBoolean();
+        AtomicBoolean hasPrevious = new AtomicBoolean();
         StringBuilder output = new StringBuilder("[");
 
         array.stream().forEach(value -> {
-            if (hasPreviousItem.get()) {
+            if (hasPrevious.getAndSet(true)) {
                 output.append(",");
             }
 
             output.append(value);
-            hasPreviousItem.set(true);
         });
 
         return output.append("]").toString();
