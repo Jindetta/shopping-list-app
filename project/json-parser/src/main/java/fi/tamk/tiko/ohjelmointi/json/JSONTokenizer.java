@@ -28,6 +28,11 @@ public class JSONTokenizer {
     private int currentLine;
 
     /**
+     * 
+     */
+    private int lineIndex;
+
+    /**
      * Stores special identifiers.
      */
     private Stack<JSONIdentifier> identifiers;
