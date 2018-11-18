@@ -38,7 +38,7 @@ import java.io.FileWriter;
 public class GUI extends Application {
 
     /**
-     * 
+     * Stores list items.
      */
     private ObservableList<Item> items;
 
