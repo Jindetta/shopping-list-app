@@ -120,9 +120,11 @@ public class JSONTokenizer {
                     lineNumber++;
                     isComment.set(false);
                     lineIndex = 0;
+                    continue;
 
                 case ' ':
                 case '\t':
+                    lineIndex++;
                     continue;
 
                 case '#':
@@ -165,6 +167,7 @@ public class JSONTokenizer {
                         result += key - '0';
                     }
 
+                    lineIndex++;
                     position++;
                 }
 
@@ -280,6 +283,7 @@ public class JSONTokenizer {
                         onError("Malformed literal - illegal <newline> at line: %d, %d", lineNumber, lineIndex);
 
                     default:
+                        lineIndex++;
                         position++;
                 }
             } else {
@@ -299,8 +303,9 @@ public class JSONTokenizer {
     private JSONType parseString(char quoteType) {
         StringBuilder output = new StringBuilder();
         boolean escapeString = false;
+        JSONType value = null;
 
-        while (position < input.length()) {
+        while (value == null && position < input.length()) {
             char key = input.charAt(position++);
             onError(key == '\r' || key == '\n', "Malformed string - illegal <newline> at line: %d, %d", lineNumber, lineIndex);
 
@@ -324,17 +329,22 @@ public class JSONTokenizer {
                     default:
                         onError("Malformed string - unexpected <%c> at line: %d, %d", key, lineNumber, lineIndex);
                 }
+
+                output.append(key);
             } else if (key == quoteType) {
-                return JSONType.createString(output.toString());
+                value = JSONType.createString(output.toString());
             } else if (key == '\\') {
                 escapeString = true;
-                continue;
+            } else {
+                output.append(key);
             }
 
-            output.append(key);
+            lineIndex++;
         }
 
-        throw new JSONException("Malformed string - invalid <string> at line: %d, %d", lineNumber, lineIndex);
+        onError(value == null, "Malformed string - invalid <string> at line: %d, %d", lineNumber, lineIndex);
+
+        return value;
     }
 
     /*private String simplifyJSONData() {
