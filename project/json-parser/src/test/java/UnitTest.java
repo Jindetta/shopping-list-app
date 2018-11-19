@@ -1,13 +1,8 @@
 import org.junit.*;
 
-import org.junit.rules.ExpectedException;
-
 import fi.tamk.tiko.ohjelmointi.json.*;
 
 public class UnitTest {
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     /**
      *
