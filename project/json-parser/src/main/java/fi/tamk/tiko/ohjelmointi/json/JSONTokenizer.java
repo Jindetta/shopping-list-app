@@ -423,7 +423,7 @@ public class JSONTokenizer {
             }
 
             onError(
-                topLevel && value != null && hasNext(),
+                topLevel && value != null && (token = skipWhitespace()) != -1,
                 "Malformed identifier - illegal <%c> at line: %d, %d", (char) token, lineNumber, lineIndex
             );
         }
