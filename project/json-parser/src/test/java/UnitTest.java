@@ -9,7 +9,7 @@ public class UnitTest {
      */
     @Test
     public void testJSONArray() {
-        System.out.println("--[[ Tokenize JSONArray ]] --");
+        System.out.println("--[[ Tokenize JSONArray ]]--");
         final String JSON = "['item1', 'item2', 'item3']";
 
         JSONTokenizer tokenizer = new JSONTokenizer(JSON);
@@ -36,7 +36,7 @@ public class UnitTest {
      */
     @Test
     public void testJSONObject() {
-        System.out.println("--[[ Tokenize JSONObject ]] --");
+        System.out.println("--[[ Tokenize JSONObject ]]--");
         final String JSON = "{'key1': 'item1', 'key2': 'item2', 'key3': 'item3'}";
 
         JSONTokenizer tokenizer = new JSONTokenizer(JSON);
@@ -65,7 +65,7 @@ public class UnitTest {
      */
     @Test
     public void testJSONObjectWrite() {
-        System.out.println("--[[ Write JSONObject ]] --");
+        System.out.println("--[[ Write JSONObject ]]--");
 
         JSONObject json = new JSONObject();
         json.put("key", JSONType.createString("value"));
@@ -93,7 +93,7 @@ public class UnitTest {
      */
     @Test
     public void testJSONArrayWrite() {
-        System.out.println("--[[ Write JSONArray ]] --");
+        System.out.println("--[[ Write JSONArray ]]--");
 
         JSONArray json = new JSONArray();
         json.add(JSONType.createString("value"));
@@ -122,7 +122,7 @@ public class UnitTest {
      */
     @Test
     public void testSingleUnits() {
-        System.out.println("--[[ Single Units ]] --");
+        System.out.println("--[[ Single Units ]]--");
         JSONTokenizer tokenizer;
 
         tokenizer = new JSONTokenizer("null");
@@ -163,7 +163,7 @@ public class UnitTest {
 
     @Test
     public void testWriteString() {
-        System.out.println("--[[ Write String ]] --");
+        System.out.println("--[[ Write String ]]--");
         final String STRING_VALUE = "\"{Word\\n\\\"P/e\\\\r\\\"\\nLine!\\n\"";
 
         Assert.assertEquals(STRING_VALUE, JSONTokenizer.writeString("{Word\n\"P/e\\r\"\nLine!\n"));
@@ -171,11 +171,11 @@ public class UnitTest {
 
     @Test
     public void testJSONExceptions() {
-        System.out.println("--[[ Exceptions ]] --");
+        System.out.println("--[[ Exceptions ]]--");
         JSONTokenizer tokenizer;
 
         try {
-            tokenizer = new JSONTokenizer("\t\n\r [null, 0,]");
+            tokenizer = new JSONTokenizer("\t\n\r [null, 0,,1]");
             tokenizer.parse();
 
             Assert.fail("No exception was thrown");
