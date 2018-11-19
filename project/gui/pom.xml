@@ -18,6 +18,11 @@
             <version>${javafx.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.dropbox.core</groupId>
+            <artifactId>dropbox-core-sdk</artifactId>
+            <version>3.0.10</version>
+        </dependency>
+        <dependency>
             <groupId>fi.tamk.tiko.ohjelmointi.json</groupId>
             <artifactId>json-parser</artifactId>
             <version>${project.parent.version}</version>
