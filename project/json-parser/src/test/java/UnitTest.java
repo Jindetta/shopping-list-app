@@ -1,4 +1,4 @@
-import org.junit.*;
+import org.junit.jupiter.api.*;
 
 import fi.tamk.tiko.ohjelmointi.json.*;
 
@@ -15,20 +15,20 @@ public class UnitTest {
         JSONTokenizer tokenizer = new JSONTokenizer(JSON);
         JSONType object = tokenizer.parse();
 
-        Assert.assertTrue(object instanceof JSONType);
-        Assert.assertEquals(JSONTypes.ARRAY, object.getType());
+        Assertions.assertTrue(object instanceof JSONType);
+        Assertions.assertEquals(JSONTypes.ARRAY, object.getType());
 
         JSONArray array = object.getAsArray();
-        Assert.assertEquals(3, array.size());
+        Assertions.assertEquals(3, array.size());
 
         for (int i = 0; i < array.size(); i++) {
             final String VALUE = String.format("item%d", i + 1);
 
-            Assert.assertEquals(VALUE, array.get(i).getAsString());
+            Assertions.assertEquals(VALUE, array.get(i).getAsString());
             System.out.printf("Success: \"%s\" was found at [%d]%n", VALUE, i);
         }
 
-        Assert.assertNull(tokenizer.parse());
+        Assertions.assertNull(tokenizer.parse());
     }
 
     /**
@@ -42,22 +42,22 @@ public class UnitTest {
         JSONTokenizer tokenizer = new JSONTokenizer(JSON);
         JSONType object = tokenizer.parse();
 
-        Assert.assertTrue(object instanceof JSONType);
-        Assert.assertEquals(JSONTypes.OBJECT, object.getType());
+        Assertions.assertTrue(object instanceof JSONType);
+        Assertions.assertEquals(JSONTypes.OBJECT, object.getType());
 
         JSONObject array = object.getAsObject();
-        Assert.assertEquals(3, array.size());
+        Assertions.assertEquals(3, array.size());
 
         for (int i = 0; i < array.size(); i++) {
             final String KEY = String.format("key%d", i + 1);
             final String VALUE = String.format("item%d", i + 1);
 
-            Assert.assertTrue(array.containsKey(KEY));
-            Assert.assertEquals(VALUE, array.get(KEY).getAsString());
+            Assertions.assertTrue(array.containsKey(KEY));
+            Assertions.assertEquals(VALUE, array.get(KEY).getAsString());
             System.out.printf("Success: \"%s\" was found at [\"%s\"]%n", VALUE, KEY);
         }
 
-        Assert.assertNull(tokenizer.parse());
+        Assertions.assertNull(tokenizer.parse());
     }
 
     /**
@@ -74,16 +74,16 @@ public class UnitTest {
         JSONTokenizer tokenizer = new JSONTokenizer(JSONTokenizer.writeObject(json));
         JSONType object = tokenizer.parse();
 
-        Assert.assertTrue(object instanceof JSONType);
-        Assert.assertEquals(JSONTypes.OBJECT, object.getType());
+        Assertions.assertTrue(object instanceof JSONType);
+        Assertions.assertEquals(JSONTypes.OBJECT, object.getType());
 
         JSONObject array = object.getAsObject();
-        Assert.assertEquals(2, array.size());
+        Assertions.assertEquals(2, array.size());
 
-        Assert.assertEquals(json.get("key"), array.get("key"));
-        Assert.assertEquals(json.get("number"), array.get("number"));
+        Assertions.assertEquals(json.get("key"), array.get("key"));
+        Assertions.assertEquals(json.get("number"), array.get("number"));
 
-        Assert.assertNull(tokenizer.parse());
+        Assertions.assertNull(tokenizer.parse());
 
         System.out.println("Success: Valid JSON information");
     }
@@ -102,17 +102,17 @@ public class UnitTest {
         JSONTokenizer tokenizer = new JSONTokenizer(JSONTokenizer.writeArray(json));
         JSONType object = tokenizer.parse();
 
-        Assert.assertTrue(object instanceof JSONType);
-        Assert.assertEquals(JSONTypes.ARRAY, object.getType());
+        Assertions.assertTrue(object instanceof JSONType);
+        Assertions.assertEquals(JSONTypes.ARRAY, object.getType());
 
         JSONArray array = object.getAsArray();
-        Assert.assertEquals(2, array.size());
+        Assertions.assertEquals(2, array.size());
 
         for (int i = 0; i < array.size(); i++) {
-            Assert.assertEquals(json.get(i), array.get(i));
+            Assertions.assertEquals(json.get(i), array.get(i));
         }
 
-        Assert.assertNull(tokenizer.parse());
+        Assertions.assertNull(tokenizer.parse());
 
         System.out.println("Success: Valid JSON information");
     }
@@ -126,61 +126,66 @@ public class UnitTest {
         JSONTokenizer tokenizer;
 
         tokenizer = new JSONTokenizer("null");
-        Assert.assertEquals(JSONType.createNull(), tokenizer.parse());
+        Assertions.assertEquals(JSONType.createNull(), tokenizer.parse());
         System.out.println("Success: Null object");
-        Assert.assertNull(tokenizer.parse());
+        Assertions.assertNull(tokenizer.parse());
 
         tokenizer = new JSONTokenizer("44332211");
-        Assert.assertEquals(JSONType.createNumber(44332211l), tokenizer.parse());
+        Assertions.assertEquals(JSONType.createNumber(44332211l), tokenizer.parse());
         System.out.println("Success: Long object");
-        Assert.assertNull(tokenizer.parse());
+        Assertions.assertNull(tokenizer.parse());
 
         tokenizer = new JSONTokenizer("1.23456789");
-        Assert.assertEquals(JSONType.createDecimal(1.23456789), tokenizer.parse());
+        Assertions.assertEquals(JSONType.createDecimal(1.23456789), tokenizer.parse());
         System.out.println("Success: Double object");
-        Assert.assertNull(tokenizer.parse());
+        Assertions.assertNull(tokenizer.parse());
 
         tokenizer = new JSONTokenizer("\"String_value!\\n\"");
-        Assert.assertEquals(JSONType.createString("String_value!\n"), tokenizer.parse());
+        Assertions.assertEquals(JSONType.createString("String_value!\n"), tokenizer.parse());
         System.out.println("Success: String object");
-        Assert.assertNull(tokenizer.parse());
+        Assertions.assertNull(tokenizer.parse());
 
         tokenizer = new JSONTokenizer("[]");
-        Assert.assertEquals(JSONType.createArray(new JSONArray()), tokenizer.parse());
+        Assertions.assertEquals(JSONType.createArray(new JSONArray()), tokenizer.parse());
         System.out.println("Success: Array object");
-        Assert.assertNull(tokenizer.parse());
+        Assertions.assertNull(tokenizer.parse());
 
         tokenizer = new JSONTokenizer("{}");
-        Assert.assertEquals(JSONType.createObject(new JSONObject()), tokenizer.parse());
+        Assertions.assertEquals(JSONType.createObject(new JSONObject()), tokenizer.parse());
         System.out.println("Success: Object object");
-        Assert.assertNull(tokenizer.parse());
+        Assertions.assertNull(tokenizer.parse());
 
         tokenizer = new JSONTokenizer("true");
-        Assert.assertEquals(JSONType.createBoolean(true), tokenizer.parse());
+        Assertions.assertEquals(JSONType.createBoolean(true), tokenizer.parse());
         System.out.println("Success: Boolean object");
-        Assert.assertNull(tokenizer.parse());
+        Assertions.assertNull(tokenizer.parse());
     }
 
+    /**
+     * 
+     */
     @Test
     public void testWriteString() {
         System.out.println("--[[ Write String ]]--");
         final String STRING_VALUE = "\"{Word\\n\\\"P/e\\\\r\\\"\\nLine!\\n\"";
 
-        Assert.assertEquals(STRING_VALUE, JSONTokenizer.writeString("{Word\n\"P/e\\r\"\nLine!\n"));
+        Assertions.assertEquals(STRING_VALUE, JSONTokenizer.writeString("{Word\n\"P/e\\r\"\nLine!\n"));
+        System.out.println("Success: Valid JSON string");
     }
 
+    /**
+     * 
+     */
     @Test
     public void testJSONExceptions() {
         System.out.println("--[[ Exceptions ]]--");
-        JSONTokenizer tokenizer;
 
-        try {
-            tokenizer = new JSONTokenizer("\t\n\r [null, 0,,1]");
-            tokenizer.parse();
+        Assertions.assertThrows(JSONException.class, () -> new JSONTokenizer("0 0").parse());
+        Assertions.assertThrows(JSONException.class, () -> new JSONTokenizer("'string',").parse());
+        Assertions.assertThrows(JSONException.class, () -> new JSONTokenizer("'stri\ng'").parse());
+        Assertions.assertThrows(JSONException.class, () -> new JSONTokenizer("{\"key\":}").parse());
+        Assertions.assertThrows(JSONException.class, () -> new JSONTokenizer("\t\n\r [null, 0,,1]").parse());
 
-            Assert.fail("No exception was thrown");
-        } catch (JSONException e) {
-            System.out.printf("Success: Exception thrown | %s%n", e.getMessage());
-        }
+        System.out.println("Success: All exceptions thrown");
     }
 }
