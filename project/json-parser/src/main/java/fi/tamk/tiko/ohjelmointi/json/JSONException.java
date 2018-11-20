@@ -1,7 +1,7 @@
 package fi.tamk.tiko.ohjelmointi.json;
 
 /**
- * Defines custom exceptions for JSON parsing.
+ * Defines custom exceptions for JSON parser.
  *
  * @author  Joonas Lauhala {@literal <joonas.lauhala@cs.tamk.fi>}
  * @version 2018.1101
@@ -15,7 +15,7 @@ public class JSONException extends RuntimeException {
     private static final long serialVersionUID = -2364958504251163329L;
 
     /**
-     * Calls super-class constructor.
+     * Overrides default constructor.
      *
      * @param message Exception message.
      */
@@ -24,7 +24,7 @@ public class JSONException extends RuntimeException {
     }
 
     /**
-     * Calls in-class constructor with formatted String.
+     * Overrides default constructor.
      *
      * @param messageFormat String format.
      * @param args          List of arguments.
