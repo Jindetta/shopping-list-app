@@ -423,8 +423,8 @@ public class JSONTokenizer {
             }
 
             onError(
-                topLevel && value != null && (token = skipWhitespace()) != -1,
-                "Malformed identifier - illegal <%c> at line: %d, %d", (char) token, lineNumber, lineIndex
+                topLevel && value != null && skipWhitespace() != -1,
+                "Malformed structure - missing <EOF> at line: %d, %d", lineNumber, lineIndex
             );
         }
 
