@@ -43,7 +43,8 @@ public class JSONFileTest extends Assertions {
     public void testJSONWriter() {
         System.out.println("--[[ JSON Writer ]]--");
         ClassLoader loader = getClass().getClassLoader();
-        String path = loader.getResource("savedNumberArray.json").getPath();
+        String path = loader.getResource("").getPath();
+        String file = path + "savedNumberArray.json";
 
         JSONArray array = new JSONArray();
         final int SIZE = 10;
@@ -54,10 +55,10 @@ public class JSONFileTest extends Assertions {
 
         assertEquals(SIZE, array.size());
 
-        try (JSONWriter writer = new JSONWriter(new FileWriter(path))) {
+        try (JSONWriter writer = new JSONWriter(new FileWriter(file))) {
             writer.writeArray(array);
         } catch (Exception e) {
-            fail("Cannot write to resource: " + path);
+            fail("Cannot write to resource: " + file);
         }
 
         System.out.println("Success: savedNumberArray.json was saved");
