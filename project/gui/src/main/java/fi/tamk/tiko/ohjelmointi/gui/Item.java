@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
- *
+ * Stores single shopping list item values.
  *
  * @author  Joonas Lauhala {@literal <joonas.lauhala@cs.tamk.fi>}
  * @version 2018.1101
@@ -15,35 +15,37 @@ import javafx.beans.property.StringProperty;
 public class Item {
 
     /**
-     * 
+     * Stores item name.
      */
     private StringProperty itemName;
 
     /**
-     * 
+     * Stores item amount.
      */
     private IntegerProperty itemAmount;
 
     /**
-     * 
-     * 
-     * @return
+     * Gets item name.
+     *
+     * @return Item name as String.
      */
     public String getItemName() {
         return itemNameProperty().get();
     }
 
     /**
-     * 
-     * 
-     * @param value
+     * Sets item name.
+     *
+     * @param value Item name.
      */
     public void setItemName(String value) {
         itemNameProperty().set(value);
     }
 
     /**
-     * 
+     * Gets item name as property field.
+     *
+     * @return StringProperty.
      */
     public StringProperty itemNameProperty() {
         if (itemName == null) {
@@ -54,25 +56,27 @@ public class Item {
     }
 
     /**
-     * 
-     * 
-     * @return
+     * Gets item amount.
+     *
+     * @return Amount as Integer.
      */
     public int getItemAmount() {
         return itemAmountProperty().get();
     }
 
     /**
-     * 
-     * 
-     * @param value
+     * Sets item amount.
+     *
+     * @param value Amount value.
      */
     public void setItemAmount(int value) {
         itemAmountProperty().set(value);
     }
 
     /**
-     * 
+     * Gets item amount as property field.
+     *
+     * @return IntegerProperty.
      */
     public IntegerProperty itemAmountProperty() {
         if (itemAmount == null) {
@@ -83,7 +87,10 @@ public class Item {
     }
 
     /**
-     * 
+     * Overrides default constructor.
+     *
+     * @param amount Item amount.
+     * @param item   Item name.
      */
     public Item(int amount, String item) {
         setItemAmount(amount);
