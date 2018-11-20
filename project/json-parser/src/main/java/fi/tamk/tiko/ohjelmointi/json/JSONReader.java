@@ -29,7 +29,7 @@ public class JSONReader implements AutoCloseable {
      * @return Valid JSONType or null.
      * @see JSONType
      */
-    public JSONType readNext() throws IOException {
+    public JSONType readObject() throws IOException {
         if (tokenizer == null) {
             StringBuilder contents = new StringBuilder();
             String line = null;
