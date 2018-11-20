@@ -1,7 +1,7 @@
 package fi.tamk.tiko.ohjelmointi.json;
 
 /**
- *
+ * Stores JSON data type information.
  *
  * @author  Joonas Lauhala {@literal <joonas.lauhala@cs.tamk.fi>}
  * @version 2018.1101
@@ -10,19 +10,19 @@ package fi.tamk.tiko.ohjelmointi.json;
 public class JSONType {
 
     /**
-     *
+     * Stores JSON data type.
      */
     private JSONTypes type;
 
     /**
-     *
+     * Stores JSON data value.
      */
     private Object object;
 
     /**
+     * Gets type enum.
      *
-     *
-     * @return
+     * @return JSONTypes enumeration.
      */
     public JSONTypes getType() {
         return type;
@@ -57,18 +57,18 @@ public class JSONType {
     }
 
     /**
+     * Gets JSON data value.
      *
-     *
-     * @return
+     * @return Object.
      */
     public Object get() {
         return object;
     }
 
     /**
+     * Gets JSON data as array.
      *
-     *
-     * @return
+     * @return JSONArray.
      */
     public JSONArray getAsArray() {
         if (type.equals(JSONTypes.ARRAY)) {
@@ -79,9 +79,9 @@ public class JSONType {
     }
 
     /**
+     * Gets JSON data as object.
      *
-     *
-     * @return
+     * @return JSONObject.
      */
     public JSONObject getAsObject() {
         if (type.equals(JSONTypes.OBJECT)) {
@@ -92,9 +92,9 @@ public class JSONType {
     }
 
     /**
+     * Gets JSON data as string.
      *
-     *
-     * @return
+     * @return String.
      */
     public String getAsString() {
         if (type.equals(JSONTypes.STRING)) {
@@ -105,9 +105,9 @@ public class JSONType {
     }
 
     /**
+     * Gets JSON data as decimal.
      *
-     *
-     * @return
+     * @return Double.
      */
     public Double getAsDecimal() {
         if (type.equals(JSONTypes.DECIMAL)) {
@@ -118,9 +118,9 @@ public class JSONType {
     }
 
     /**
+     * Gets JSON data as number.
      *
-     *
-     * @return
+     * @return Long.
      */
     public Long getAsNumber() {
         if (type.equals(JSONTypes.NUMBER)) {
@@ -131,9 +131,9 @@ public class JSONType {
     }
 
     /**
+     * Gets JSON data as boolean.
      *
-     *
-     * @return
+     * @return Boolean.
      */
     public Boolean getAsBoolean() {
         if (type.equals(JSONTypes.BOOLEAN)) {
@@ -144,98 +144,98 @@ public class JSONType {
     }
 
     /**
+     * Checks if JSON data is null.
      *
-     *
-     * @return
+     * @return true if value == null, otherwise false
      */
     public boolean isNull() {
         return get() == null && type.equals(JSONTypes.NULL);
     }
 
     /**
-     *
+     * Overrides default constructor.
      */
     public JSONType() {
         this(null);
     }
 
     /**
+     * Overrides default constructor.
      *
-     *
-     * @param object
+     * @param object Object value.
      */
     public JSONType(Object object) {
         set(object);
     }
 
     /**
+     * Creates new array JSONType.
      *
-     *
-     * @return
+     * @return JSONType.
      */
     public static JSONType createArray(JSONArray array) {
         return new JSONType(array);
     }
 
     /**
+     * Creates new object JSONType.
      *
-     *
-     * @return
+     * @return JSONType.
      */
     public static JSONType createObject(JSONObject object) {
         return new JSONType(object);
     }
 
     /**
+     * Creates new string JSONType.
      *
-     *
-     * @return
+     * @return JSONType.
      */
     public static JSONType createString(String value) {
         return new JSONType(value);
     }
 
     /**
+     * Creates new boolean JSONType.
      *
-     *
-     * @return
+     * @return JSONType.
      */
     public static JSONType createBoolean(Boolean value) {
         return new JSONType(value);
     }
 
     /**
+     * Creates new decimal JSONType.
      *
-     *
-     * @return
+     * @return JSONType.
      */
     public static JSONType createDecimal(Double value) {
         return new JSONType(value);
     }
 
     /**
+     * Creates new number JSONType.
      *
-     *
-     * @return
+     * @return JSONType.
      */
     public static JSONType createNumber(Long value) {
         return new JSONType(value);
     }
 
     /**
+     * Creates new null JSONType.
      *
-     *
-     * @return
+     * @return JSONType.
      */
     public static JSONType createNull() {
         return new JSONType();
     }
 
     /**
+     * Overrides default implementation.
      *
-     *
-     * @param object
-     * @return
+     * @param object Object to compare.
+     * @return true if object is equal, otherwise false
      */
     @Override
     public boolean equals(Object object) {
@@ -249,9 +249,9 @@ public class JSONType {
     }
 
     /**
+     * Overrides default implementation.
      *
-     *
-     * @return
+     * @return String representation of this type.
      */
     @Override
     public String toString() {
