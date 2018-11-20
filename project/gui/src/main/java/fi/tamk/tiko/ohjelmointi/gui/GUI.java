@@ -72,6 +72,7 @@ public class GUI extends Application {
 
     /**
      * Creates menu bar.
+     *
      * @return MenuBar.
      */
     private MenuBar createMenuBar() {
@@ -99,6 +100,7 @@ public class GUI extends Application {
 
     /**
      * Creates table view.
+     *
      * @return TableView.
      */
     private TableView<Item> createTableView() {
@@ -120,6 +122,7 @@ public class GUI extends Application {
 
     /**
      * Creates initial scene.
+     *
      * @return Scene.
      */
     private Scene createSceneContainer() {
