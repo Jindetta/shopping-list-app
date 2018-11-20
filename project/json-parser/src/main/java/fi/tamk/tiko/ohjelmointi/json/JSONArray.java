@@ -3,7 +3,7 @@ package fi.tamk.tiko.ohjelmointi.json;
 import java.util.ArrayList;
 
 /**
- *
+ * Stores JSON Array information.
  *
  * @author  Joonas Lauhala {@literal <joonas.lauhala@cs.tamk.fi>}
  * @version 2018.1101
@@ -17,7 +17,8 @@ public class JSONArray extends ArrayList<JSONType> {
     private static final long serialVersionUID = 8948315495137219901L;
 
     /**
-     * 
+     * Adds a new array value.
+     *
      * @param value
      */
     public void addArray(JSONArray value) {
@@ -25,7 +26,8 @@ public class JSONArray extends ArrayList<JSONType> {
     }
 
     /**
-     * 
+     * Adds a new object value.
+     *
      * @param value
      */
     public void addObject(JSONObject value) {
@@ -33,7 +35,8 @@ public class JSONArray extends ArrayList<JSONType> {
     }
 
     /**
-     * 
+     * Adds a new string value.
+     *
      * @param value
      */
     public void addString(String value) {
@@ -41,7 +44,8 @@ public class JSONArray extends ArrayList<JSONType> {
     }
 
     /**
-     * 
+     * Adds a new decimal value.
+     *
      * @param value
      */
     public void addDecimal(Double value) {
@@ -49,7 +53,8 @@ public class JSONArray extends ArrayList<JSONType> {
     }
 
     /**
-     * 
+     * Adds a new number value.
+     *
      * @param value
      */
     public void addNumber(Long value) {
@@ -57,7 +62,8 @@ public class JSONArray extends ArrayList<JSONType> {
     }
 
     /**
-     * 
+     * Adds a new boolean value.
+     *
      * @param value
      */
     public void addBoolean(Boolean value) {
@@ -65,7 +71,7 @@ public class JSONArray extends ArrayList<JSONType> {
     }
 
     /**
-     * 
+     * Adds a new null value.
      */
     public void addNull() {
         add(JSONType.createNull());
