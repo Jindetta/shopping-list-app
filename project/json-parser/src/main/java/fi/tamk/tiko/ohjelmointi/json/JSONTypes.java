@@ -1,7 +1,7 @@
 package fi.tamk.tiko.ohjelmointi.json;
 
 /**
- * Defines allowed types for JSON.
+ * Defines allowed types for JSONType.
  *
  * @author  Joonas Lauhala {@literal <joonas.lauhala@cs.tamk.fi>}
  * @version 2018.1101
