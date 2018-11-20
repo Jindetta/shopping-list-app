@@ -18,12 +18,12 @@ public class JSONFileTest extends Assertions {
         JSONType value = null;
 
         try (JSONReader reader = new JSONReader(new FileReader(path))) {
-            value = reader.readNext();
+            value = reader.readObject();
 
             assertTrue(value instanceof JSONType);
-            assertNull(reader.readNext());
+            assertNull(reader.readObject());
         } catch (Exception e) {
-            fail("Cannot read resource: " + path);
+            fail("Cannot read from resource: " + path);
         }
 
         final int SIZE = 10;
