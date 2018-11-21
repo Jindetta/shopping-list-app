@@ -23,12 +23,12 @@ public class JSONTokenizer {
     private String input;
 
     /**
-     * 
+     * Stores line number.
      */
     private int lineNumber;
 
     /**
-     * 
+     * Stores line index.
      */
     private int lineIndex;
 
@@ -71,9 +71,11 @@ public class JSONTokenizer {
     }
 
     /**
-     * 
-     * @param character
-     * @return
+     * Skips comments.
+     *
+     * @param character Character token.
+     * @param mode      Previous mode.
+     * @return true if comment was found, otherwise false.
      */
     private boolean skipComment(int character, AtomicBoolean mode) {
         if (!mode.get() && character == '/') {
@@ -202,9 +204,9 @@ public class JSONTokenizer {
     }
 
     /**
+     * Parses JSON array.
      *
-     *
-     * @return
+     * @return JSONType.
      */
     private JSONType parseArray() {
         pushIdentifier(']', "Malformed array - missing <]> at line: %d, %d", lineNumber, lineIndex);
@@ -224,9 +226,9 @@ public class JSONTokenizer {
     }
 
     /**
+     * Parses JSON object.
      *
-     *
-     * @return
+     * @return JSONType.
      */
     private JSONType parseObject() {
         pushIdentifier('}', "Malformed object - missing <}> at line: %d, %d", lineNumber, lineIndex);
@@ -260,9 +262,9 @@ public class JSONTokenizer {
     }
 
     /**
+     * Parses JSON literal.
      *
-     *
-     * @return
+     * @return JSONType.
      */
     private JSONType parseLiteral() {
         int startPosition = --position;
@@ -296,10 +298,10 @@ public class JSONTokenizer {
     }
 
     /**
+     * Parses JSON string.
      *
-     *
-     * @param quoteType
-     * @return
+     * @param quoteType Quote type.
+     * @return JSONType.
      */
     private JSONType parseString(char quoteType) {
         StringBuilder output = new StringBuilder();
@@ -348,17 +350,10 @@ public class JSONTokenizer {
         return value;
     }
 
-    /*private String simplifyJSONData() {
-        String data = input.substring(position).replaceAll("\\s", "");
-        data = data.replaceAll("(\"|').*?(\\1)", "$1");
-
-        return data.replaceAll("(.).*?([,}]]|$)", "$1");
-    }*/
-
     /**
+     * Checks if next token exists.
      *
-     *
-     * @return
+     * @return true if next token is found, otherwise false.
      */
     private boolean hasNext() {
         int storedPosition = position;
@@ -383,10 +378,10 @@ public class JSONTokenizer {
     }
 
     /**
+     * Parses next token.
      *
-     *
-     * @param topLevel
-     * @return
+     * @param topLevel Top level element.
+     * @return JSONType.
      */
     private JSONType parseToken(boolean topLevel) {
         int token = skipWhitespace();
@@ -432,9 +427,9 @@ public class JSONTokenizer {
     }
 
     /**
+     * Parses JSON data.
      *
-     *
-     * @return
+     * @return JSONType.
      */
     public JSONType parse() {
         JSONType value = parseToken(true);
@@ -447,9 +442,9 @@ public class JSONTokenizer {
     }
 
     /**
+     * Overrides default constructor.
      *
-     *
-     * @param stream
+     * @param stream Parseable string.
      */
     public JSONTokenizer(String stream) {
         input = stream.replaceAll("\r\n?", "\n");
@@ -461,20 +456,21 @@ public class JSONTokenizer {
     }
 
     /**
+     * Throws exception on error.
      * 
-     * 
-     * @param message
-     * @param args
+     * @param message Message formatting.
+     * @param args    Arguments.
      */
     private static void onError(String message, Object... args) {
         throw new JSONException(message, args);
     }
 
     /**
-     * 
-     * @param condition
-     * @param message
-     * @param args
+     * Throws exception on condition.
+     *
+     * @param condition Condition.
+     * @param message   Message formatting.
+     * @param args      Arguments.
      */
     private static void onError(boolean condition, String message, Object... args) {
         if (condition) {
@@ -483,27 +479,27 @@ public class JSONTokenizer {
     }
 
     /**
+     * Writes JSON number.
      *
-     *
-     * @param value
-     * @return
+     * @param value Long value.
+     * @return JSON formatted String.
      */
     public static String writeNumber(Long value) {
         return String.valueOf(value);
     }
 
     /**
+     * Writes JSON decimal.
      *
-     *
-     * @param value
-     * @return
+     * @param value Double value.
+     * @return JSON formatted String.
      */
     public static String writeDecimal(Double value) {
         return String.valueOf(value);
     }
 
     /**
-     * Writes JSON formatted String.
+     * Writes JSON string.
      *
      * @param value     String value.
      * @param quoteType Quote type.
@@ -556,10 +552,10 @@ public class JSONTokenizer {
     }
 
     /**
+     * Writes JSON object.
      *
-     *
-     * @param object
-     * @return
+     * @param object JSONObject.
+     * @return JSON formatted string.
      */
     public static String writeObject(JSONObject object) {
         AtomicBoolean hasPrevious = new AtomicBoolean();
@@ -577,10 +573,10 @@ public class JSONTokenizer {
     }
 
     /**
+     * Writes JSON array.
      *
-     *
-     * @param array
-     * @return
+     * @param array JSONArray.
+     * @return JSON formatted string.
      */
     public static String writeArray(JSONArray array) {
         AtomicBoolean hasPrevious = new AtomicBoolean();
@@ -598,20 +594,19 @@ public class JSONTokenizer {
     }
 
     /**
+     * Writes JSON boolean.
      *
-     *
-     * @param value
-     * @return
+     * @param value Boolean value.
+     * @return JSON formatted string.
      */
     public static String writeBoolean(Boolean value) {
         return value.toString();
     }
 
     /**
+     * Writes JSON null.
      *
-     *
-     * @param value
-     * @return
+     * @return JSON formatted string.
      */
     public static String writeNull() {
         return "null";
