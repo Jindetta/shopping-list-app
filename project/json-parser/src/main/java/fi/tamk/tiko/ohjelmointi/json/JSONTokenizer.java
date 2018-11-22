@@ -189,7 +189,7 @@ public class JSONTokenizer {
      */
     private JSONType getValidatedLiteral(String literal) {
         if (literal != null && !literal.isEmpty()) {
-            if (literal.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:[eE][+\\-]?\\d+)?$")) {
+            if (literal.matches("^[+\\-]?(?:0|[1-9]\\d*)$")) {
                 return JSONType.createNumber(Long.parseLong(literal));
             } else if (literal.matches("^[+\\-]?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?$")) {
                 return JSONType.createDecimal(Double.parseDouble(literal));
