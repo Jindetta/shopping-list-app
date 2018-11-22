@@ -240,9 +240,17 @@ public class JSONType {
     @Override
     public boolean equals(Object object) {
         if (object instanceof JSONType) {
-            JSONType t = (JSONType) object;
+            JSONType jsonType = (JSONType) object;
 
-            return type.equals(t.getType()) && toString().equals(t.toString());
+            if (type == jsonType.getType()) {
+                Object value = jsonType.get();
+
+                if (type != JSONTypes.NULL) {
+                    return value.equals(get());
+                }
+
+                return value == get();
+            }
         }
 
         return false;
