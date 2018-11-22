@@ -118,62 +118,6 @@ public class JSONParseTest extends Assertions {
     }
 
     /**
-     *
-     */
-    @Test
-    public void testSingleUnits() {
-        System.out.println("--[[ Single Units ]]--");
-        JSONTokenizer tokenizer;
-
-        tokenizer = new JSONTokenizer("null");
-        assertEquals(JSONType.createNull(), tokenizer.parse());
-        System.out.println("Success: Null object");
-        assertNull(tokenizer.parse());
-
-        tokenizer = new JSONTokenizer("44332211");
-        assertEquals(JSONType.createNumber(44332211l), tokenizer.parse());
-        System.out.println("Success: Long object");
-        assertNull(tokenizer.parse());
-
-        tokenizer = new JSONTokenizer("1.23456789");
-        assertEquals(JSONType.createDecimal(1.23456789), tokenizer.parse());
-        System.out.println("Success: Double object");
-        assertNull(tokenizer.parse());
-
-        tokenizer = new JSONTokenizer("\"String_value!\\n\"");
-        assertEquals(JSONType.createString("String_value!\n"), tokenizer.parse());
-        System.out.println("Success: String object");
-        assertNull(tokenizer.parse());
-
-        tokenizer = new JSONTokenizer("[]");
-        assertEquals(JSONType.createArray(new JSONArray()), tokenizer.parse());
-        System.out.println("Success: Array object");
-        assertNull(tokenizer.parse());
-
-        tokenizer = new JSONTokenizer("{}");
-        assertEquals(JSONType.createObject(new JSONObject()), tokenizer.parse());
-        System.out.println("Success: Object object");
-        assertNull(tokenizer.parse());
-
-        tokenizer = new JSONTokenizer("true");
-        assertEquals(JSONType.createBoolean(true), tokenizer.parse());
-        System.out.println("Success: Boolean object");
-        assertNull(tokenizer.parse());
-    }
-
-    /**
-     * 
-     */
-    @Test
-    public void testWriteString() {
-        System.out.println("--[[ Write String ]]--");
-        final String STRING_VALUE = "\"{Word\\n\\\"P/e\\\\r\\\"\\nLine!\\n\"";
-
-        assertEquals(STRING_VALUE, JSONTokenizer.writeString("{Word\n\"P/e\\r\"\nLine!\n"));
-        System.out.println("Success: Valid JSON string");
-    }
-
-    /**
      * 
      */
     @Test
