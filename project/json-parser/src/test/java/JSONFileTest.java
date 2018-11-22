@@ -8,7 +8,7 @@ import java.io.FileWriter;
 public class JSONFileTest extends Assertions {
 
     /**
-     * 
+     * Test JSON file reading.
      */
     @Test
     public void testJSONReader() {
@@ -37,7 +37,7 @@ public class JSONFileTest extends Assertions {
     }
 
     /**
-     * 
+     * Test JSON file writing.
      */
     @Test
     public void testJSONWriter() {
