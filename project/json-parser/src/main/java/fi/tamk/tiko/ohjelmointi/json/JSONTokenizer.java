@@ -278,12 +278,10 @@ public class JSONTokenizer {
                     case '}':
                     case ' ':
                     case '\t':
-                        value = input.substring(startPosition, position);
-                        break;
-
                     case '\r':
                     case '\n':
-                        onError("Malformed literal - illegal <newline> at line: %d, %d", lineNumber, lineIndex);
+                        value = input.substring(startPosition, position);
+                        break;
 
                     default:
                         lineIndex++;
