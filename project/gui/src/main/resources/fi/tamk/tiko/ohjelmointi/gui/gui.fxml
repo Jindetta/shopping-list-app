@@ -49,7 +49,7 @@
                     </items>
                   </Menu>
                   <SeparatorMenuItem mnemonicParsing="false" />
-              <MenuItem id="closeMenu" mnemonicParsing="false" onAction="#onCloseAction" text="Close">
+              <MenuItem mnemonicParsing="false" onAction="#onCloseAction" text="Close">
                      <accelerator>
                         <KeyCodeCombination alt="DOWN" code="F4" control="UP" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
@@ -87,15 +87,15 @@
       </MenuBar>
    </top>
    <center>
-      <TableView id="tableView" fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn id="markItem" fx:id="columnMark" maxWidth="30.0" minWidth="30.0" prefWidth="-1.0" resizable="false" sortable="false">
+          <TableColumn fx:id="columnMark" maxWidth="30.0" minWidth="30.0" prefWidth="-1.0" resizable="false" sortable="false">
                <graphic>
-                  <CheckBox id="selectAll" mnemonicParsing="false" />
+                  <CheckBox mnemonicParsing="false" />
                </graphic>
             </TableColumn>
-            <TableColumn id="itemName" fx:id="columnItem" minWidth="150.0" prefWidth="-1.0" resizable="false" text="Item" />
-          <TableColumn id="itemAmount" fx:id="columnAmount" maxWidth="120.0" minWidth="120.0" prefWidth="-1.0" resizable="false" text="Amount" />
+            <TableColumn fx:id="columnItem" minWidth="150.0" prefWidth="-1.0" resizable="false" text="Item" />
+          <TableColumn fx:id="columnAmount" maxWidth="120.0" minWidth="120.0" prefWidth="-1.0" resizable="false" text="Amount" />
         </columns>
       </TableView>
    </center>
