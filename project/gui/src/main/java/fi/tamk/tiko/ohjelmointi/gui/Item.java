@@ -1,6 +1,8 @@
 package fi.tamk.tiko.ohjelmointi.gui;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -23,6 +25,11 @@ public class Item {
      * Stores item amount.
      */
     private IntegerProperty itemAmount;
+
+    /**
+     * Stores item checkmark.
+     */
+    private BooleanProperty itemMark;
 
     /**
      * Gets item name.
@@ -87,6 +94,37 @@ public class Item {
     }
 
     /**
+     * Gets item amount.
+     *
+     * @return Amount as Integer.
+     */
+    public boolean getItemMark() {
+        return itemMarkProperty().get();
+    }
+
+    /**
+     * Sets item amount.
+     *
+     * @param value Amount value.
+     */
+    public void setItemMark(boolean value) {
+        itemMarkProperty().set(value);
+    }
+
+    /**
+     * Gets item amount as property field.
+     *
+     * @return IntegerProperty.
+     */
+    public BooleanProperty itemMarkProperty() {
+        if (itemMark == null) {
+            itemMark = new SimpleBooleanProperty(this, "Amount");
+        }
+
+        return itemMark;
+    }
+
+    /**
      * Overrides default constructor.
      *
      * @param amount Item amount.
@@ -94,6 +132,7 @@ public class Item {
      */
     public Item(int amount, String item) {
         setItemAmount(amount);
+        setItemMark(false);
         setItemName(item);
     }
 }
