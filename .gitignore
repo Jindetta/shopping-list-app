@@ -4,6 +4,8 @@ target/
 .settings/
 .vscode/
 
+project/*.json
+
 .project
 .classpath
 .stackdump
