@@ -9,25 +9,24 @@ import javafx.fxml.FXML;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 
-import javafx.scene.layout.BorderPane;
-
-import javafx.scene.control.cell.PropertyValueFactory;
-
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.MenuBar;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-
+import javafx.scene.control.TableColumn;
 import javafx.scene.Scene;
-
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 
 /**
@@ -45,10 +44,155 @@ public class GUI extends Application {
     private ObservableList<Item> items;
 
     /**
-     * Saves data to a file.
+     * 
      */
-    private void saveToFile() {
-        try (JSONWriter json = new JSONWriter(new FileWriter("list.json"))) {
+    private Stage window;
+
+    /**
+     * 
+     */
+    private File saveFile;
+
+    /**
+     * 
+     */
+    @FXML
+    private TableView<Item> tableView;
+
+    @FXML
+    private TableColumn<Item, Boolean> columnMark;
+
+    @FXML
+    private TableColumn<Item, Integer> columnAmount;
+
+    @FXML
+    private TableColumn<Item, String> columnItem;
+
+    @FXML
+    private void onCreateAction() {
+        items = FXCollections.observableArrayList();
+        tableView.setItems(items);
+    }
+
+    @FXML
+    private void onOpenAction() {
+        FileChooser fileChooser = new FileChooser();
+
+        fileChooser.setTitle("Open shopping list file");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+
+        File file = fileChooser.showOpenDialog(window);
+
+        if (file != null) {
+            ObservableList<Item> list = loadFromFile(file, false);
+
+            if (list != null) {
+                items = list;
+                tableView.setItems(items);
+            }
+        }
+    }
+
+    @FXML
+    private void onSaveAction() {
+        saveToFile(saveFile, false);
+    }
+
+    @FXML
+    private void onSaveAsAction() {
+        FileChooser fileChooser = new FileChooser();
+
+        fileChooser.setTitle("Save shopping list data");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+
+        File file = fileChooser.showSaveDialog(window);
+
+        if (file != null) {
+            saveFile = file;
+            onSaveAction();
+        }
+    }
+
+    @FXML
+    private void onCloseAction(ActionEvent event) {
+        Platform.exit();
+    }
+
+    @FXML
+    public void initialize() {
+        saveFile = new File("list.json");
+        items = loadFromFile(saveFile, true);
+
+        columnItem.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+        columnItem.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        columnMark.setCellValueFactory(new PropertyValueFactory<>("itemMark"));
+        columnMark.setCellFactory(f -> new CheckBoxTableCell<>());
+
+        columnAmount.setCellValueFactory(new PropertyValueFactory<>("itemAmount"));
+        columnAmount.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+
+        tableView.setOnKeyPressed(this::onTableKeyPressEvent);
+        tableView.setItems(items);
+    }
+
+    private void onTableKeyPressEvent(KeyEvent event) {
+        switch (event.getCode()) {
+            case INSERT:
+                items.add(new Item(1, "-"));
+                break;
+
+            case DELETE:
+                int index = tableView.getSelectionModel().getSelectedIndex();
+
+                if (index != -1) {
+                    items.remove(index);
+                }
+
+                break;
+        }
+    }
+
+    /**
+     * 
+     * @return
+     */
+    private ObservableList<Item> loadFromFile(File file, boolean silent) {
+        try (JSONReader json = new JSONReader(new FileReader(file))) {
+            ObservableList<Item> list = FXCollections.observableArrayList();
+
+            for (JSONType object : json.readObject().getAsArray()) {
+                JSONObject data = object.getAsObject();
+
+                String itemName = data.get("item").getAsString();
+                long itemAmount = data.get("amount").getAsNumber();
+
+                list.add(new Item((int) itemAmount, itemName));
+            }
+
+            return list;
+        } catch (Exception e) {
+            if (!silent) {
+                Alert alert = new Alert(AlertType.ERROR);
+
+                alert.setTitle("Cannot load file");
+                alert.setContentText(e.getMessage());
+                alert.setHeaderText(null);
+
+                alert.show();
+            }
+        }
+
+        return items == null ? FXCollections.observableArrayList() : null;
+    }
+
+    /**
+     * 
+     * @return
+     * @throws Exception
+     */
+    private void saveToFile(File file, boolean silent) {
+        try (JSONWriter json = new JSONWriter(new FileWriter(file))) {
             JSONArray array = new JSONArray();
 
             for (Item item : items) {
@@ -62,64 +206,16 @@ public class GUI extends Application {
 
             json.writeArray(array);
         } catch (Exception e) {
-            Alert alert = new Alert(AlertType.ERROR);
+            if (!silent) {
+                Alert alert = new Alert(AlertType.ERROR);
 
-            alert.setTitle("Cannot save file");
-            alert.setContentText(e.getMessage());
-            alert.setHeaderText(null);
+                alert.setTitle("Cannot save file");
+                alert.setContentText(e.getMessage());
+                alert.setHeaderText(null);
 
-            alert.show();
+                alert.show();
+            }
         }
-    }
-
-    /**
-     * Creates menu bar.
-     *
-     * @return MenuBar.
-     */
-    private MenuBar createMenuBar() {
-        MenuBar menu = new MenuBar();
-
-        Menu file = new Menu("File");
-
-        MenuItem save = new MenuItem("Save");
-        save.setOnAction(e -> saveToFile());
-
-        SeparatorMenuItem divider = new SeparatorMenuItem();
-
-        MenuItem exit = new MenuItem("Exit");
-        exit.setOnAction(e -> Platform.exit());
-
-        file.getItems().addAll(save, divider, exit);
-
-        Menu edit = new Menu("Edit");
-        Menu about = new Menu("About");
-
-        menu.getMenus().addAll(file, edit, about);
-
-        return menu;
-    }
-
-    /**
-     * Creates table view.
-     *
-     * @return TableView.
-     */
-    private TableView<Item> createTableView() {
-        TableView<Item> table = new TableView<>();
-
-        TableColumn<Item, String> amount = new TableColumn<>("Amount");
-        amount.setCellValueFactory(new PropertyValueFactory<>("itemAmount"));
-        table.getColumns().add(amount);
-
-        TableColumn<Item, Integer> item = new TableColumn<>("Item");
-        item.setCellValueFactory(new PropertyValueFactory<>("itemName"));
-        table.getColumns().add(item);
-
-        // TODO: Load items or use default view
-        table.setItems(items);
-
-        return table;
     }
 
     /**
@@ -127,25 +223,8 @@ public class GUI extends Application {
      *
      * @return Scene.
      */
-    private Scene createSceneContainer() {
-        BorderPane panel = new BorderPane();
-
-        panel.setTop(createMenuBar());
-        panel.setCenter(createTableView());
-        panel.setBottom(new Label("Author: Joonas Lauhala"));
-
-        return new Scene(panel);
-    }
-
-    /**
-     * @see Application#init init
-     */
-    @Override
-    public void init() {
-        items = FXCollections.observableArrayList(
-            new Item(0, "Item 1"),
-            new Item(0, "Item 2")
-        );
+    private Scene createFXMLScene() throws Exception {
+        return new Scene(FXMLLoader.load(getClass().getResource("gui.fxml")));
     }
 
     /**
@@ -153,10 +232,22 @@ public class GUI extends Application {
      */
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Shopping List App");
-        stage.setScene(createSceneContainer());
-        stage.setOnCloseRequest(e -> Platform.exit());
-        stage.centerOnScreen();
-        stage.show();
+        try {
+            stage.setTitle("Shopping List App");
+            stage.setScene(createFXMLScene());
+            stage.setOnCloseRequest(e -> onCloseAction(null));
+            stage.centerOnScreen();
+            stage.show();
+        } catch (Exception e) {
+            Alert alert = new Alert(AlertType.ERROR);
+
+            alert.setTitle("Unknown error");
+            alert.setContentText(e.getMessage());
+            alert.setHeaderText(null);
+
+            alert.show();
+        }
+
+        window = stage;
     }
 }
