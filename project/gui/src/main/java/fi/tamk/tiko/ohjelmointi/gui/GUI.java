@@ -197,8 +197,6 @@ public class GUI extends Application {
 
         tableView.setEditable(true);
         tableView.setItems(items);
-
-        tableView.getSelectionModel().setCellSelectionEnabled(true);
     }
 
     private void onTableKeyPressEvent(KeyEvent event) {
@@ -206,28 +204,19 @@ public class GUI extends Application {
 
         switch (event.getCode()) {
             case INSERT:
-                items.add(new Item(1, "-"));
-                event.consume();
+                onInsertItemAction();
                 break;
 
             case DELETE:
-                int index = model.getSelectedIndex();
-
-                if (index != -1) {
-                    items.remove(index);
-                }
-
-                event.consume();
+                onDeleteItemAction();
                 break;
 
             case PAGE_UP:
                 model.selectFirst();
-                event.consume();
                 break;
 
             case PAGE_DOWN:
                 model.selectLast();
-                event.consume();
                 break;
 
             case TAB:
@@ -237,17 +226,13 @@ public class GUI extends Application {
                     model.selectNext();
                 }
 
-                event.consume();
                 break;
 
-            case ENTER:
-                if (event.isShiftDown()) {
-                    model.selectAboveCell();
-                } else {
-                    model.selectBelowCell();
-                }
+            default:
+                return;
+        }
 
-                event.consume();
+        event.consume();
     }
 
     private void onTableMouseClickEvent(MouseEvent event) {
