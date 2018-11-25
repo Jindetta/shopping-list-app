@@ -1,6 +1,7 @@
 package fi.tamk.tiko.ohjelmointi.json;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.Reader;
 
@@ -21,7 +22,35 @@ public class JSONReader implements AutoCloseable {
     /**
      * Stores {@link BufferedReader}.
      */
-    private BufferedReader reader;
+    private Object readable;
+
+    private boolean useReader(StringBuilder builder) throws IOException {
+        if (readable instanceof Reader) {
+            int character;
+
+            while ((character = ((Reader) readable).read()) != -1) {
+                builder.append((char) character);
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean useStream(StringBuilder builder) throws IOException {
+        if (readable instanceof InputStream) {
+            int character;
+
+            while ((character = ((InputStream) readable).read()) != -1) {
+                builder.append((char) character);
+            }
+
+            return true;
+        }
+
+        return false;
+    }
 
     /**
      * Reads next available JSONType from stream.
@@ -32,10 +61,9 @@ public class JSONReader implements AutoCloseable {
     public JSONType readObject() throws IOException {
         if (tokenizer == null) {
             StringBuilder contents = new StringBuilder();
-            String line = null;
 
-            while ((line = reader.readLine()) != null) {
-                contents.append(line);
+            if (!useReader(contents) && !useStream(contents)) {
+                throw new IllegalStateException("Illegal JSONReader state.");
             }
 
             tokenizer = new JSONTokenizer(contents.toString());
@@ -50,8 +78,12 @@ public class JSONReader implements AutoCloseable {
      * @param reader Reader object.
      * @see Reader
      */
-    public JSONReader(Reader reader) throws IOException {
-        this.reader = new BufferedReader(reader);
+    public JSONReader(Reader reader) {
+        this.readable = reader;
+    }
+
+    public JSONReader(InputStream stream) {
+        this.readable = stream;
     }
 
     /**
@@ -59,8 +91,10 @@ public class JSONReader implements AutoCloseable {
      */
     @Override
     public void close() throws Exception {
-        if (reader != null) {
-            reader.close();
+        if (readable instanceof InputStream) {
+            ((InputStream) readable).close();
+        } else if (readable instanceof Reader) {
+            ((Reader) readable).close();
         }
     }
 }
