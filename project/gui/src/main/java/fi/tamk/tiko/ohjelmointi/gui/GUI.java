@@ -117,20 +117,21 @@ public class GUI extends Application {
     }
 
     @FXML
-    private void onDropboxExportAction() {
-        String tokenKey;
-
+    private void onDropboxImportAction() {
         try {
-            try (JSONReader reader = new JSONReader(new FileReader(TOKEN_FILE))) {
-                tokenKey = reader.readObject().getAsString();
-            } catch (Exception e) {
-                tokenKey = DropboxManager.getAccessToken();
-            }
+            DropboxManager manager = new DropboxManager();
 
-            if (tokenKey != null) {
-                final String token = tokenKey;
+            new Thread(() -> manager.downloadFile(saveFile)).start();
+        } catch (Exception e) {
+            Alert alert = new Alert(AlertType.ERROR);
 
-                new Thread(() -> DropboxManager.uploadFile(DropboxManager.getClient(token), saveFile)).start();
+            alert.setTitle("File import from Dropbox failed");
+            alert.setContentText(e.getMessage());
+            alert.setHeaderText(null);
+
+            alert.show();
+        }
+    }
 
                 try (JSONWriter writer = new JSONWriter(new FileWriter(TOKEN_FILE))) {
                     writer.write(JSONType.createString(token));
