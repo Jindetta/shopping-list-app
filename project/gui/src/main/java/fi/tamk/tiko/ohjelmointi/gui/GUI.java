@@ -161,6 +161,23 @@ public class GUI extends Application {
     }
 
     @FXML
+    private void onInsertItemAction() {
+        int selected = tableView.getSelectionModel().getSelectedIndex();
+        Item item = new Item(1, "");
+
+        if (selected != -1) {
+            items.add(selected, item);
+        } else {
+            items.add(item);
+        }
+    }
+
+    @FXML
+    private void onDeleteItemAction() {
+        items.removeAll(tableView.getSelectionModel().getSelectedItems());
+    }
+
+    @FXML
     public void initialize() {
         saveFile = new File("list.json");
         items = loadFromFile(saveFile, true);
