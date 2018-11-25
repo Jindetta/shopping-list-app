@@ -114,6 +114,39 @@ public class GUI extends Application {
     }
 
     @FXML
+    private void onDropboxExportAction() {
+        String tokenKey;
+
+        try {
+            try (JSONReader reader = new JSONReader(new FileReader(TOKEN_FILE))) {
+                tokenKey = reader.readObject().getAsString();
+            } catch (Exception e) {
+                tokenKey = DropboxManager.getAccessToken();
+            }
+
+            if (tokenKey != null) {
+                final String token = tokenKey;
+
+                new Thread(() -> DropboxManager.uploadFile(DropboxManager.getClient(token), saveFile)).start();
+
+                try (JSONWriter writer = new JSONWriter(new FileWriter(TOKEN_FILE))) {
+                    writer.write(JSONType.createString(token));
+                } catch (Exception e) {
+
+                }
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(AlertType.ERROR);
+
+            alert.setTitle("File export to Dropbox failed");
+            alert.setContentText(e.getMessage());
+            alert.setHeaderText(null);
+
+            alert.show();
+        }
+    }
+
+    @FXML
     private void onCloseAction(ActionEvent event) {
         Platform.exit();
     }
