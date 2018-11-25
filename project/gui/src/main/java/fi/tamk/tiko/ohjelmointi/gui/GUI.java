@@ -91,8 +91,7 @@ public class GUI extends Application {
             ObservableList<Item> list = loadFromFile(file, false);
 
             if (list != null) {
-                items = list;
-                tableView.setItems(items);
+                tableView.setItems(items = list);
             }
         }
     }
