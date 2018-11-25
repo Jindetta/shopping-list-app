@@ -119,6 +119,11 @@ public class GUI extends Application {
     }
 
     @FXML
+    private void onSelectAllAction() {
+        items.forEach(item -> item.setItemMark(selectAllToggle.isSelected()));
+    }
+
+    @FXML
     public void initialize() {
         saveFile = new File("list.json");
         items = loadFromFile(saveFile, true);
