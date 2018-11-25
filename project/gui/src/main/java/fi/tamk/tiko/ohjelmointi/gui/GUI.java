@@ -57,6 +57,11 @@ public class GUI extends Application {
     /**
      * 
      */
+    private static final String TOKEN_FILE = "token.json";
+
+    /**
+     * 
+     */
     @FXML
     private TableView<Item> tableView;
 
