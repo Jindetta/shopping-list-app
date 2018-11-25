@@ -2,6 +2,7 @@ package fi.tamk.tiko.ohjelmointi.json;
 
 import java.io.Writer;
 import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * Writes JSON formatted data.
@@ -15,7 +16,35 @@ public class JSONWriter implements AutoCloseable {
     /**
      * Stores {@link Writer}.
      */
-    private Writer writer;
+    private Object writable;
+
+    /**
+     * 
+     * @return
+     */
+    private boolean useWriter(String data) throws IOException {
+        if (writable instanceof Writer) {
+            ((Writer) writable).write(data);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    private boolean useStream(String data) throws IOException {
+        if (writable instanceof OutputStream) {
+            ((OutputStream) writable).write(data.getBytes());
+
+            return true;
+        }
+
+        return false;
+    }
 
     /**
      * Writes JSON data type.
@@ -24,7 +53,11 @@ public class JSONWriter implements AutoCloseable {
      * @throws IOException On write operation failure.
      */
     public void write(JSONType value) throws IOException {
-        writer.write(value.toString());
+        final String data = value.toString();
+
+        if (!useWriter(data) && !useStream(data)) {
+            throw new IllegalStateException("Illegal JSONWriter state.");
+        }
     }
 
     /**
@@ -102,7 +135,14 @@ public class JSONWriter implements AutoCloseable {
      * @param writer Writer object.
      */
     public JSONWriter(Writer writer) {
-        this.writer = writer;
+        this.writable = writer;
+    }
+
+    /**
+     * 
+     */
+    public JSONWriter(OutputStream stream) {
+        this.writable = stream;
     }
 
     /**
@@ -110,8 +150,10 @@ public class JSONWriter implements AutoCloseable {
      */
     @Override
     public void close() throws Exception {
-        if (writer != null) {
-            writer.close();
+        if (writable instanceof OutputStream) {
+            ((OutputStream) writable).close();
+        } else if (writable instanceof Writer) {
+            ((Writer) writable).close();
         }
     }
 }
