@@ -133,12 +133,12 @@ public class GUI extends Application {
         }
     }
 
-                try (JSONWriter writer = new JSONWriter(new FileWriter(TOKEN_FILE))) {
-                    writer.write(JSONType.createString(token));
-                } catch (Exception e) {
+    @FXML
+    private void onDropboxExportAction() {
+        try {
+            DropboxManager manager = new DropboxManager();
 
-                }
-            }
+            new Thread(() -> manager.uploadFile(saveFile)).start();
         } catch (Exception e) {
             Alert alert = new Alert(AlertType.ERROR);
 
