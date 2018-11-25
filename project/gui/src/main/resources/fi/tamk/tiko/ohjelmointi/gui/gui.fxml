@@ -39,7 +39,7 @@
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <Menu mnemonicParsing="false" text="Import/Export">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Import from Dropbox" />
+                        <MenuItem mnemonicParsing="false" onAction="#onDropboxImportAction" text="Import from Dropbox" />
                         <MenuItem mnemonicParsing="false" onAction="#onDropboxExportAction" text="Export to Dropbox" />
                     </items>
                   </Menu>
@@ -69,8 +69,8 @@
                      </accelerator>
                   </MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Insert item" />
-              <MenuItem mnemonicParsing="false" text="Delete item" />
+                  <MenuItem mnemonicParsing="false" onAction="#onInsertItemAction" text="Insert item" />
+              <MenuItem mnemonicParsing="false" onAction="#onDeleteItemAction" text="Delete item" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -89,8 +89,8 @@
                   <CheckBox fx:id="selectAllToggle" mnemonicParsing="false" onAction="#onSelectAllAction" />
                </graphic>
             </TableColumn>
-            <TableColumn fx:id="columnItem" minWidth="150.0" prefWidth="-1.0" resizable="false" text="Item" />
-          <TableColumn fx:id="columnAmount" maxWidth="120.0" minWidth="120.0" prefWidth="-1.0" resizable="false" text="Amount" />
+            <TableColumn fx:id="columnItem" minWidth="-1.0" prefWidth="-1.0" resizable="false" text="Item" />
+          <TableColumn fx:id="columnAmount" maxWidth="100.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="Amount" />
         </columns>
       </TableView>
    </center>
