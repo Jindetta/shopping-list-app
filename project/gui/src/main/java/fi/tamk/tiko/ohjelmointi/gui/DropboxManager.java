@@ -48,9 +48,7 @@ public class DropboxManager {
     }
 
     public void downloadFile(File file) {
-        try {
-            FileOutputStream output = new FileOutputStream(file);
-
+        try (FileOutputStream output = new FileOutputStream(file)) {
             client.files().downloadBuilder("/list.json").download(output);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
