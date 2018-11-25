@@ -18,6 +18,7 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
@@ -180,6 +181,7 @@ public class GUI extends Application {
         columnAmount.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
         tableView.setOnKeyPressed(this::onTableKeyPressEvent);
+        tableView.setOnMouseClicked(this::onTableMouseClickEvent);
 
         tableView.setEditable(true);
         tableView.setItems(items);
@@ -234,7 +236,11 @@ public class GUI extends Application {
                 }
 
                 event.consume();
-                break;
+    }
+
+    private void onTableMouseClickEvent(MouseEvent event) {
+        if (event.getClickCount() >= 2) {
+            onInsertItemAction();
         }
     }
 
