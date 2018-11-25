@@ -13,8 +13,7 @@ public class JSONFileTest extends Assertions {
     @Test
     public void testJSONReader() {
         System.out.println("--[[ JSON Reader ]]--");
-        ClassLoader loader = getClass().getClassLoader();
-        String path = loader.getResource("numberArray.json").getPath();
+        String path = getClass().getResource("numberArray.json").getPath();
         JSONType value = null;
 
         try (JSONReader reader = new JSONReader(new FileReader(path))) {
@@ -42,8 +41,7 @@ public class JSONFileTest extends Assertions {
     @Test
     public void testJSONWriter() {
         System.out.println("--[[ JSON Writer ]]--");
-        ClassLoader loader = getClass().getClassLoader();
-        String path = loader.getResource("").getPath();
+        String path = getClass().getResource("").getPath();
         String file = path + "savedNumberArray.json";
 
         JSONArray array = new JSONArray();
