@@ -40,7 +40,7 @@
                   <Menu mnemonicParsing="false" text="Import/Export">
                     <items>
                         <MenuItem mnemonicParsing="false" text="Import from Dropbox" />
-                        <MenuItem mnemonicParsing="false" text="Export to Dropbox" />
+                        <MenuItem mnemonicParsing="false" onAction="#onDropboxExportAction" text="Export to Dropbox" />
                     </items>
                   </Menu>
                   <SeparatorMenuItem mnemonicParsing="false" />
@@ -86,7 +86,7 @@
         <columns>
           <TableColumn fx:id="columnMark" maxWidth="30.0" minWidth="30.0" prefWidth="-1.0" resizable="false" sortable="false">
                <graphic>
-                  <CheckBox mnemonicParsing="false" />
+                  <CheckBox fx:id="selectAllToggle" mnemonicParsing="false" onAction="#onSelectAllAction" />
                </graphic>
             </TableColumn>
             <TableColumn fx:id="columnItem" minWidth="150.0" prefWidth="-1.0" resizable="false" text="Item" />
