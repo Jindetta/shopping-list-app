@@ -75,8 +75,7 @@ public class GUI extends Application {
 
     @FXML
     private void onCreateAction() {
-        items = FXCollections.observableArrayList();
-        tableView.setItems(items);
+        tableView.setItems(items = FXCollections.observableArrayList());
     }
 
     @FXML
