@@ -174,6 +174,8 @@ public class GUI extends Application {
         columnAmount.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
         tableView.setOnKeyPressed(this::onTableKeyPressEvent);
+
+        tableView.setEditable(true);
         tableView.setItems(items);
     }
 
