@@ -69,6 +69,9 @@ public class GUI extends Application {
     private TableColumn<Item, String> columnItem;
 
     @FXML
+    private CheckBox selectAllToggle;
+
+    @FXML
     private void onCreateAction() {
         items = FXCollections.observableArrayList();
         tableView.setItems(items);
