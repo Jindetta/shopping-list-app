@@ -177,6 +177,8 @@ public class GUI extends Application {
 
         tableView.setEditable(true);
         tableView.setItems(items);
+
+        tableView.getSelectionModel().setCellSelectionEnabled(true);
     }
 
     private void onTableKeyPressEvent(KeyEvent event) {
