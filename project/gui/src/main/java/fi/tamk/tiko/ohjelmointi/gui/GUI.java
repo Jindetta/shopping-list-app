@@ -188,18 +188,52 @@ public class GUI extends Application {
     }
 
     private void onTableKeyPressEvent(KeyEvent event) {
+        TableViewSelectionModel<Item> model = tableView.getSelectionModel();
+
         switch (event.getCode()) {
             case INSERT:
                 items.add(new Item(1, "-"));
+                event.consume();
                 break;
 
             case DELETE:
-                int index = tableView.getSelectionModel().getSelectedIndex();
+                int index = model.getSelectedIndex();
 
                 if (index != -1) {
                     items.remove(index);
                 }
 
+                event.consume();
+                break;
+
+            case PAGE_UP:
+                model.selectFirst();
+                event.consume();
+                break;
+
+            case PAGE_DOWN:
+                model.selectLast();
+                event.consume();
+                break;
+
+            case TAB:
+                if (event.isShiftDown()) {
+                    model.selectPrevious();
+                } else {
+                    model.selectNext();
+                }
+
+                event.consume();
+                break;
+
+            case ENTER:
+                if (event.isShiftDown()) {
+                    model.selectAboveCell();
+                } else {
+                    model.selectBelowCell();
+                }
+
+                event.consume();
                 break;
         }
     }
