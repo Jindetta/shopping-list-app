@@ -40,7 +40,7 @@ public class DropboxManager {
     private static final String TOKEN_FILE = "userToken.dat";
 
     public void uploadFile(File file) {
-        try (InputStream input = new FileInputStream(file)) {
+        try (FileInputStream input = new FileInputStream(file)) {
             client.files().uploadBuilder("/list.json").withMode(WriteMode.OVERWRITE).uploadAndFinish(input);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
