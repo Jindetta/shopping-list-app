@@ -183,6 +183,7 @@ public class GUI extends Application {
         items = loadFromFile(saveFile, true);
 
         columnItem.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+        columnItem.prefWidthProperty().bind(tableView.widthProperty().subtract(132));
         columnItem.setCellFactory(TextFieldTableCell.forTableColumn());
 
         columnMark.setCellValueFactory(new PropertyValueFactory<>("itemMark"));
