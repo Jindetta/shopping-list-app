@@ -25,10 +25,10 @@ public class JSONParseTest extends Assertions {
             final String VALUE = String.format("item%d", i + 1);
 
             assertEquals(VALUE, array.get(i).getAsString());
-            System.out.printf("Success: \"%s\" was found at [%d]%n", VALUE, i);
         }
 
         assertNull(tokenizer.parse());
+        System.out.println("Success: All tests completed");
     }
 
     /**
@@ -54,10 +54,10 @@ public class JSONParseTest extends Assertions {
 
             assertTrue(array.containsKey(KEY));
             assertEquals(VALUE, array.get(KEY).getAsString());
-            System.out.printf("Success: \"%s\" was found at [\"%s\"]%n", VALUE, KEY);
         }
 
         assertNull(tokenizer.parse());
+        System.out.println("Success: All tests completed");
     }
 
     /**
@@ -84,8 +84,7 @@ public class JSONParseTest extends Assertions {
         assertEquals(json.get("number"), array.get("number"));
 
         assertNull(tokenizer.parse());
-
-        System.out.println("Success: Valid JSON information");
+        System.out.println("Success: All tests completed");
     }
 
     /**
@@ -113,8 +112,7 @@ public class JSONParseTest extends Assertions {
         }
 
         assertNull(tokenizer.parse());
-
-        System.out.println("Success: Valid JSON information");
+        System.out.println("Success: All tests completed");
     }
 
     /**
@@ -130,6 +128,6 @@ public class JSONParseTest extends Assertions {
         assertThrows(JSONException.class, () -> new JSONTokenizer("{\"key\":}").parse());
         assertThrows(JSONException.class, () -> new JSONTokenizer("\t\n\r [null, 0,,1]").parse());
 
-        System.out.println("Success: All exceptions thrown");
+        System.out.println("Success: All tests completed");
     }
 }
