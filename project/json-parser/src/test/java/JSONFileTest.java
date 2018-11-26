@@ -4,6 +4,7 @@ import fi.tamk.tiko.ohjelmointi.json.*;
 
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStream;
 
 public class JSONFileTest extends Assertions {
 
@@ -31,8 +32,9 @@ public class JSONFileTest extends Assertions {
 
         for (int i = 0; i < SIZE; i++) {
             assertEquals(Long.valueOf(i), array.get(i).getAsNumber());
-            System.out.printf("Success: Index (%d) was a match%n", i);
         }
+
+        System.out.println("Success: All tests completed");
     }
 
     /**
@@ -59,6 +61,6 @@ public class JSONFileTest extends Assertions {
             fail("Cannot write to resource: " + file);
         }
 
-        System.out.println("Success: savedNumberArray.json was saved");
+        System.out.println("Success: All tests completed");
     }
 }
