@@ -120,8 +120,8 @@ public class JSONSingleUnitTest extends Assertions {
     public void testJSONStringUnit() {
         System.out.println("--[[ Single Unit: String ]]--");
 
-        final String[] VALID_VALUES = {"\\\\", "_\\u2E3A", "\\f\\t", "Ä#null", "\\\'\\\"(o^o)\\\"\\\'"};
-        final String[] RESULTS = {"\\", "_\u2E3A", "\f\t", "Ä#null", "\'\"(o^o)\"\'"};
+        final String[] VALID_VALUES = {"\\\\", "_\\u2E3A", "\\f\\t", "😂ÄäåÅöÖòóáàÁÀ¨~#[]{}:,\\u2713", "\\\'\\\"(o^o)\\\"\\\'"};
+        final String[] RESULTS = {"\\", "_\u2E3A", "\f\t", "😂ÄäåÅöÖòóáàÁÀ¨~#[]{}:,✓", "\'\"(o^o)\"\'"};
 
         for (int i = 0; i < VALID_VALUES.length; i++) {
             JSONType string = JSONType.createString(RESULTS[i]);
