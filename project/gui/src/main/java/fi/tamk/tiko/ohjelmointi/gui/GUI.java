@@ -226,9 +226,17 @@ public class GUI extends Application {
 
             case TAB:
                 if (event.isShiftDown()) {
-                    model.selectPrevious();
+                    if (model.isSelected(0)) {
+                        model.selectLast();
+                    } else {
+                        model.selectPrevious();
+                    }
                 } else {
-                    model.selectNext();
+                    if (model.isSelected(items.size() - 1)) {
+                        model.selectFirst();
+                    } else {
+                        model.selectNext();
+                    }
                 }
 
                 break;
