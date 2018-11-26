@@ -18,7 +18,6 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
@@ -30,6 +29,7 @@ import javafx.util.converter.IntegerStringConverter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.stream.Collectors;
 
 /**
  * Constructs the GUI for Shopping List application.
