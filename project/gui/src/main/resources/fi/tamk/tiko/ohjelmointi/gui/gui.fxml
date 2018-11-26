@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -9,10 +10,12 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tamk.tiko.ohjelmointi.gui.GUI">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tamk.tiko.ohjelmointi.gui.GUI">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -84,13 +87,13 @@
    <center>
       <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="columnMark" maxWidth="30.0" minWidth="30.0" prefWidth="-1.0" resizable="false" sortable="false">
+          <TableColumn fx:id="columnMark" maxWidth="30.0" minWidth="30.0" prefWidth="-1.0" reorderable="false" resizable="false" sortable="false">
                <graphic>
                   <CheckBox fx:id="selectAllToggle" mnemonicParsing="false" onAction="#onSelectAllAction" />
                </graphic>
             </TableColumn>
-            <TableColumn fx:id="columnItem" minWidth="-1.0" prefWidth="-1.0" resizable="false" text="Item" />
-          <TableColumn fx:id="columnAmount" maxWidth="100.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="Amount" />
+          <TableColumn fx:id="columnAmount" maxWidth="100.0" minWidth="100.0" prefWidth="-1.0" reorderable="false" resizable="false" text="Amount" />
+         <TableColumn fx:id="columnItem" minWidth="-1.0" prefWidth="-1.0" reorderable="false" resizable="false" text="Item" />
         </columns>
       </TableView>
    </center>
@@ -101,4 +104,16 @@
          </BorderPane.margin>
       </Label>
    </bottom>
+   <right>
+      <TitledPane animated="false" collapsible="false" contentDisplay="CENTER" prefHeight="500.0" prefWidth="150.0" text="Actions" BorderPane.alignment="TOP_CENTER">
+         <content>
+            <VBox spacing="10.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onInsertItemAction" text="Add new item" />
+                  <Button mnemonicParsing="false" onAction="#onDeleteAllAction" text="Remove selected" />
+               </children>
+            </VBox>
+         </content>
+      </TitledPane>
+   </right>
 </BorderPane>
