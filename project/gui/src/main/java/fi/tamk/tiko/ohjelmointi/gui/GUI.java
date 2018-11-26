@@ -178,6 +178,12 @@ public class GUI extends Application {
     }
 
     @FXML
+    private void onDeleteAllAction() {
+        items.removeAll(items.stream().filter(item -> item.getItemMark()).collect(Collectors.toList()));
+        selectAllToggle.setSelected(false);
+    }
+
+    @FXML
     public void initialize() {
         saveFile = new File("list.json");
         items = loadFromFile(saveFile, true);
