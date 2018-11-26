@@ -199,7 +199,6 @@ public class GUI extends Application {
         columnAmount.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
         tableView.setOnKeyPressed(this::onTableKeyPressEvent);
-        tableView.setOnMouseClicked(this::onTableMouseClickEvent);
 
         tableView.setEditable(true);
         tableView.setItems(items);
@@ -239,12 +238,6 @@ public class GUI extends Application {
         }
 
         event.consume();
-    }
-
-    private void onTableMouseClickEvent(MouseEvent event) {
-        if (event.getClickCount() >= 2) {
-            onInsertItemAction();
-        }
     }
 
     /**
