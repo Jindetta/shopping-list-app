@@ -38,6 +38,35 @@ public class JSONFileTest extends Assertions {
     }
 
     /**
+     * Test JSON file reading.
+     */
+    @Test
+    public void testJSONReaderStream() {
+        System.out.println("--[[ JSON Reader from Stream ]]--");
+        InputStream stream = getClass().getResourceAsStream("numberArray.json");
+        JSONType value = null;
+
+        try (JSONReader reader = new JSONReader(stream)) {
+            value = reader.readObject();
+
+            assertTrue(value instanceof JSONType);
+            assertNull(reader.readObject());
+        } catch (Exception e) {
+            fail("Cannot load resource from stream");
+        }
+
+        final int SIZE = 10;
+        JSONArray array = value.getAsArray();
+        assertEquals(SIZE, array.size());
+
+        for (int i = 0; i < SIZE; i++) {
+            assertEquals(Long.valueOf(i), array.get(i).getAsNumber());
+        }
+
+        System.out.println("Success: All tests completed");
+    }
+
+    /**
      * Test JSON file writing.
      */
     @Test
