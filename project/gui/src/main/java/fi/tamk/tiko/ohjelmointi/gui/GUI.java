@@ -151,7 +151,7 @@ public class GUI extends Application {
     }
 
     @FXML
-    private void onCloseAction(ActionEvent event) {
+    private void onCloseAction() {
         Platform.exit();
     }
 
@@ -329,8 +329,8 @@ public class GUI extends Application {
     public void start(Stage stage) {
         try {
             stage.setTitle("Shopping List App");
+            stage.setOnCloseRequest(e -> onCloseAction());
             stage.setScene(createFXMLScene());
-            stage.setOnCloseRequest(e -> onCloseAction(null));
             stage.centerOnScreen();
             stage.show();
         } catch (Exception e) {
