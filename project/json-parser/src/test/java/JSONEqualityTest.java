@@ -2,7 +2,7 @@ import org.junit.jupiter.api.*;
 
 import fi.tamk.tiko.ohjelmointi.json.*;
 
-public class JSONParseTest extends Assertions {
+public class JSONEqualityTest extends Assertions {
 
     /**
      *
