@@ -2,7 +2,7 @@ package fi.tamk.tiko.ohjelmointi.json.map;
 
 import fi.tamk.tiko.ohjelmointi.json.*;
 
-import java.lang.reflect.*;
+import java.lang.reflect.Field;
 
 /**
  *
