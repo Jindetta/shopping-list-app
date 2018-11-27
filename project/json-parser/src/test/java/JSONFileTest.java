@@ -9,6 +9,53 @@ import java.io.InputStream;
 public class JSONFileTest extends Assertions {
 
     /**
+     * Replicates person info data from JSON.
+     *
+     * @return JSONObject.
+     */
+    private JSONObject createPersonInformation() {
+        JSONObject personInfo = new JSONObject();
+
+        personInfo.put("firstName", JSONType.createString("John"));
+        personInfo.put("lastName", JSONType.createString("Smith"));
+        personInfo.put("isAlive", JSONType.createBoolean(true));
+        personInfo.put("age", JSONType.createNumber(27L));
+
+        JSONObject addressInfo = new JSONObject();
+
+        addressInfo.put("streetAddress", JSONType.createString("21 2nd Street"));
+        addressInfo.put("city", JSONType.createString("New York"));
+        addressInfo.put("state", JSONType.createString("NY"));
+        addressInfo.put("postalCode", JSONType.createString("10021-3100"));
+
+        personInfo.put("address", JSONType.createObject(addressInfo));
+
+        JSONArray phoneInfo = new JSONArray();
+
+        JSONObject homePhone = new JSONObject();
+        homePhone.put("type", JSONType.createString("home"));
+        homePhone.put("number", JSONType.createString("212 555-1234"));
+
+        JSONObject officePhone = new JSONObject();
+        officePhone.put("type", JSONType.createString("office"));
+        officePhone.put("number", JSONType.createString("646 555-4567"));
+        
+        JSONObject mobilePhone = new JSONObject();
+        mobilePhone.put("type", JSONType.createString("mobile"));
+        mobilePhone.put("number", JSONType.createString("123 456-7890"));
+
+        phoneInfo.add(JSONType.createObject(homePhone));
+        phoneInfo.add(JSONType.createObject(officePhone));
+        phoneInfo.add(JSONType.createObject(mobilePhone));
+
+        personInfo.put("phoneNumbers", JSONType.createArray(phoneInfo));
+        personInfo.put("children", JSONType.createArray(new JSONArray()));
+        personInfo.put("spouse", JSONType.createNull());
+
+        return personInfo;
+    }
+
+    /**
      * Test JSON file reading.
      */
     @Test
