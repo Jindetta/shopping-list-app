@@ -8,6 +8,5 @@ package fi.tamk.tiko.ohjelmointi.json.mappable;
  * @since   11
  */
 public interface JSONMappable {
-    void fromJSONString(String jsonData);
-    String toJSONString();
+    boolean isJSONMappable();
 }
