@@ -5,6 +5,7 @@ import fi.tamk.tiko.ohjelmointi.json.*;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStream;
+import java.io.FileOutputStream;
 
 public class JSONFileTest extends Assertions {
 
@@ -128,6 +129,24 @@ public class JSONFileTest extends Assertions {
             writer.writeArray(array);
         } catch (Exception e) {
             fail("Cannot write to resource: " + file);
+        }
+
+        System.out.println("Success: All tests completed");
+    }
+
+    /**
+     * Test JSON file writing to stream.
+     */
+    @Test
+    public void testJSONWriterStream() {
+        System.out.println("--[[ JSON Writer to Stream ]]--");
+        String path = getClass().getResource("").getPath();
+        String file = path + "savedPersonInfo.json";
+
+        try (JSONWriter writer = new JSONWriter(new FileOutputStream(file))) {
+            writer.writeObject(createPersonInformation());
+        } catch (Exception e) {
+            fail("Cannot save resource as stream");
         }
 
         System.out.println("Success: All tests completed");
