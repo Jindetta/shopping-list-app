@@ -85,12 +85,12 @@ public class JSONFileTest extends Assertions {
     }
 
     /**
-     * Test JSON file reading.
+     * Test JSON file reading from stream.
      */
     @Test
     public void testJSONReaderStream() {
         System.out.println("--[[ JSON Reader from Stream ]]--");
-        InputStream stream = getClass().getResourceAsStream("numberArray.json");
+        InputStream stream = getClass().getResourceAsStream("personInfo.json");
         JSONType value = null;
 
         try (JSONReader reader = new JSONReader(stream)) {
@@ -102,14 +102,7 @@ public class JSONFileTest extends Assertions {
             fail("Cannot load resource from stream");
         }
 
-        final int SIZE = 10;
-        JSONArray array = value.getAsArray();
-        assertEquals(SIZE, array.size());
-
-        for (int i = 0; i < SIZE; i++) {
-            assertEquals(Long.valueOf(i), array.get(i).getAsNumber());
-        }
-
+        assertEquals(createPersonInformation(), value.getAsObject());
         System.out.println("Success: All tests completed");
     }
 
