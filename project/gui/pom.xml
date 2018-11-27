@@ -28,6 +28,12 @@
             <version>${dropbox.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-agroal</artifactId>
+            <version>${hibernate.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
             <groupId>fi.tamk.tiko.ohjelmointi.json</groupId>
             <artifactId>json-parser</artifactId>
             <version>${project.parent.version}</version>
