@@ -1,8 +1,28 @@
 import org.junit.jupiter.api.*;
 
 import fi.tamk.tiko.ohjelmointi.json.*;
+import fi.tamk.tiko.ohjelmointi.json.map.*;
 
 public class JSONEqualityTest extends Assertions {
+
+    /**
+     * 
+     */
+    @Test
+    public void testJSONMapper() {
+        System.out.println("--[[ JSONMapper ]]--");
+        final String PERSON_NAME = "Marja-Liisa";
+
+        JSONObject personData = new JSONObject();
+        personData.put("name", JSONType.createString(PERSON_NAME));
+
+        Person person = JSONMapper.map(new Person(), personData);
+
+        assertTrue(person instanceof Person);
+        assertSame(PERSON_NAME, person.name);
+
+        System.out.println("Success: All tests completed");
+    }
 
     /**
      *
@@ -129,5 +149,24 @@ public class JSONEqualityTest extends Assertions {
         assertThrows(JSONException.class, () -> new JSONTokenizer("\t\n\r [null, 0,,1]").parse());
 
         System.out.println("Success: All tests completed");
+    }
+
+    /**
+     * 
+     */
+    private class Person implements JSONMappable {
+
+        /**
+         *
+         */
+        public String name;
+
+        /**
+         *
+         */
+        @Override
+        public boolean isJSONMappable() {
+            return true;
+        }
     }
 }
