@@ -1,4 +1,4 @@
-package fi.tamk.tiko.ohjelmointi.json.mappable;
+package fi.tamk.tiko.ohjelmointi.json.map;
 
 /**
  *
