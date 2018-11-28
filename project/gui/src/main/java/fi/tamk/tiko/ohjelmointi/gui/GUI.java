@@ -186,6 +186,11 @@ public class GUI extends Application {
     }
 
     @FXML
+    private void onShowHelpAction() {
+        showAlert(AlertType.INFORMATION, "About", "Shopping List Application by Joonas Lauhala.");
+    }
+
+    @FXML
     public void initialize() {
         saveFile = new File("list.json");
         items = loadFromFile(saveFile, true);
