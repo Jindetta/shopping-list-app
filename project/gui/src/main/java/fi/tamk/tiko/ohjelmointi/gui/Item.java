@@ -1,9 +1,9 @@
 package fi.tamk.tiko.ohjelmointi.gui;
 
+import javafx.beans.property.LongProperty;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -24,7 +24,7 @@ public class Item {
     /**
      * Stores item amount.
      */
-    private IntegerProperty itemAmount;
+    private LongProperty itemAmount;
 
     /**
      * Stores item checkmark.
@@ -67,7 +67,7 @@ public class Item {
      *
      * @return Amount as Integer.
      */
-    public int getItemAmount() {
+    public Long getItemAmount() {
         return itemAmountProperty().get();
     }
 
@@ -76,7 +76,7 @@ public class Item {
      *
      * @param value Amount value.
      */
-    public void setItemAmount(int value) {
+    public void setItemAmount(Long value) {
         itemAmountProperty().set(value);
     }
 
@@ -85,9 +85,9 @@ public class Item {
      *
      * @return IntegerProperty.
      */
-    public IntegerProperty itemAmountProperty() {
+    public LongProperty itemAmountProperty() {
         if (itemAmount == null) {
-            itemAmount = new SimpleIntegerProperty(this, "Amount");
+            itemAmount = new SimpleLongProperty(this, "Amount");
         }
 
         return itemAmount;
@@ -118,7 +118,7 @@ public class Item {
      */
     public BooleanProperty itemMarkProperty() {
         if (itemMark == null) {
-            itemMark = new SimpleBooleanProperty(this, "Amount");
+            itemMark = new SimpleBooleanProperty(this, "Marked");
         }
 
         return itemMark;
@@ -137,7 +137,7 @@ public class Item {
      * @param amount Item amount.
      * @param item   Item name.
      */
-    public Item(int amount, String item) {
+    public Item(Long amount, String item) {
         setItemAmount(amount);
         setItemMark(false);
         setItemName(item);

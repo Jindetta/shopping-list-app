@@ -2,7 +2,7 @@ package fi.tamk.tiko.ohjelmointi.gui;
 
 import fi.tamk.tiko.ohjelmointi.json.*;
 
-import javafx.util.converter.IntegerStringConverter;
+import javafx.util.converter.LongStringConverter;
 import java.util.stream.Collectors;
 
 import javafx.application.Application;
@@ -68,7 +68,7 @@ public class GUI extends Application {
     private TableColumn<Item, Boolean> columnMark;
 
     @FXML
-    private TableColumn<Item, Integer> columnAmount;
+    private TableColumn<Item, Long> columnAmount;
 
     @FXML
     private TableColumn<Item, String> columnItem;
@@ -165,7 +165,7 @@ public class GUI extends Application {
     @FXML
     private void onInsertItemAction() {
         int selected = tableView.getSelectionModel().getSelectedIndex();
-        Item item = new Item(1, "");
+        Item item = new Item();
 
         if (selected != -1) {
             items.add(selected, item);
@@ -203,7 +203,7 @@ public class GUI extends Application {
         columnMark.setCellFactory(f -> new CheckBoxTableCell<>());
 
         columnAmount.setCellValueFactory(new PropertyValueFactory<>("itemAmount"));
-        columnAmount.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        columnAmount.setCellFactory(TextFieldTableCell.forTableColumn(new LongStringConverter()));
 
         tableView.setOnKeyPressed(this::onTableKeyPressEvent);
 
