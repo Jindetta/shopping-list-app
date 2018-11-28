@@ -55,7 +55,7 @@ public class JSONEqualityTest extends Assertions {
      *
      */
     @Test
-    public void testJSONObject() {
+    public void testJSONObjectTokenizer() {
         System.out.println("--[[ Tokenize JSONObject ]]--");
         final String JSON = "{'key1': 'item1', 'key2': 'item2', 'key3': 'item3'}";
 
