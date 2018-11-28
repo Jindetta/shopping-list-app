@@ -127,22 +127,6 @@ public class JSONEqualityTest extends Assertions {
     /**
      * 
      */
-    @Test
-    public void testJSONExceptions() {
-        System.out.println("--[[ Exceptions ]]--");
-
-        assertThrows(JSONException.class, () -> new JSONTokenizer("0 0").parse());
-        assertThrows(JSONException.class, () -> new JSONTokenizer("'string',").parse());
-        assertThrows(JSONException.class, () -> new JSONTokenizer("'stri\ng'").parse());
-        assertThrows(JSONException.class, () -> new JSONTokenizer("{\"key\":}").parse());
-        assertThrows(JSONException.class, () -> new JSONTokenizer("\t\n\r [null, 0,,1]").parse());
-
-        System.out.println("Success: All tests completed");
-    }
-
-    /**
-     * 
-     */
     private class Person implements JSONMappable {
 
         /**
