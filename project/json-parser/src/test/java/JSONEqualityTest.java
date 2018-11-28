@@ -40,6 +40,7 @@ public class JSONEqualityTest extends Assertions {
 
         JSONArray array = object.getAsArray();
         assertEquals(3, array.size());
+        assertNull(tokenizer.parse());
 
         for (int i = 0; i < array.size(); i++) {
             final String VALUE = String.format("item%d", i + 1);
@@ -47,7 +48,6 @@ public class JSONEqualityTest extends Assertions {
             assertEquals(VALUE, array.get(i).getAsString());
         }
 
-        assertNull(tokenizer.parse());
         System.out.println("Success: All tests completed");
     }
 
@@ -67,6 +67,7 @@ public class JSONEqualityTest extends Assertions {
 
         JSONObject array = object.getAsObject();
         assertEquals(3, array.size());
+        assertNull(tokenizer.parse());
 
         for (int i = 0; i < array.size(); i++) {
             final String KEY = String.format("key%d", i + 1);
@@ -76,7 +77,6 @@ public class JSONEqualityTest extends Assertions {
             assertEquals(VALUE, array.get(KEY).getAsString());
         }
 
-        assertNull(tokenizer.parse());
         System.out.println("Success: All tests completed");
     }
 
@@ -96,14 +96,9 @@ public class JSONEqualityTest extends Assertions {
 
         assertTrue(object instanceof JSONType);
         assertEquals(JSONTypes.OBJECT, object.getType());
-
-        JSONObject array = object.getAsObject();
-        assertEquals(2, array.size());
-
-        assertEquals(json.get("key"), array.get("key"));
-        assertEquals(json.get("number"), array.get("number"));
-
+        assertEquals(json, object.getAsObject());
         assertNull(tokenizer.parse());
+
         System.out.println("Success: All tests completed");
     }
 
@@ -123,15 +118,9 @@ public class JSONEqualityTest extends Assertions {
 
         assertTrue(object instanceof JSONType);
         assertEquals(JSONTypes.ARRAY, object.getType());
-
-        JSONArray array = object.getAsArray();
-        assertEquals(2, array.size());
-
-        for (int i = 0; i < array.size(); i++) {
-            assertEquals(json.get(i), array.get(i));
-        }
-
+        assertEquals(json, object.getAsArray());
         assertNull(tokenizer.parse());
+
         System.out.println("Success: All tests completed");
     }
 
