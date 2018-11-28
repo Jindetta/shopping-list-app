@@ -28,7 +28,7 @@ public class JSONEqualityTest extends Assertions {
      *
      */
     @Test
-    public void testJSONArray() {
+    public void testJSONArrayTokenizer() {
         System.out.println("--[[ Tokenize JSONArray ]]--");
         final String JSON = "['item1', 'item2', 'item3']";
 
