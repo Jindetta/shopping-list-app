@@ -84,7 +84,7 @@ public class JSONEqualityTest extends Assertions {
      *
      */
     @Test
-    public void testJSONObjectWrite() {
+    public void testJSONObjectEquality() {
         System.out.println("--[[ Write JSONObject ]]--");
 
         JSONObject json = new JSONObject();
