@@ -86,6 +86,7 @@ public class GUI extends Application {
 
         fileChooser.setTitle("Open shopping list file");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
 
         File file = fileChooser.showOpenDialog(window);
 
