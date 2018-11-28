@@ -126,6 +126,13 @@ public class Item {
 
     /**
      * Overrides default constructor.
+     */
+    public Item() {
+        this(0L, "-");
+    }
+
+    /**
+     * Overrides default constructor.
      *
      * @param amount Item amount.
      * @param item   Item name.
