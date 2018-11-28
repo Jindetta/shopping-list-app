@@ -106,7 +106,7 @@ public class JSONEqualityTest extends Assertions {
      *
      */
     @Test
-    public void testJSONArrayWrite() {
+    public void testJSONArrayEquality() {
         System.out.println("--[[ Write JSONArray ]]--");
 
         JSONArray json = new JSONArray();
