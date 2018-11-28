@@ -101,15 +101,15 @@ public class DropboxManager {
 
                 Desktop desktop = java.awt.Desktop.getDesktop();
                 desktop.browse(new URI(webAuth.authorize(webAuthRequest)));
-    
+
                 TextInputDialog tokenInput = new TextInputDialog();
-    
+
                 tokenInput.setTitle("Dropbox Authentication");
                 tokenInput.setContentText("Token:");
                 tokenInput.setHeaderText(null);
-    
+
                 Optional<String> code = tokenInput.showAndWait();
-    
+
                 if (code.isPresent()) {
                     DbxAuthFinish authFinish = webAuth.finishFromCode(code.get());
                     accessToken = authFinish.getAccessToken();
