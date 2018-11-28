@@ -17,41 +17,41 @@ public class JSONFileTest extends Assertions {
     private JSONObject createPersonInformation() {
         JSONObject personInfo = new JSONObject();
 
-        personInfo.put("firstName", JSONType.createString("John"));
-        personInfo.put("lastName", JSONType.createString("Smith"));
-        personInfo.put("isAlive", JSONType.createBoolean(true));
-        personInfo.put("age", JSONType.createNumber(27L));
+        personInfo.putString("firstName", "John");
+        personInfo.putString("lastName", "Smith");
+        personInfo.putBoolean("isAlive", true);
+        personInfo.putNumber("age", 27L);
 
         JSONObject addressInfo = new JSONObject();
 
-        addressInfo.put("streetAddress", JSONType.createString("21 2nd Street"));
-        addressInfo.put("city", JSONType.createString("New York"));
-        addressInfo.put("state", JSONType.createString("NY"));
-        addressInfo.put("postalCode", JSONType.createString("10021-3100"));
+        addressInfo.putString("streetAddress", "21 2nd Street");
+        addressInfo.putString("city", "New York");
+        addressInfo.putString("state", "NY");
+        addressInfo.putString("postalCode", "10021-3100");
 
-        personInfo.put("address", JSONType.createObject(addressInfo));
+        personInfo.putObject("address", addressInfo);
 
         JSONArray phoneInfo = new JSONArray();
 
         JSONObject homePhone = new JSONObject();
-        homePhone.put("type", JSONType.createString("home"));
-        homePhone.put("number", JSONType.createString("212 555-1234"));
+        homePhone.putString("type", "home");
+        homePhone.putString("number", "212 555-1234");
 
         JSONObject officePhone = new JSONObject();
-        officePhone.put("type", JSONType.createString("office"));
-        officePhone.put("number", JSONType.createString("646 555-4567"));
-        
+        officePhone.putString("type", "office");
+        officePhone.putString("number", "646 555-4567");
+
         JSONObject mobilePhone = new JSONObject();
-        mobilePhone.put("type", JSONType.createString("mobile"));
-        mobilePhone.put("number", JSONType.createString("123 456-7890"));
+        mobilePhone.putString("type", "mobile");
+        mobilePhone.putString("number", "123 456-7890");
 
-        phoneInfo.add(JSONType.createObject(homePhone));
-        phoneInfo.add(JSONType.createObject(officePhone));
-        phoneInfo.add(JSONType.createObject(mobilePhone));
+        phoneInfo.addObject(homePhone);
+        phoneInfo.addObject(officePhone);
+        phoneInfo.addObject(mobilePhone);
 
-        personInfo.put("phoneNumbers", JSONType.createArray(phoneInfo));
-        personInfo.put("children", JSONType.createArray(new JSONArray()));
-        personInfo.put("spouse", JSONType.createNull());
+        personInfo.putArray("phoneNumbers", phoneInfo);
+        personInfo.putArray("children", new JSONArray());
+        personInfo.putNull("spouse");
 
         return personInfo;
     }
