@@ -6,7 +6,7 @@ import fi.tamk.tiko.ohjelmointi.json.map.*;
 public class JSONEqualityTest extends Assertions {
 
     /**
-     * 
+     * Tests JSON mapping from data.
      */
     @Test
     public void testJSONMapper() {
@@ -14,7 +14,7 @@ public class JSONEqualityTest extends Assertions {
         final String PERSON_NAME = "Marja-Liisa";
 
         JSONObject personData = new JSONObject();
-        personData.put("name", JSONType.createString(PERSON_NAME));
+        personData.putString("name", PERSON_NAME);
 
         Person person = JSONMapper.map(new Person(), personData);
 
