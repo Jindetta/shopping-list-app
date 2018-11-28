@@ -28,6 +28,7 @@ import javafx.scene.Scene;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.io.FileReader;
@@ -126,15 +127,17 @@ public class GUI extends Application {
         try {
             DropboxManager manager = new DropboxManager();
 
-            new Thread(() -> manager.downloadFile(saveFile)).start();
+            new Thread(() -> {
+                manager.downloadFile(saveFile);
+                ObservableList<Item> list = loadFromFile(saveFile, false);
+
+                if (list != null) {
+                    tableView.setItems(items = list);
+                    showAlert(AlertType.CONFIRMATION, "Import from Dropbox", "List was successfully imported.");
+                }
+            }).start();
         } catch (Exception e) {
-            Alert alert = new Alert(AlertType.ERROR);
-
-            alert.setTitle("File import from Dropbox failed");
-            alert.setContentText(e.getMessage());
-            alert.setHeaderText(null);
-
-            alert.show();
+            showAlert(AlertType.ERROR, "File import from Dropbox failed", e.getMessage());
         }
     }
 
@@ -145,13 +148,7 @@ public class GUI extends Application {
 
             new Thread(() -> manager.uploadFile(saveFile)).start();
         } catch (Exception e) {
-            Alert alert = new Alert(AlertType.ERROR);
-
-            alert.setTitle("File export to Dropbox failed");
-            alert.setContentText(e.getMessage());
-            alert.setHeaderText(null);
-
-            alert.show();
+            showAlert(AlertType.ERROR, "File export to Dropbox failed", e.getMessage());
         }
     }
 
@@ -273,13 +270,7 @@ public class GUI extends Application {
             return list;
         } catch (Exception e) {
             if (!silent) {
-                Alert alert = new Alert(AlertType.ERROR);
-
-                alert.setTitle("Cannot load file");
-                alert.setContentText(e.getMessage());
-                alert.setHeaderText(null);
-
-                alert.show();
+                showAlert(AlertType.ERROR, "Cannot load file", e.getMessage());
             }
         }
 
@@ -307,13 +298,7 @@ public class GUI extends Application {
             json.writeArray(array);
         } catch (Exception e) {
             if (!silent) {
-                Alert alert = new Alert(AlertType.ERROR);
-
-                alert.setTitle("Cannot save file");
-                alert.setContentText(e.getMessage());
-                alert.setHeaderText(null);
-
-                alert.show();
+                showAlert(AlertType.ERROR, "Cannot save file", e.getMessage());
             }
         }
     }
@@ -339,15 +324,23 @@ public class GUI extends Application {
             stage.centerOnScreen();
             stage.show();
         } catch (Exception e) {
-            Alert alert = new Alert(AlertType.ERROR);
-
-            alert.setTitle("Unknown error");
-            alert.setContentText(e.getMessage());
-            alert.setHeaderText(null);
-
-            alert.show();
+            showAlert(AlertType.ERROR, "Unknown error", e.getMessage());
         }
 
         window = stage;
+    }
+
+    /**
+     * 
+     * @param type
+     * @param title
+     * @param message
+     */
+    private static void showAlert(AlertType type, String title, String message) {
+        Alert alert = new Alert(type, message);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setHeaderText(null);
+        alert.setTitle(title);
+        alert.show();
     }
 }
