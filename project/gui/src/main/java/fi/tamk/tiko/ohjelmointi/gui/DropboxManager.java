@@ -1,20 +1,20 @@
 package fi.tamk.tiko.ohjelmointi.gui;
 
-import java.util.Optional;
 import java.awt.Desktop;
-import java.io.File;
+import java.util.Optional;
+import java.io.InputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.InputStream;
+import java.io.File;
 import java.net.URI;
 
+import com.dropbox.core.DbxWebAuth;
 import com.dropbox.core.DbxAppInfo;
 import com.dropbox.core.DbxAuthFinish;
-import com.dropbox.core.DbxRequestConfig;
-import com.dropbox.core.DbxWebAuth;
 import com.dropbox.core.v2.DbxClientV2;
+import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.v2.files.WriteMode;
 
 import javafx.scene.control.TextInputDialog;
@@ -38,13 +38,20 @@ public class DropboxManager {
      */
     private static final DbxRequestConfig APP_CONF = new DbxRequestConfig("ShoppingListApp");
 
-    private static final String APP_NAME = "ShoppingListApp";
+    /**
+     * 
+     */
+    private String accessToken;
 
     /**
      * 
      */
-    private static final String TOKEN_FILE = "userToken.dat";
+    private DbxClientV2 client;
 
+    /**
+     * 
+     * @param file
+     */
     public void uploadFile(File file) {
         try (FileInputStream input = new FileInputStream(file)) {
             client.files().uploadBuilder("/list.json").withMode(WriteMode.OVERWRITE).uploadAndFinish(input);
@@ -53,6 +60,10 @@ public class DropboxManager {
         }
     }
 
+    /**
+     * 
+     * @param file
+     */
     public void downloadFile(File file) {
         try (FileOutputStream output = new FileOutputStream(file)) {
             client.files().downloadBuilder("/list.json").download(output);
@@ -61,6 +72,10 @@ public class DropboxManager {
         }
     }
 
+    /**
+     * 
+     * @return
+     */
     private boolean hasTokenFile() {
         try (FileReader reader = new FileReader(TOKEN_FILE)) {
             StringBuilder data = new StringBuilder();
@@ -72,12 +87,15 @@ public class DropboxManager {
 
             accessToken = data.toString();
         } catch (Exception e) {
-            
+            // No readable token file present
         }
 
         return accessToken != null;
     }
 
+    /**
+     * 
+     */
     private void saveTokenFile() {
         try (FileWriter writer = new FileWriter(TOKEN_FILE)) {
             writer.write(accessToken);
@@ -103,6 +121,9 @@ public class DropboxManager {
         }
     }
 
+    /**
+     * 
+     */
     public DropboxManager() {
         try {
             if (!hasTokenFile()) {
