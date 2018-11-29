@@ -133,7 +133,7 @@ public class GUI extends Application {
 
                 if (list != null) {
                     tableView.setItems(items = list);
-                    showAlert(AlertType.CONFIRMATION, "Import from Dropbox", "List was successfully imported.");
+                    Platform.runLater(() -> showAlert(AlertType.CONFIRMATION, "Import from Dropbox", "List was successfully imported."));
                 }
             }).start();
         } catch (Exception e) {
