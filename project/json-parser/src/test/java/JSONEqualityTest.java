@@ -16,6 +16,7 @@ public class JSONEqualityTest extends Assertions {
         JSONObject personData = new JSONObject();
         personData.putString("name", PERSON_NAME);
 
+        personData = JSONMapper.setContainer(Person.class, personData);
         Person person = JSONMapper.map(new Person(), personData);
 
         assertTrue(person instanceof Person);
