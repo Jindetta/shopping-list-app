@@ -19,7 +19,7 @@ public class JSONEqualityTest extends Assertions {
         Person person = JSONMapper.map(new Person(), personData);
 
         assertTrue(person instanceof Person);
-        assertSame(PERSON_NAME, person.name);
+        assertSame(PERSON_NAME, person.getName());
 
         System.out.println("Success: All tests completed");
     }
@@ -132,7 +132,19 @@ public class JSONEqualityTest extends Assertions {
         /**
          *
          */
-        public String name;
+        private String name;
+
+        /**
+         * 
+         * @param name
+         */
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
 
         /**
          *
