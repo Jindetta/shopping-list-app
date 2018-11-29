@@ -24,6 +24,7 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.Scene;
 
@@ -346,10 +347,12 @@ public class GUI extends Application {
      * @param message
      */
     private static void showAlert(AlertType type, String title, String message) {
-        Alert alert = new Alert(type, message);
+        Alert alert = new Alert(type, message, ButtonType.OK);
+
         alert.initStyle(StageStyle.UTILITY);
         alert.setHeaderText(null);
         alert.setTitle(title);
+
         alert.show();
     }
 }
