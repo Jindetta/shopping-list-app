@@ -92,8 +92,14 @@ public class DropboxManager {
     private void verifyClientAccessToken() {
         DbxClientV2 client = new DbxClientV2(APP_CONF, accessToken);
 
-        if (client.users().getCurrentAccount() != null) {
-            this.client = client;
+        try {
+            if (client.users().getCurrentAccount() != null) {
+                this.client = client;
+            }
+        } catch (Exception e) {
+            TOKEN_FILE.delete();
+
+            throw new RuntimeException(e.getMessage());
         }
     }
 
