@@ -33,7 +33,10 @@ public class DropboxManager {
      */
     private static final File TOKEN_FILE = new File("userToken.dat");
 
-    private DbxClientV2 client;
+    /**
+     * 
+     */
+    private static final DbxRequestConfig APP_CONF = new DbxRequestConfig("ShoppingListApp");
 
     private static final String APP_NAME = "ShoppingListApp";
 
@@ -83,8 +86,11 @@ public class DropboxManager {
         }
     }
 
-    private void verifyClient(DbxRequestConfig config) throws Exception {
-        DbxClientV2 client = new DbxClientV2(config, accessToken);
+    /**
+     * 
+     */
+    private void verifyClientAccessToken() {
+        DbxClientV2 client = new DbxClientV2(APP_CONF, accessToken);
 
         if (client.users().getCurrentAccount() != null) {
             this.client = client;
@@ -93,13 +99,9 @@ public class DropboxManager {
 
     public DropboxManager() {
         try {
-            DbxRequestConfig config = new DbxRequestConfig(APP_NAME);
-
             if (!hasTokenFile()) {
                 InputStream key = getClass().getResourceAsStream("apitoken.json");
-                DbxAppInfo appInfo = DbxAppInfo.Reader.readFully(key);
-
-                DbxWebAuth webAuth = new DbxWebAuth(config, appInfo);
+                DbxWebAuth webAuth = new DbxWebAuth(APP_CONF, DbxAppInfo.Reader.readFully(key));
                 DbxWebAuth.Request webAuthRequest = DbxWebAuth.newRequestBuilder().withNoRedirect().build();
 
                 Desktop desktop = java.awt.Desktop.getDesktop();
@@ -121,7 +123,7 @@ public class DropboxManager {
                 }
             }
 
-            verifyClient(config);
+            verifyClientAccessToken();
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
