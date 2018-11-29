@@ -147,7 +147,10 @@ public class GUI extends Application {
         try {
             DropboxManager manager = new DropboxManager();
 
-            new Thread(() -> manager.uploadFile(saveFile)).start();
+            new Thread(() -> {
+                manager.uploadFile(saveFile);
+                Platform.runLater(() -> showAlert(AlertType.CONFIRMATION, "Export to Dropbox", "List was successfully exported."));
+            }).start();
         } catch (Exception e) {
             showAlert(AlertType.ERROR, "File export to Dropbox failed", e.getMessage());
         }
