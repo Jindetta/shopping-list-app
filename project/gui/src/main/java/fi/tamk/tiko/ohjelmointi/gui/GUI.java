@@ -1,6 +1,7 @@
 package fi.tamk.tiko.ohjelmointi.gui;
 
 import fi.tamk.tiko.ohjelmointi.json.*;
+import fi.tamk.tiko.ohjelmointi.json.map.JSONMapper;
 
 import javafx.util.converter.LongStringConverter;
 import java.util.stream.Collectors;
@@ -264,12 +265,7 @@ public class GUI extends Application {
             ObservableList<Item> list = FXCollections.observableArrayList();
 
             for (JSONType object : json.readObject().getAsArray()) {
-                JSONObject data = object.getAsObject();
-
-                String itemName = data.get("item").getAsString();
-                long itemAmount = data.get("amount").getAsNumber();
-
-                list.add(new Item((int) itemAmount, itemName));
+                list.add(JSONMapper.map(new Item(), object.getAsObject()));
             }
 
             return list;
@@ -294,10 +290,10 @@ public class GUI extends Application {
             for (Item item : items) {
                 JSONObject object = new JSONObject();
 
-                object.putString("item", item.getItemName());
-                object.putNumber("amount", (long) item.getItemAmount());
+                object.putString("itemName", item.getItemName());
+                object.putNumber("itemAmount", item.getItemAmount());
 
-                array.addObject(object);
+                array.addObject(JSONMapper.setContainer(Item.class, object));
             }
 
             json.writeArray(array);
