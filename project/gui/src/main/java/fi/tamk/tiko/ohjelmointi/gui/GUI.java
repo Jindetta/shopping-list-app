@@ -171,8 +171,13 @@ public class GUI extends Application {
         if (selected != -1) {
             items.add(selected, item);
         } else {
+            selected = items.size();
+
             items.add(item);
         }
+
+        tableView.layout();
+        tableView.edit(selected, columnAmount);
     }
 
     @FXML
