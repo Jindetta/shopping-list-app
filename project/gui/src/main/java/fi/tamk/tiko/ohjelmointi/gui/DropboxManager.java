@@ -28,7 +28,10 @@ import javafx.scene.control.TextInputDialog;
  */
 public class DropboxManager {
 
-    private String accessToken;
+    /**
+     * 
+     */
+    private static final File TOKEN_FILE = new File("userToken.dat");
 
     private DbxClientV2 client;
 
