@@ -4,7 +4,9 @@ import fi.tamk.tiko.ohjelmointi.json.*;
 import fi.tamk.tiko.ohjelmointi.json.map.JSONMapper;
 
 import javafx.util.converter.LongStringConverter;
+
 import java.util.stream.Collectors;
+import java.util.Optional;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -20,6 +22,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -354,5 +357,22 @@ public class GUI extends Application {
         alert.setTitle(title);
 
         alert.show();
+    }
+
+    /**
+     * 
+     * @param title
+     * @param message
+     * @return
+     */
+    public static String showTextInput(String title, String message) {
+        TextInputDialog input = new TextInputDialog();
+
+        input.setContentText(message);
+        input.setHeaderText(null);
+        input.setTitle(title);
+
+        Optional<String> result = input.showAndWait();
+        return result.isPresent() ? result.get() : null;
     }
 }
