@@ -7,6 +7,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import fi.tamk.tiko.ohjelmointi.json.map.JSONMappable;
+
 /**
  * Stores single shopping list item values.
  *
@@ -14,7 +16,7 @@ import javafx.beans.property.StringProperty;
  * @version 2018.1101
  * @since   11
  */
-public class Item {
+public class Item implements JSONMappable {
 
     /**
      * Stores item name.
@@ -141,5 +143,13 @@ public class Item {
         setItemAmount(amount);
         setItemMark(false);
         setItemName(item);
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public boolean isJSONMappable() {
+        return true;
     }
 }
