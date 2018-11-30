@@ -175,28 +175,31 @@ public class GUI extends Application {
 
     @FXML
     private void onClipboardCutAction() {
-        Item item = onClipboardCopyAction();
+        ObservableList<Item> selected = onClipboardCopyAction();
 
-        if (item != null) {
-            items.remove(item);
+        if (selected != null) {
+            items.removeAll(selected);
         }
     }
 
     @FXML
-    private Item onClipboardCopyAction() {
-        Item item = tableView.getSelectionModel().getSelectedItem();
+    private ObservableList<Item> onClipboardCopyAction() {
+        ObservableList<Item> selected = tableView.getSelectionModel().getSelectedItems();
 
-        if (item != null) {
+        if (selected != null) {
             Clipboard clipboard = Clipboard.getSystemClipboard();
             ClipboardContent content = new ClipboardContent();
+            JSONArray array = new JSONArray();
 
-            JSONObject object = JSONMapper.saveMapping(item);
-            content.putString(JSONType.getJSONString(object));
+            for (Item item : selected) {
+                array.addObject(JSONMapper.saveMapping(item));
+            }
 
+            content.putString(JSONType.getJSONString(array));
             clipboard.setContent(content);
         }
 
-        return item;
+        return selected;
     }
 
     @FXML
