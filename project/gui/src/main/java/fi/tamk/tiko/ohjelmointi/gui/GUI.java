@@ -173,15 +173,12 @@ public class GUI extends Application {
     @FXML
     private void onInsertItemAction() {
         int selected = tableView.getSelectionModel().getSelectedIndex();
-        Item item = new Item();
 
-        if (selected != -1) {
-            items.add(selected, item);
-        } else {
+        if (selected == -1) {
             selected = items.size();
-
-            items.add(item);
         }
+
+        items.add(selected, new Item());
 
         tableView.layout();
         tableView.edit(selected, columnAmount);
