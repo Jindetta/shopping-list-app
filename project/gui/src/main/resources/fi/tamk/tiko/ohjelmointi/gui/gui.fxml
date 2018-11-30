@@ -25,7 +25,11 @@
                      </accelerator>
                   </MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#onOpenAction" text="Open..." />
+                  <MenuItem mnemonicParsing="false" onAction="#onOpenAction" text="Open...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#onSaveAction" text="Save">
                      <accelerator>
@@ -40,8 +44,16 @@
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <Menu mnemonicParsing="false" text="Import/Export">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#onDropboxImportAction" text="Import from Dropbox" />
-                        <MenuItem mnemonicParsing="false" onAction="#onDropboxExportAction" text="Export to Dropbox" />
+                        <MenuItem mnemonicParsing="false" onAction="#onDropboxImportAction" text="Import from Dropbox">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="I" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#onDropboxExportAction" text="Export to Dropbox">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
                     </items>
                   </Menu>
                   <SeparatorMenuItem mnemonicParsing="false" />
@@ -70,13 +82,21 @@
                      </accelerator>
                   </MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#onInsertItemAction" text="Insert item" />
-              <MenuItem mnemonicParsing="false" onAction="#onDeleteItemAction" text="Delete item" />
+                  <MenuItem mnemonicParsing="false" onAction="#onInsertItemAction" text="Insert item">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="INSERT" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+              <MenuItem mnemonicParsing="false" onAction="#onDeleteItemAction" text="Delete item">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="DELETE" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+               </MenuItem>
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#onShowHelpAction" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#onShowHelpAction" text="Show application info" />
             </items>
           </Menu>
         </menus>
