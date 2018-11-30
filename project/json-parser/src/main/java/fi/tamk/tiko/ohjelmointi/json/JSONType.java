@@ -169,6 +169,33 @@ public class JSONType {
     }
 
     /**
+     * 
+     * @param object
+     * @return
+     */
+    private static JSONTypes getTypeOf(Object object) {
+        JSONTypes type = null;
+
+        if (object == null) {
+            type = JSONTypes.NULL;
+        } else if (object instanceof Long) {
+            type = JSONTypes.NUMBER;
+        } else if (object instanceof String) {
+            type = JSONTypes.STRING;
+        } else if (object instanceof Double) {
+            type = JSONTypes.DECIMAL;
+        } else if (object instanceof Boolean) {
+            type = JSONTypes.BOOLEAN;
+        } else if (object instanceof JSONObject) {
+            type = JSONTypes.OBJECT;
+        } else if (object instanceof JSONArray) {
+            type = JSONTypes.ARRAY;
+        }
+
+        return type;
+    }
+
+    /**
      * Creates new array JSONType.
      *
      * @return JSONType.
