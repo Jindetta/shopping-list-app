@@ -159,25 +159,6 @@ public abstract class JSONMapper {
      * @param data
      * @return
      */
-    public static JSONObject mapString(Class<?> object, String data) {
-        JSONObject container = null;
-
-        try {
-            JSONType value = new JSONTokenizer(data).parse();
-            container = mapObject(object, value.getAsObject());
-        } catch (Exception e) {
-
-        }
-
-        return container;
-    }
-
-    /**
-     * 
-     * @param object
-     * @param data
-     * @return
-     */
     public static JSONObject mapObject(Class<?> object, JSONObject data) {
         JSONObject container = new JSONObject();
         container.putObject(object.getName(), data);
