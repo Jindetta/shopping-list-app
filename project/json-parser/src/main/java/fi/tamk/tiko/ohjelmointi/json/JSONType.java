@@ -259,6 +259,32 @@ public class JSONType {
     }
 
     /**
+     * 
+     * @param object
+     * @return
+     */
+    public static String getJSONString(Object object) {
+        switch (getTypeOf(object)) {
+            case NULL:
+                return JSONTokenizer.writeNull();
+            case NUMBER:
+                return JSONTokenizer.writeNumber((Long) object);
+            case STRING:
+                return JSONTokenizer.writeString((String) object);
+            case DECIMAL:
+                return JSONTokenizer.writeDecimal((Double) object);
+            case BOOLEAN:
+                return JSONTokenizer.writeBoolean((Boolean) object);
+            case OBJECT:
+                return JSONTokenizer.writeObject((JSONObject) object);
+            case ARRAY:
+                return JSONTokenizer.writeArray((JSONArray) object);
+        }
+
+        return null;
+    }
+
+    /**
      * Overrides default implementation.
      *
      * @param object Object to compare.
