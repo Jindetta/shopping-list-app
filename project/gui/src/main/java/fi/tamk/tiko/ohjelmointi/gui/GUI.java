@@ -5,9 +5,6 @@ import fi.tamk.tiko.ohjelmointi.json.map.JSONMapper;
 
 import javafx.util.converter.LongStringConverter;
 
-import java.util.stream.Collectors;
-import java.util.Optional;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 
@@ -22,9 +19,9 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -40,6 +37,8 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+
+import java.util.Optional;
 
 /**
  * Constructs the GUI for Shopping List application.
@@ -70,9 +69,6 @@ public class GUI extends Application {
      */
     @FXML
     private TableView<Item> tableView;
-
-    @FXML
-    private TableColumn<Item, Boolean> columnMark;
 
     @FXML
     private TableColumn<Item, Long> columnAmount;
@@ -168,18 +164,13 @@ public class GUI extends Application {
     }
 
     @FXML
-    private void onSelectAllAction() {
-        items.forEach(item -> item.setItemMark(selectAllToggle.isSelected()));
-    }
-
-    @FXML
     private void onUndoAction() {
 
     }
 
     @FXML
     private void onRedoAction() {
-        
+
     }
 
     @FXML
@@ -252,12 +243,6 @@ public class GUI extends Application {
     }
 
     @FXML
-    private void onDeleteAllAction() {
-        items.removeAll(items.stream().filter(item -> item.getItemMark()).collect(Collectors.toList()));
-        selectAllToggle.setSelected(false);
-    }
-
-    @FXML
     private void onShowHelpAction() {
         showAlert(AlertType.INFORMATION, "About", "Shopping List Application by Joonas Lauhala.");
     }
@@ -268,15 +253,13 @@ public class GUI extends Application {
         items = loadFromFile(saveFile, true);
 
         columnItem.setCellValueFactory(new PropertyValueFactory<>("itemName"));
-        columnItem.prefWidthProperty().bind(tableView.widthProperty().subtract(132));
+        columnItem.prefWidthProperty().bind(tableView.widthProperty().subtract(102));
         columnItem.setCellFactory(TextFieldTableCell.forTableColumn());
-
-        columnMark.setCellValueFactory(new PropertyValueFactory<>("itemMark"));
-        columnMark.setCellFactory(f -> new CheckBoxTableCell<>());
 
         columnAmount.setCellValueFactory(new PropertyValueFactory<>("itemAmount"));
         columnAmount.setCellFactory(TextFieldTableCell.forTableColumn(new LongStringConverter()));
 
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);        
         tableView.setOnKeyPressed(this::onTableKeyPressEvent);
 
         tableView.setEditable(true);

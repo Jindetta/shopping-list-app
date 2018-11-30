@@ -98,7 +98,7 @@
                         <KeyCodeCombination alt="UP" code="INSERT" control="UP" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-              <MenuItem mnemonicParsing="false" onAction="#onDeleteItemAction" text="Delete item">
+              <MenuItem mnemonicParsing="false" onAction="#onDeleteItemAction" text="Delete selected item(s)">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="DELETE" control="UP" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
@@ -116,11 +116,6 @@
    <center>
       <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="columnMark" maxWidth="30.0" minWidth="30.0" prefWidth="-1.0" reorderable="false" resizable="false" sortable="false">
-               <graphic>
-                  <CheckBox fx:id="selectAllToggle" mnemonicParsing="false" onAction="#onSelectAllAction" />
-               </graphic>
-            </TableColumn>
           <TableColumn fx:id="columnAmount" maxWidth="100.0" minWidth="100.0" prefWidth="-1.0" reorderable="false" resizable="false" text="Amount" />
          <TableColumn fx:id="columnItem" minWidth="-1.0" prefWidth="-1.0" reorderable="false" resizable="false" text="Item" />
         </columns>
@@ -133,7 +128,7 @@
          </padding>
          <children>
             <Button mnemonicParsing="false" onAction="#onInsertItemAction" text="Insert new item" />
-            <Button mnemonicParsing="false" onAction="#onDeleteAllAction" text="Delete checked item(s)" />
+            <Button mnemonicParsing="false" onAction="#onDeleteItemAction" text="Delete selected item(s)" />
          </children>
       </HBox>
    </bottom>
