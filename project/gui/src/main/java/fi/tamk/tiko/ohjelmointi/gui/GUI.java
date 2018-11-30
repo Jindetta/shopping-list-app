@@ -297,12 +297,7 @@ public class GUI extends Application {
             JSONArray array = new JSONArray();
 
             for (Item item : items) {
-                JSONObject object = new JSONObject();
-
-                object.putString("itemName", item.getItemName());
-                object.putNumber("itemAmount", item.getItemAmount());
-
-                array.addObject(JSONMapper.setContainer(Item.class, object));
+                array.addObject(JSONMapper.saveMapping(item));
             }
 
             json.writeArray(array);
