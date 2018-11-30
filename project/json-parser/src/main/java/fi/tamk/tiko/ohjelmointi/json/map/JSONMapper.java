@@ -41,11 +41,10 @@ public abstract class JSONMapper {
 
     /**
      * 
-     * @param classType
      * @param object
      * @return
      */
-    public static JSONObject setContainer(Class<? extends JSONMappable> classType, JSONObject object) {
+    public static <T> JSONObject saveMapping(T object) {
         JSONObject container = new JSONObject();
 
         container.putObject(classType.getName(), object);
