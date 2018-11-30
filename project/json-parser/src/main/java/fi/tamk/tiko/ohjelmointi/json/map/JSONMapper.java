@@ -15,6 +15,74 @@ public abstract class JSONMapper {
 
     /**
      * 
+     */
+    private enum MethodType {
+
+        /**
+         * 
+         */
+        ACCESSOR,
+
+        /**
+         * 
+         */
+        MUTATOR
+    }
+
+    /**
+     * 
+     * @param type
+     * @param name
+     * @return
+     */
+    private static String getMethodType(MethodType type, String name) {
+        name = name.substring(0, 1).toUpperCase().concat(name.substring(1));
+
+        switch (type) {
+            case ACCESSOR: return "get".concat(name);
+            case MUTATOR: return "set".concat(name);
+        }
+
+        throw new IllegalArgumentException("Invalid method type.");
+    }
+
+    /**
+     * 
+     * @param classInfo
+     * @param fieldName
+     * @return
+     * @throws NoSuchMethodException
+     */
+    @SuppressWarnings("all")
+    private static Method getterMethod(Class<?> classInfo, String fieldName) throws NoSuchMethodException {
+        return classInfo.getMethod(getMethodType(MethodType.ACCESSOR, fieldName), null);
+    }
+
+    /**
+     * 
+     * @param classInfo
+     * @param fieldName
+     * @param type
+     * @return
+     * @throws NoSuchMethodException
+     */
+    @SuppressWarnings("all")
+    private static Method setterMethod(Class<?> classInfo, String fieldName, Class<?> type) throws NoSuchMethodException {
+        return classInfo.getMethod(getMethodType(MethodType.MUTATOR, fieldName), type);
+    }
+
+    /**
+     * 
+     * @param field
+     * @return
+     */
+    private static String readJSONDataValues(Field field) {
+        JSONData annotation = field.getAnnotation(JSONData.class);
+        return annotation == null ? null : annotation.key();
+    }
+
+    /**
+     * 
      * @param object
      * @param container
      * @return
