@@ -129,6 +129,7 @@ public class JSONEqualityTest extends Assertions {
      * 
      */
     @JSONMappable
+    @SuppressWarnings("all")
     private class Person {
 
         /**
