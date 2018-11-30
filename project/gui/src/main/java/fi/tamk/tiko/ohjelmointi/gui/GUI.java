@@ -173,6 +173,16 @@ public class GUI extends Application {
     }
 
     @FXML
+    private void onUndoAction() {
+
+    }
+
+    @FXML
+    private void onRedoAction() {
+        
+    }
+
+    @FXML
     private void onClipboardCutAction() {
         Item item = onClipboardCopyAction();
 
