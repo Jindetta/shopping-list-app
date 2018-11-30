@@ -16,8 +16,8 @@ public class JSONEqualityTest extends Assertions {
         JSONObject personData = new JSONObject();
         personData.putString("name", PERSON_NAME);
 
-        personData = JSONMapper.setContainer(Person.class, personData);
-        Person person = JSONMapper.map(new Person(), personData);
+        personData = JSONMapper.mapObject(Person.class, personData);
+        Person person = JSONMapper.loadMapping(new Person(), personData);
 
         assertTrue(person instanceof Person);
         assertSame(PERSON_NAME, person.getName());
@@ -128,11 +128,13 @@ public class JSONEqualityTest extends Assertions {
     /**
      * 
      */
-    private class Person implements JSONMappable {
+    @JSONMappable
+    private class Person {
 
         /**
          *
          */
+        @JSONData(key="name")
         private String name;
 
         /**
@@ -143,16 +145,12 @@ public class JSONEqualityTest extends Assertions {
             this.name = name;
         }
 
+        /**
+         * 
+         * @return
+         */
         public String getName() {
             return name;
-        }
-
-        /**
-         *
-         */
-        @Override
-        public boolean isJSONMappable() {
-            return true;
         }
     }
 }
