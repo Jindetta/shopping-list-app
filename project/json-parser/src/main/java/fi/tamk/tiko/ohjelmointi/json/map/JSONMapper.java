@@ -90,18 +90,27 @@ public abstract class JSONMapper {
     public static <T> T loadMapping(T object, JSONObject container) {
         try {
             Class<?> classInfo = object.getClass();
-            JSONObject data = getObjectData(object, container);
 
-            for (String key : data.keySet()) {
-                Object value = data.get(key).get();
-                Class<?> type = value == null ? Object.class : value.getClass();
-                Method setter = classInfo.getMethod(getSetter(key), type);
+            if (classInfo.getAnnotation(JSONMappable.class) == null) {
+                throw new IllegalStateException();
+            }
 
-                setter.trySetAccessible();
-                setter.invoke(object, value);
+            JSONObject data = container.get(classInfo.getName()).getAsObject();
+
+            for (Field field : classInfo.getDeclaredFields()) {
+                String key = readJSONDataValues(field);
+
+                if (key != null && data.containsKey(key)) {
+                    Object value = data.get(key).get();
+                    Class<?> type = value == null ? field.getType() : value.getClass();
+                    Method setter = setterMethod(classInfo, key, type);
+
+                    setter.trySetAccessible();
+                    setter.invoke(object, value);
+                }
             }
         } catch (Exception e) {
-            throw new IllegalStateException("JSONMapper cannot map this object.");
+            throw new IllegalStateException("JSONMapper cannot load this object.");
         }
 
         return object;
