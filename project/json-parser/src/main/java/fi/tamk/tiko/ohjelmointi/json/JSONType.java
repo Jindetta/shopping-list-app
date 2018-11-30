@@ -307,12 +307,12 @@ public class JSONType {
                 return JSONTokenizer.writeNull();
             case NUMBER:
                 return JSONTokenizer.writeNumber(getAsNumber());
+            case STRING:
+                return JSONTokenizer.writeString(getAsString());
             case DECIMAL:
                 return JSONTokenizer.writeDecimal(getAsDecimal());
             case BOOLEAN:
                 return JSONTokenizer.writeBoolean(getAsBoolean());
-            case STRING:
-                return JSONTokenizer.writeString(getAsString());
             case OBJECT:
                 return JSONTokenizer.writeObject(getAsObject());
             case ARRAY:
