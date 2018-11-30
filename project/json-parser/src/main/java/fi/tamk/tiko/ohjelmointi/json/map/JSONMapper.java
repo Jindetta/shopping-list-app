@@ -56,16 +56,20 @@ public abstract class JSONMapper {
     /**
      * 
      * @param object
-     * @param className
      * @param data
      * @return
      */
-    private static <T extends JSONMappable> JSONObject getObjectData(T object, JSONObject data) {
-        if (!object.isJSONMappable()) {
-            throw new IllegalStateException();
+    public static JSONObject mapString(Class<?> object, String data) {
+        JSONObject container = null;
+
+        try {
+            JSONType value = new JSONTokenizer(data).parse();
+            container = mapObject(object, value.getAsObject());
+        } catch (Exception e) {
+
         }
 
-        return data.get(object.getClass().getName()).getAsObject();
+        return container;
     }
 
     /**
