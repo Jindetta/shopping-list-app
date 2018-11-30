@@ -19,7 +19,7 @@ public abstract class JSONMapper {
      * @param container
      * @return
      */
-    public static <T extends JSONMappable> T map(T object, JSONObject container) {
+    public static <T> T loadMapping(T object, JSONObject container) {
         try {
             Class<?> classInfo = object.getClass();
             JSONObject data = getObjectData(object, container);
