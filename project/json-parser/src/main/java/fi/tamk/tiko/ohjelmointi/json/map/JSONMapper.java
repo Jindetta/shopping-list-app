@@ -70,10 +70,13 @@ public abstract class JSONMapper {
 
     /**
      * 
-     * @param name
+     * @param object
+     * @param data
      * @return
      */
-    private static String getSetter(String name) {
-        return "set".concat(name.substring(0, 1).toUpperCase().concat(name.substring(1)));
+    public static JSONObject mapObject(Class<?> object, JSONObject data) {
+        JSONObject container = new JSONObject();
+        container.putObject(object.getName(), data);
+        return container;
     }
 }
