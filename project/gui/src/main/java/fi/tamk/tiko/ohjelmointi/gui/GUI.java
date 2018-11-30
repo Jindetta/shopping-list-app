@@ -274,7 +274,7 @@ public class GUI extends Application {
             ObservableList<Item> list = FXCollections.observableArrayList();
 
             for (JSONType object : json.readObject().getAsArray()) {
-                list.add(JSONMapper.map(new Item(), object.getAsObject()));
+                list.add(JSONMapper.loadMapping(new Item(), object.getAsObject()));
             }
 
             return list;
