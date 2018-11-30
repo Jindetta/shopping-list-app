@@ -609,4 +609,64 @@ public class JSONTokenizer {
     public static String writeNull() {
         return "null";
     }
+
+    /**
+     * Stores identifier data.
+     *
+     * @author  Joonas Lauhala {@literal <joonas.lauhala@cs.tamk.fi>}
+     * @version 2018.1101
+     * @since   11
+     */
+    private class JSONIdentifier {
+
+        /**
+         *
+         */
+        private char identifier;
+
+        /**
+         *
+         */
+        private JSONException exception;
+
+        /**
+         *
+         *
+         * @return
+         */
+        public char getIdentifier() {
+            return identifier;
+        }
+
+        /**
+         *
+         *
+         * @return
+         */
+        public JSONException getException() {
+            return exception;
+        }
+
+        /**
+         *
+         *
+         * @param identifier
+         * @param message
+         * @param args
+         */
+        public JSONIdentifier(char identifier, String message, Object... args) {
+            this.exception = new JSONException(message, args);
+            this.identifier = identifier;
+        }
+
+        /**
+         *
+         *
+         * @return
+         */
+        @Override
+        public String toString() {
+            return String.format("Identifier: %c", identifier);
+        }
+    }
 }
