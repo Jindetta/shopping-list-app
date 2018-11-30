@@ -205,17 +205,20 @@ public class GUI extends Application {
 
         if (clipboard.hasString()) {
             try {
-                JSONType data = new JSONTokenizer(clipboard.getString()).parse();
-                Item item = JSONMapper.loadMapping(new Item(), data.getAsObject());
+                ObservableList<Item> selected = FXCollections.observableArrayList();
 
-                if (item != null) {
-                    int selected = tableView.getSelectionModel().getSelectedIndex();
+                for (JSONType type : new JSONTokenizer(clipboard.getString()).parse().getAsArray()) {
+                    selected.add(JSONMapper.loadMapping(new Item(), type.getAsObject()));
+                }
 
-                    if (selected == -1) {
-                        selected = items.size();
+                if (!selected.isEmpty()) {
+                    int index = tableView.getSelectionModel().getSelectedIndex();
+
+                    if (index == -1) {
+                        index = items.size();
                     }
 
-                    items.add(selected, item);
+                    items.addAll(index, selected);
                 }
             } catch (Exception e) {
                 // Clipboard data was corrupt or otherwise invalid
