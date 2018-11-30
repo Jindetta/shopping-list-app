@@ -35,21 +35,7 @@ public class JSONType {
      * @see Object
      */
     public void set(Object value) {
-        if (value == null) {
-            type = JSONTypes.NULL;
-        } else if (value instanceof Long) {
-            type = JSONTypes.NUMBER;
-        } else if (value instanceof Double) {
-            type = JSONTypes.DECIMAL;
-        } else if (value instanceof Boolean) {
-            type = JSONTypes.BOOLEAN;
-        } else if (value instanceof String) {
-            type = JSONTypes.STRING;
-        } else if (value instanceof JSONObject) {
-            type = JSONTypes.OBJECT;
-        } else if (value instanceof JSONArray) {
-            type = JSONTypes.ARRAY;
-        } else {
+        if ((type = getTypeOf(value)) == null) {
             throw new IllegalArgumentException("Unknown object type.");
         }
 
