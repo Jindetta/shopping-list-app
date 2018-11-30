@@ -203,17 +203,21 @@ public class GUI extends Application {
         Clipboard clipboard = Clipboard.getSystemClipboard();
 
         if (clipboard.hasString()) {
-            JSONObject mapping = JSONMapper.mapString(Item.class, clipboard.getString());
-            Item item = JSONMapper.loadMapping(new Item(), mapping);
+            try {
+                JSONType data = new JSONTokenizer(clipboard.getString()).parse();
+                Item item = JSONMapper.loadMapping(new Item(), data.getAsObject());
 
-            if (item != null) {
-                int selected = tableView.getSelectionModel().getSelectedIndex();
+                if (item != null) {
+                    int selected = tableView.getSelectionModel().getSelectedIndex();
 
-                if (selected == -1) {
-                    selected = items.size();
+                    if (selected == -1) {
+                        selected = items.size();
+                    }
+
+                    items.add(selected, item);
                 }
-
-                items.add(selected, item);
+            } catch (Exception e) {
+                // Clipboard data was corrupt or otherwise invalid
             }
         }
     }
