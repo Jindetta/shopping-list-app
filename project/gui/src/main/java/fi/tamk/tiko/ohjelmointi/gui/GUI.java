@@ -173,6 +173,52 @@ public class GUI extends Application {
     }
 
     @FXML
+    private void onClipboardCutAction() {
+        Item item = onClipboardCopyAction();
+
+        if (item != null) {
+            items.remove(item);
+        }
+    }
+
+    @FXML
+    private Item onClipboardCopyAction() {
+        Item item = tableView.getSelectionModel().getSelectedItem();
+
+        if (item != null) {
+            Clipboard clipboard = Clipboard.getSystemClipboard();
+            ClipboardContent content = new ClipboardContent();
+
+            JSONObject object = JSONMapper.saveMapping(item);
+            content.putString(JSONType.getJSONString(object));
+
+            clipboard.setContent(content);
+        }
+
+        return item;
+    }
+
+    @FXML
+    private void onClipboardPasteAction() {
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+
+        if (clipboard.hasString()) {
+            JSONObject mapping = JSONMapper.mapString(Item.class, clipboard.getString());
+            Item item = JSONMapper.loadMapping(new Item(), mapping);
+
+            if (item != null) {
+                int selected = tableView.getSelectionModel().getSelectedIndex();
+
+                if (selected == -1) {
+                    selected = items.size();
+                }
+
+                items.add(selected, item);
+            }
+        }
+    }
+
+    @FXML
     private void onInsertItemAction() {
         int selected = tableView.getSelectionModel().getSelectedIndex();
 
