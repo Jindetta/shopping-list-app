@@ -125,7 +125,30 @@ public abstract class JSONMapper {
     public static <T> JSONObject saveMapping(T object) {
         JSONObject container = new JSONObject();
 
-        container.putObject(classType.getName(), object);
+        try {
+            Class<?> classInfo = object.getClass();
+            JSONObject classData = new JSONObject();
+
+            if (classInfo.getAnnotation(JSONMappable.class) == null) {
+                throw new IllegalStateException();
+            }
+
+            for (Field field : classInfo.getDeclaredFields()) {
+                String key = readJSONDataValues(field);
+
+                if (key != null && key.equals(field.getName())) {
+                    Method getter = getterMethod(classInfo, key);
+
+                    getter.trySetAccessible();
+                    Object result = getter.invoke(object);
+                    classData.put(key, new JSONType(result));
+                }
+            }
+
+            container.putObject(classInfo.getName(), classData);
+        } catch (Exception e) {
+            throw new IllegalStateException("JSONMapper cannot save this object.");
+        }
 
         return container;
     }
