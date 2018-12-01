@@ -121,7 +121,7 @@ public abstract class JSONMapper {
         try {
             Class<?> classInfo = object.getClass();
 
-            if (classInfo.getAnnotation(JSONMappable.class) == null) {
+            if (!isValidJSONMappableClass(classInfo)) {
                 throw new IllegalStateException();
             }
 
@@ -158,7 +158,7 @@ public abstract class JSONMapper {
             Class<?> classInfo = object.getClass();
             JSONObject classData = new JSONObject();
 
-            if (classInfo.getAnnotation(JSONMappable.class) == null) {
+            if (!isValidJSONMappableClass(classInfo)) {
                 throw new IllegalStateException();
             }
 
