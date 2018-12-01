@@ -99,6 +99,24 @@ public abstract class JSONMapper {
      * @param container
      * @return
      */
+    public static <T> T loadMapping(Class<T> object, JSONObject container) {
+        T instance = null;
+
+        try {
+            instance = newInstanceOf(object);
+        } catch (Exception e) {
+            throw new IllegalStateException("JSONMapper cannot instantiate this object.");
+        }
+
+        return loadMapping(instance, container);
+    }
+
+    /**
+     * 
+     * @param object
+     * @param container
+     * @return
+     */
     public static <T> T loadMapping(T object, JSONObject container) {
         try {
             Class<?> classInfo = object.getClass();
