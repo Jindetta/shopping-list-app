@@ -2,7 +2,6 @@ package fi.tamk.tiko.ohjelmointi.json;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.BufferedReader;
 import java.io.Reader;
 
 /**
@@ -20,7 +19,7 @@ public class JSONReader implements AutoCloseable {
     private JSONTokenizer tokenizer;
 
     /**
-     * Stores {@link BufferedReader}.
+     * Stores readable object.
      */
     private Object readable;
 
