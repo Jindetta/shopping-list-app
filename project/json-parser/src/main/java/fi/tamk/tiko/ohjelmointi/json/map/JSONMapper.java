@@ -108,7 +108,7 @@ public abstract class JSONMapper {
             throw new IllegalStateException("JSONMapper cannot instantiate this object.");
         }
 
-        return loadMapping(instance, container);
+        return loadInstanceMapping(instance, container);
     }
 
     /**
@@ -117,7 +117,7 @@ public abstract class JSONMapper {
      * @param container
      * @return
      */
-    public static <T> T loadMapping(T object, JSONObject container) {
+    public static <T> T loadInstanceMapping(T object, JSONObject container) {
         try {
             Class<?> classInfo = object.getClass();
 
