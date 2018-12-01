@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -13,7 +12,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tamk.tiko.ohjelmointi.gui.GUI">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tamk.tiko.ohjelmointi.gui.GUI">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -66,14 +65,14 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-                  <MenuItem disable="true" mnemonicParsing="false" onAction="#onUndoAction" text="Undo">
+                  <MenuItem mnemonicParsing="false" onAction="#onSelectAllAction" text="Select all">
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem disable="true" mnemonicParsing="false" onAction="#onRedoAction" text="Redo">
+                  <MenuItem mnemonicParsing="false" onAction="#onDeselectAllAction" text="Deselect all">
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="Y" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
@@ -107,7 +106,8 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#onShowHelpAction" text="Show application info" />
+              <MenuItem mnemonicParsing="false" onAction="#onShowAppInfoAction" text="About Shopping List Application" />
+              <MenuItem mnemonicParsing="false" onAction="#onShowDevSiteAction" text="Visit developer GitHub..." />
             </items>
           </Menu>
         </menus>
