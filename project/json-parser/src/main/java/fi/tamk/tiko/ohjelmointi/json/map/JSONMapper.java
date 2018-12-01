@@ -99,7 +99,7 @@ public abstract class JSONMapper {
      * @param container
      * @return
      */
-    public static <T> T loadMapping(Class<T> object, JSONObject container) {
+    public static <T> T loadClassMapping(Class<T> object, JSONObject container) {
         T instance = null;
 
         try {
