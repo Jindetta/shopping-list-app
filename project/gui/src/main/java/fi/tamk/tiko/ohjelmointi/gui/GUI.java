@@ -309,6 +309,12 @@ public class GUI extends Application {
 
                 break;
 
+            case A:
+                if (event.isControlDown()) {
+                    model.selectAll();
+                    break;
+                }
+
             default:
                 return;
         }
