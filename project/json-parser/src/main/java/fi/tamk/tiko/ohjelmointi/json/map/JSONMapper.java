@@ -193,4 +193,13 @@ public abstract class JSONMapper {
         container.putObject(object.getName(), data);
         return container;
     }
+
+    /**
+     * 
+     * @param classType
+     * @return
+     */
+    public static boolean isValidJSONMappableClass(Class<?> classType) {
+        return classType.getAnnotation(JSONMappable.class) != null;
+    }
 }
