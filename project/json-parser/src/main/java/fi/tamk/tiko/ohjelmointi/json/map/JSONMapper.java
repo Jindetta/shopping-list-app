@@ -74,6 +74,17 @@ public abstract class JSONMapper {
 
     /**
      * 
+     * @param classType
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings("all")
+    private static <T> T newInstanceOf(Class<T> classType) throws Exception {
+        return classType.getConstructor(null).newInstance(null);
+    }
+
+    /**
+     * 
      * @param field
      * @return
      */
