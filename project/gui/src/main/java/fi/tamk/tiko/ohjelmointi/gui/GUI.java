@@ -211,7 +211,7 @@ public class GUI extends Application {
                 ObservableList<Item> selected = FXCollections.observableArrayList();
 
                 for (JSONType type : new JSONTokenizer(clipboard.getString()).parse().getAsArray()) {
-                    selected.add(JSONMapper.loadMapping(new Item(), type.getAsObject()));
+                    selected.add(JSONMapper.loadClassMapping(Item.class, type.getAsObject()));
                 }
 
                 if (!selected.isEmpty()) {
@@ -331,7 +331,7 @@ public class GUI extends Application {
             ObservableList<Item> list = FXCollections.observableArrayList();
 
             for (JSONType object : json.readObject().getAsArray()) {
-                list.add(JSONMapper.loadMapping(new Item(), object.getAsObject()));
+                list.add(JSONMapper.loadClassMapping(Item.class, object.getAsObject()));
             }
 
             return list;
