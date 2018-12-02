@@ -61,23 +61,23 @@
                     </execution>
                 </executions>
             </plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>${maven.assembly.version}</version>
-				<configuration>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${maven.assembly.version}</version>
+                <configuration>
                     <outputDirectory>${binaries}</outputDirectory>
                     <appendAssemblyId>false</appendAssemblyId>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
                         <manifest>
                             <mainClass>fi.tamk.tiko.ohjelmointi.gui.Launcher</mainClass>
                         </manifest>
-					</archive>
-				</configuration>
-				<executions>
+                    </archive>
+                </configuration>
+                <executions>
                     <execution>
                         <id>default-jar</id>
                         <phase>package</phase> 
@@ -86,7 +86,7 @@
                         </goals>
                     </execution>
                 </executions>
-			</plugin>
+            </plugin>
         </plugins>
     </build>
 </project>
