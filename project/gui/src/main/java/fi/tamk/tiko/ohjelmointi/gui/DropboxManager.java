@@ -1,13 +1,11 @@
 package fi.tamk.tiko.ohjelmointi.gui;
 
-import java.awt.Desktop;
 import java.io.InputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.File;
-import java.net.URI;
 
 import com.dropbox.core.DbxWebAuth;
 import com.dropbox.core.DbxAppInfo;
@@ -128,9 +126,7 @@ public class DropboxManager {
                 DbxWebAuth webAuth = new DbxWebAuth(APP_CONF, DbxAppInfo.Reader.readFully(key));
                 DbxWebAuth.Request webAuthRequest = DbxWebAuth.newRequestBuilder().withNoRedirect().build();
 
-                Desktop desktop = java.awt.Desktop.getDesktop();
-                desktop.browse(new URI(webAuth.authorize(webAuthRequest)));
-
+                GUI.openResource(webAuth.authorize(webAuthRequest));
                 String code = GUI.showTextInput("Dropbox Authentication", "Token:");
 
                 if (code != null) {
