@@ -40,6 +40,8 @@ import java.io.FileWriter;
 
 import java.util.Optional;
 
+import java.net.URI;
+
 /**
  * Constructs the GUI for Shopping List application.
  *
@@ -423,5 +425,17 @@ public class GUI extends Application {
 
         Optional<String> result = input.showAndWait();
         return result.isPresent() ? result.get() : null;
+    }
+
+    /**
+     * 
+     * @param url
+     */
+    public static void openResource(String url) {
+        try {
+            java.awt.Desktop.getDesktop().browse(new URI(url));
+        } catch (Exception e) {
+            // Possibly invalid URL?
+        }
     }
 }
