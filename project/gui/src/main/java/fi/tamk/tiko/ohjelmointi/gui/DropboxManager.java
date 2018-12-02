@@ -15,7 +15,7 @@ import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.v2.files.WriteMode;
 
 /**
- * 
+ * Manages Dropbox integration with application.
  *
  * @author  Joonas Lauhala {@literal <joonas.lauhala@cs.tamk.fi>}
  * @version 2018.1101
@@ -24,28 +24,28 @@ import com.dropbox.core.v2.files.WriteMode;
 public class DropboxManager {
 
     /**
-     * 
+     * Stores an user authentication token.
      */
     private static final File TOKEN_FILE = new File("userToken.dat");
 
     /**
-     * 
+     * Stores Dropbox application configuration data.
      */
     private static final DbxRequestConfig APP_CONF = new DbxRequestConfig("ShoppingListApp");
 
     /**
-     * 
+     * Stores current access token.
      */
     private String accessToken;
 
     /**
-     * 
+     * Stores Dropbox client data.
      */
     private DbxClientV2 client;
 
     /**
-     * 
-     * @param file
+     * Uploads a file to Dropbox application directory.
+     * @param file {@link File} to upload.
      */
     public void uploadFile(File file) {
         try (FileInputStream input = new FileInputStream(file)) {
@@ -56,8 +56,8 @@ public class DropboxManager {
     }
 
     /**
-     * 
-     * @param file
+     * Downloads a file from Dropbox application directory.
+     * @param file {@link File} to replace.
      */
     public void downloadFile(File file) {
         try (FileOutputStream output = new FileOutputStream(file)) {
@@ -68,8 +68,8 @@ public class DropboxManager {
     }
 
     /**
-     * 
-     * @return
+     * Checks if access token already exists.
+     * @return true if access token data is found, otherwise false.
      */
     private boolean hasTokenFile() {
         try (FileReader reader = new FileReader(TOKEN_FILE)) {
@@ -89,7 +89,7 @@ public class DropboxManager {
     }
 
     /**
-     * 
+     * Saves current access token to a file.
      */
     private void saveTokenFile() {
         try (FileWriter writer = new FileWriter(TOKEN_FILE)) {
@@ -100,7 +100,7 @@ public class DropboxManager {
     }
 
     /**
-     * 
+     * Vefifies current access token.
      */
     private void verifyClientAccessToken() {
         DbxClientV2 client = new DbxClientV2(APP_CONF, accessToken);
@@ -117,7 +117,7 @@ public class DropboxManager {
     }
 
     /**
-     * 
+     * Overrides default constructor.
      */
     public DropboxManager() {
         try {
