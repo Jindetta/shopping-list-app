@@ -361,16 +361,24 @@ public class GUI extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            window = stage;
+
             stage.setTitle("Shopping List App");
             stage.setOnCloseRequest(e -> onCloseAction());
             stage.setScene(createFXMLScene());
             stage.centerOnScreen();
+
+            stage.showingProperty().addListener((observable, oldValue, showing) -> {
+                if(showing) {
+                    stage.setMinHeight(stage.getHeight());
+                    stage.setMinWidth(stage.getWidth());
+                }
+            });
+
             stage.show();
         } catch (Exception e) {
             showAlert(AlertType.ERROR, "Unknown error", e.getMessage());
         }
-
-        window = stage;
     }
 
     /**
