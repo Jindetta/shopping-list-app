@@ -75,17 +75,29 @@ public class GUI extends Application {
     @FXML
     private TableView<Item> tableView;
 
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Item, Long> columnAmount;
 
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Item, String> columnItem;
 
+    /**
+     * 
+     */
     @FXML
     private void onCreateAction() {
         tableView.setItems(items = FXCollections.observableArrayList());
     }
 
+    /**
+     * 
+     */
     @FXML
     private void onOpenAction() {
         FileChooser fileChooser = new FileChooser();
@@ -105,11 +117,17 @@ public class GUI extends Application {
         }
     }
 
+    /**
+     * 
+     */
     @FXML
     private void onSaveAction() {
         saveToFile(saveFile, false);
     }
 
+    /**
+     * 
+     */
     @FXML
     private void onSaveAsAction() {
         FileChooser fileChooser = new FileChooser();
@@ -127,6 +145,9 @@ public class GUI extends Application {
         }
     }
 
+    /**
+     * 
+     */
     @FXML
     private void onDropboxImportAction() {
         try {
@@ -146,6 +167,9 @@ public class GUI extends Application {
         }
     }
 
+    /**
+     * 
+     */
     @FXML
     private void onDropboxExportAction() {
         try {
@@ -160,21 +184,33 @@ public class GUI extends Application {
         }
     }
 
+    /**
+     * 
+     */
     @FXML
     private void onCloseAction() {
         Platform.exit();
     }
 
+    /**
+     * 
+     */
     @FXML
     private void onSelectAllAction() {
         selection.selectAll();
     }
 
+    /**
+     * 
+     */
     @FXML
     private void onDeselectAllAction() {
         selection.clearSelection();
     }
 
+    /**
+     * 
+     */
     @FXML
     private void onClipboardCutAction() {
         ObservableList<Item> selected = onClipboardCopyAction();
@@ -184,6 +220,10 @@ public class GUI extends Application {
         }
     }
 
+    /**
+     * 
+     * @return
+     */
     @FXML
     private ObservableList<Item> onClipboardCopyAction() {
         ObservableList<Item> selected = selection.getSelectedItems();
@@ -204,6 +244,9 @@ public class GUI extends Application {
         return selected;
     }
 
+    /**
+     * 
+     */
     @FXML
     private void onClipboardPasteAction() {
         Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -231,6 +274,9 @@ public class GUI extends Application {
         }
     }
 
+    /**
+     * 
+     */
     @FXML
     private void onInsertItemAction() {
         int selected = selection.getSelectedIndex();
@@ -245,21 +291,33 @@ public class GUI extends Application {
         tableView.edit(selected, columnAmount);
     }
 
+    /**
+     * 
+     */
     @FXML
     private void onDeleteItemAction() {
         items.removeAll(selection.getSelectedItems());
     }
 
+    /**
+     * 
+     */
     @FXML
     private void onShowAppInfoAction() {
         showAlert(AlertType.INFORMATION, "About", "Shopping List Application by Joonas Lauhala.");
     }
 
+    /**
+     * 
+     */
     @FXML
     private void onShowDevSiteAction() {
         openResource("https://github.com/Jindetta/shopping-list-app");
     }
 
+    /**
+     * 
+     */
     @FXML
     public void initialize() {
         saveFile = new File("list.json");
