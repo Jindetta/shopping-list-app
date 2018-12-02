@@ -69,6 +69,11 @@ public class GUI extends Application {
     /**
      * 
      */
+    TableViewSelectionModel<Item> selection;
+
+    /**
+     * 
+     */
     @FXML
     private TableView<Item> tableView;
 
@@ -166,13 +171,13 @@ public class GUI extends Application {
     }
 
     @FXML
-    private void onUndoAction() {
-
+    private void onSelectAllAction() {
+        selection.selectAll();
     }
 
     @FXML
-    private void onRedoAction() {
-
+    private void onDeselectAllAction() {
+        selection.clearSelection();
     }
 
     @FXML
@@ -186,7 +191,7 @@ public class GUI extends Application {
 
     @FXML
     private ObservableList<Item> onClipboardCopyAction() {
-        ObservableList<Item> selected = tableView.getSelectionModel().getSelectedItems();
+        ObservableList<Item> selected = selection.getSelectedItems();
 
         if (selected != null) {
             Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -217,7 +222,7 @@ public class GUI extends Application {
                 }
 
                 if (!selected.isEmpty()) {
-                    int index = tableView.getSelectionModel().getSelectedIndex();
+                    int index = selection.getSelectedIndex();
 
                     if (index == -1) {
                         index = items.size();
@@ -233,7 +238,7 @@ public class GUI extends Application {
 
     @FXML
     private void onInsertItemAction() {
-        int selected = tableView.getSelectionModel().getSelectedIndex();
+        int selected = selection.getSelectedIndex();
 
         if (selected == -1) {
             selected = items.size();
@@ -247,18 +252,24 @@ public class GUI extends Application {
 
     @FXML
     private void onDeleteItemAction() {
-        items.removeAll(tableView.getSelectionModel().getSelectedItems());
+        items.removeAll(selection.getSelectedItems());
     }
 
     @FXML
-    private void onShowHelpAction() {
+    private void onShowAppInfoAction() {
         showAlert(AlertType.INFORMATION, "About", "Shopping List Application by Joonas Lauhala.");
+    }
+
+    @FXML
+    private void onShowDevSiteAction() {
+        openResource("https://github.com/Jindetta/shopping-list-app");
     }
 
     @FXML
     public void initialize() {
         saveFile = new File("list.json");
         items = loadFromFile(saveFile, true);
+        selection = tableView.getSelectionModel();
 
         columnItem.setCellValueFactory(new PropertyValueFactory<>("itemName"));
         columnItem.prefWidthProperty().bind(tableView.widthProperty().subtract(102));
@@ -269,53 +280,21 @@ public class GUI extends Application {
 
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);        
         tableView.setOnKeyPressed(this::onTableKeyPressEvent);
+        selection.setSelectionMode(SelectionMode.MULTIPLE);
 
         tableView.setEditable(true);
         tableView.setItems(items);
     }
 
     private void onTableKeyPressEvent(KeyEvent event) {
-        TableViewSelectionModel<Item> model = tableView.getSelectionModel();
-
         switch (event.getCode()) {
-            case INSERT:
-                onInsertItemAction();
-                break;
-
-            case DELETE:
-                onDeleteItemAction();
-                break;
-
             case PAGE_UP:
-                model.selectFirst();
+                selection.selectFirst();
                 break;
 
             case PAGE_DOWN:
-                model.selectLast();
+                selection.selectLast();
                 break;
-
-            case TAB:
-                if (event.isShiftDown()) {
-                    if (model.isSelected(0)) {
-                        model.selectLast();
-                    } else {
-                        model.selectPrevious();
-                    }
-                } else {
-                    if (model.isSelected(items.size() - 1)) {
-                        model.selectFirst();
-                    } else {
-                        model.selectNext();
-                    }
-                }
-
-                break;
-
-            case A:
-                if (event.isControlDown()) {
-                    model.selectAll();
-                    break;
-                }
 
             default:
                 return;
