@@ -275,10 +275,7 @@ public class GUI extends Application {
         columnItem.prefWidthProperty().bind(tableView.widthProperty().subtract(102));
         columnItem.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        columnAmount.setCellValueFactory(new PropertyValueFactory<>("itemAmount"));
-        columnAmount.setCellFactory(TextFieldTableCell.forTableColumn(new LongStringConverter()));
-
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);        
+        tableView.setOnMouseClicked(this::onTableMouseClickedEvent);
         tableView.setOnKeyPressed(this::onTableKeyPressEvent);
         selection.setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -286,6 +283,18 @@ public class GUI extends Application {
         tableView.setItems(items);
     }
 
+    /**
+     * 
+     * @param event
+     */
+    private void onTableMouseClickedEvent(MouseEvent event) {
+        
+    }
+
+    /**
+     * 
+     * @param event
+     */
     private void onTableKeyPressEvent(KeyEvent event) {
         switch (event.getCode()) {
             case PAGE_UP:
