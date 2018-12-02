@@ -3,8 +3,6 @@ package fi.tamk.tiko.ohjelmointi.gui;
 import fi.tamk.tiko.ohjelmointi.json.*;
 import fi.tamk.tiko.ohjelmointi.json.map.JSONMapper;
 
-import javafx.util.converter.LongStringConverter;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 
@@ -15,7 +13,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
@@ -26,6 +23,7 @@ import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.Scene;
