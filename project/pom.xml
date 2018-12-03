@@ -16,12 +16,14 @@
         <binaries>${project.parent.basedir}/../bin</binaries>
         <maven.assembly.version>3.1.0</maven.assembly.version>
         <maven.javadoc.version>3.0.1</maven.javadoc.version>
+        <maven.clean.version>3.1.0</maven.clean.version>
         <exec.plugin.version>1.6.0</exec.plugin.version>
         <maven.jar.version>3.0.2</maven.jar.version>
         <hibernate.version>5.3.7.Final</hibernate.version>
         <dropbox.version>3.0.10</dropbox.version>
         <javafx.version>11</javafx.version>
         <junit.version>5.3.1</junit.version>
+        <h2.version>1.4.197</h2.version>
     </properties>
     <modules>
         <module>gui</module>
@@ -47,6 +49,24 @@
                     <additionalOptions>-Xdoclint:none</additionalOptions>
                     <reportOutputDirectory>${documentation}</reportOutputDirectory>
                     <destDir>doc</destDir>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>${maven.clean.version}</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>../</directory>
+                            <followSymlinks>false</followSymlinks>
+                            <includes>
+                                <include>target</include>
+                                <include>*.json</include>
+                                <include>*.dat</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
                 </configuration>
             </plugin>
         </plugins>
