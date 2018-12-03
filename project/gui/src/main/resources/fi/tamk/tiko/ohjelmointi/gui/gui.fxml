@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -92,12 +93,13 @@
                      </accelerator>
                   </MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#onInsertItemAction" text="Insert item">
+                  <MenuItem mnemonicParsing="false" onAction="#onInsertItemAction" text="Insert">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="INSERT" control="UP" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-              <MenuItem mnemonicParsing="false" onAction="#onDeleteItemAction" text="Delete selected item(s)">
+              <MenuItem mnemonicParsing="false" onAction="#onEditItemAction" text="Edit" />
+              <MenuItem mnemonicParsing="false" onAction="#onDeleteItemAction" text="Delete">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="DELETE" control="UP" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
@@ -114,7 +116,7 @@
       </MenuBar>
    </top>
    <center>
-      <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tableView" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="columnAmount" maxWidth="100.0" minWidth="100.0" prefWidth="-1.0" reorderable="false" resizable="false" text="Amount" />
          <TableColumn fx:id="columnItem" minWidth="-1.0" prefWidth="-1.0" reorderable="false" resizable="false" text="Item" />
@@ -122,14 +124,20 @@
       </TableView>
    </center>
    <bottom>
-      <HBox alignment="CENTER" focusTraversable="true" spacing="5.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <CheckBox fx:id="toggleEditMode" mnemonicParsing="false" prefWidth="450.0" selected="true" text="Toggle edit mode on insert" />
+            <HBox alignment="CENTER_RIGHT" prefWidth="450.0" spacing="5.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onInsertItemAction" text="Insert" />
+                  <Button mnemonicParsing="false" onAction="#onEditItemAction" text="Edit" />
+                  <Button mnemonicParsing="false" onAction="#onDeleteItemAction" text="Delete" />
+               </children>
+            </HBox>
+         </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
-         <children>
-            <Button mnemonicParsing="false" onAction="#onInsertItemAction" text="Insert new item" />
-            <Button mnemonicParsing="false" onAction="#onDeleteItemAction" text="Delete selected item(s)" />
-         </children>
       </HBox>
    </bottom>
 </BorderPane>
