@@ -296,7 +296,9 @@ public class GUI extends Application {
      */
     @FXML
     private void onDeleteItemAction() {
-        items.removeAll(selection.getSelectedItems());
+        if (tableView.getEditingCell() == null) {
+            items.removeAll(selection.getSelectedItems());
+        }
     }
 
     /**
