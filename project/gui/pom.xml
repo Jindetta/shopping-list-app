@@ -4,7 +4,7 @@
     <parent>
         <groupId>fi.tamk.tiko.ohjelmointi</groupId>
         <artifactId>shopping-list-app</artifactId>
-        <version>R1</version>
+        <version>R2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>fi.tamk.tiko.ohjelmointi.gui</groupId>
