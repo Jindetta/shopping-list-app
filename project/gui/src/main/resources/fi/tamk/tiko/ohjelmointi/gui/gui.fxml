@@ -11,7 +11,10 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tamk.tiko.ohjelmointi.gui.GUI">
    <top>
@@ -124,10 +127,17 @@
       </TableView>
    </center>
    <bottom>
-      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+      <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <CheckBox fx:id="toggleEditMode" mnemonicParsing="false" prefWidth="450.0" selected="true" text="Toggle edit mode on insert" />
-            <HBox alignment="CENTER_RIGHT" prefWidth="450.0" spacing="5.0">
+            <CheckBox fx:id="toggleEditMode" mnemonicParsing="false" selected="true" text="Toggle edit mode on insert" />
+            <HBox alignment="CENTER_RIGHT" spacing="5.0" GridPane.columnIndex="1">
                <children>
                   <Button mnemonicParsing="false" onAction="#onInsertItemAction" text="Insert" />
                   <Button mnemonicParsing="false" onAction="#onEditItemAction" text="Edit" />
@@ -138,6 +148,6 @@
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
-      </HBox>
+      </GridPane>
    </bottom>
 </BorderPane>
