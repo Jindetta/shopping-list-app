@@ -461,7 +461,7 @@ public class GUI extends Application {
 
             stage.show();
         } catch (Exception e) {
-            showAlert(AlertType.ERROR, "Unknown error", e.getMessage());
+            showAlert(AlertType.ERROR, "Unknown error", "Application initialization failed.");
         }
     }
 
