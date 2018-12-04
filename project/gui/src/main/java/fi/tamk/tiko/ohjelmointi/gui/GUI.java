@@ -402,7 +402,7 @@ public class GUI extends Application {
             return list;
         } catch (Exception e) {
             if (!silent) {
-                showAlert(AlertType.ERROR, "Cannot load file", e.getMessage());
+                showAlert(AlertType.ERROR, "Cannot load file", "Unable to read save data.");
             }
         }
 
