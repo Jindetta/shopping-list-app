@@ -3,6 +3,13 @@ import org.junit.jupiter.api.*;
 import fi.tamk.tiko.ohjelmointi.json.*;
 import fi.tamk.tiko.ohjelmointi.json.map.*;
 
+/**
+ * Tests for object equality.
+ *
+ * @author  Joonas Lauhala {@literal <joonas.lauhala@cs.tamk.fi>}
+ * @version 2018.1101
+ * @since   11
+ */
 public class JSONEqualityTest extends Assertions {
 
     /**
@@ -26,7 +33,7 @@ public class JSONEqualityTest extends Assertions {
     }
 
     /**
-     *
+     * Tests JSON tokenizer to array,
      */
     @Test
     public void testJSONArrayTokenizer() {
@@ -53,7 +60,7 @@ public class JSONEqualityTest extends Assertions {
     }
 
     /**
-     *
+     * Tests JSON tokenizer to object.
      */
     @Test
     public void testJSONObjectTokenizer() {
@@ -82,7 +89,7 @@ public class JSONEqualityTest extends Assertions {
     }
 
     /**
-     *
+     * Tests JSON object tokenization.
      */
     @Test
     public void testJSONObjectEquality() {
@@ -104,7 +111,7 @@ public class JSONEqualityTest extends Assertions {
     }
 
     /**
-     *
+     * Tests JSON array tokenization.
      */
     @Test
     public void testJSONArrayEquality() {
@@ -126,29 +133,29 @@ public class JSONEqualityTest extends Assertions {
     }
 
     /**
-     * 
+     * Helper class for JSON mapper test.
      */
     @JSONMappable
     @SuppressWarnings("all")
     private class Person {
 
         /**
-         *
+         * Stores person name.
          */
         @JSONData(key="name")
         private String name;
 
         /**
-         * 
-         * @param name
+         * Sets person name.
+         * @param name Person name.
          */
         public void setName(String name) {
             this.name = name;
         }
 
         /**
-         * 
-         * @return
+         * Gets person name.
+         * @return Person name as String.
          */
         public String getName() {
             return name;
