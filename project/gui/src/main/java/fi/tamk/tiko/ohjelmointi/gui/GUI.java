@@ -56,46 +56,46 @@ public class GUI extends Application {
     private ObservableList<Item> items;
 
     /**
-     * 
+     * Stores current stage information.
      */
     private Stage window;
 
     /**
-     * 
+     * Stores save file information.
      */
     private File saveFile;
 
     /**
-     * 
+     * Stores {@link TableView} selection model.
      */
     TableViewSelectionModel<Item> selection;
 
     /**
-     * 
+     * Stores FXML control.
      */
     @FXML
     private TableView<Item> tableView;
 
     /**
-     * 
+     * Stores FXML control.
      */
     @FXML
     private TableColumn<Item, Long> columnAmount;
 
     /**
-     * 
+     * Stores FXML control.
      */
     @FXML
     private TableColumn<Item, String> columnItem;
 
     /**
-     * 
+     * Stores FXML control.
      */
     @FXML
     private CheckBox toggleEditMode;
 
     /**
-     * 
+     * Handles FXML event.
      */
     @FXML
     private void onCreateAction() {
@@ -103,7 +103,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Handles FXML event.
      */
     @FXML
     private void onOpenAction() {
@@ -125,7 +125,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Handles FXML event.
      */
     @FXML
     private void onSaveAction() {
@@ -133,7 +133,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Handles FXML event.
      */
     @FXML
     private void onSaveAsAction() {
@@ -153,7 +153,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Handles FXML event.
      */
     @FXML
     private void onDropboxImportAction() {
@@ -175,7 +175,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Handles FXML event.
      */
     @FXML
     private void onDropboxExportAction() {
@@ -192,7 +192,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Handles FXML event.
      */
     @FXML
     private void onCloseAction() {
@@ -200,7 +200,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Handles FXML event.
      */
     @FXML
     private void onSelectAllAction() {
@@ -208,7 +208,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Handles FXML event.
      */
     @FXML
     private void onDeselectAllAction() {
@@ -216,7 +216,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Handles FXML event.
      */
     @FXML
     private void onClipboardCutAction() {
@@ -228,8 +228,8 @@ public class GUI extends Application {
     }
 
     /**
-     * 
-     * @return
+     * Handles FXML event.
+     * @return Copied items as ObservableList or NULL is unsuccessful.
      */
     @FXML
     private ObservableList<Item> onClipboardCopyAction() {
@@ -252,7 +252,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Handles FXML event.
      */
     @FXML
     private void onClipboardPasteAction() {
@@ -282,7 +282,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Handles FXML event.
      */
     @FXML
     private void onInsertItemAction() {
@@ -301,7 +301,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Handles FXML event.
      */
     @FXML
     private void onEditItemAction() {
@@ -309,7 +309,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Handles FXML event.
      */
     @FXML
     private void onDeleteItemAction() {
@@ -319,7 +319,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Handles FXML event.
      */
     @FXML
     private void onShowAppInfoAction() {
@@ -327,7 +327,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Handles FXML event.
      */
     @FXML
     private void onShowDevSiteAction() {
@@ -335,7 +335,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Initializes FXML controls.
      */
     @FXML
     public void initialize() {
@@ -359,16 +359,16 @@ public class GUI extends Application {
     }
 
     /**
-     * 
-     * @param event
+     * Handles mouse click events.
+     * @param event MouseEvent.
      */
     private void onTableMouseClickedEvent(MouseEvent event) {
         
     }
 
     /**
-     * 
-     * @param event
+     * Handles key press events.
+     * @param event KeyEvent.
      */
     private void onTableKeyPressEvent(KeyEvent event) {
         switch (event.getCode()) {
@@ -388,8 +388,8 @@ public class GUI extends Application {
     }
 
     /**
-     * 
-     * @return
+     * Load list data from file.
+     * @return Loaded data as {@link ObservableList} or NULL if unsuccessful.
      */
     private ObservableList<Item> loadFromFile(File file, boolean silent) {
         try (JSONReader json = new JSONReader(new FileReader(file))) {
@@ -410,9 +410,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
-     * @return
-     * @throws Exception
+     * Saves list data to file.
      */
     private void saveToFile(File file, boolean silent) {
         try (JSONWriter json = new JSONWriter(new FileWriter(file))) {
@@ -432,7 +430,6 @@ public class GUI extends Application {
 
     /**
      * Creates initial scene.
-     *
      * @return Scene.
      */
     private Scene createFXMLScene() throws Exception {
@@ -466,10 +463,10 @@ public class GUI extends Application {
     }
 
     /**
-     * 
-     * @param type
-     * @param title
-     * @param message
+     * Shows alert dialog.
+     * @param type    Dialog type.
+     * @param title   Dialog title.
+     * @param message Dialog message content.
      */
     private static void showAlert(AlertType type, String title, String message) {
         Alert alert = new Alert(type, message, ButtonType.OK);
@@ -482,10 +479,10 @@ public class GUI extends Application {
     }
 
     /**
-     * 
-     * @param title
-     * @param message
-     * @return
+     * Shows text input dialog.
+     * @param title   Dialog title.
+     * @param message Dialog message content.
+     * @return User entered String or NULL if cancelled.
      */
     public static String showTextInput(String title, String message) {
         TextInputDialog input = new TextInputDialog();
@@ -499,8 +496,8 @@ public class GUI extends Application {
     }
 
     /**
-     * 
-     * @param url
+     * Opens URL resource.
+     * @param url URL address.
      */
     public static void openResource(String url) {
         try {
