@@ -2,6 +2,13 @@ import org.junit.jupiter.api.*;
 
 import fi.tamk.tiko.ohjelmointi.json.*;
 
+/**
+ * Tests single JSON units.
+ *
+ * @author  Joonas Lauhala {@literal <joonas.lauhala@cs.tamk.fi>}
+ * @version 2018.1101
+ * @since   11
+ */
 public class JSONSingleUnitTest extends Assertions {
 
     /**
