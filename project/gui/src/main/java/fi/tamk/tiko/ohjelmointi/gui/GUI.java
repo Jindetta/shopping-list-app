@@ -187,7 +187,7 @@ public class GUI extends Application {
                 Platform.runLater(() -> showAlert(AlertType.CONFIRMATION, "Export to Dropbox", "List was successfully exported."));
             }).start();
         } catch (Exception e) {
-            showAlert(AlertType.ERROR, "File export to Dropbox failed", e.getMessage());
+            showAlert(AlertType.ERROR, "File export to Dropbox failed", "Cannot export to Dropbox.");
         }
     }
 
