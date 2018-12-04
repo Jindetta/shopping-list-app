@@ -425,7 +425,7 @@ public class GUI extends Application {
             json.writeArray(array);
         } catch (Exception e) {
             if (!silent) {
-                showAlert(AlertType.ERROR, "Cannot save file", e.getMessage());
+                showAlert(AlertType.ERROR, "Cannot save file", "Unable to write save data.");
             }
         }
     }
