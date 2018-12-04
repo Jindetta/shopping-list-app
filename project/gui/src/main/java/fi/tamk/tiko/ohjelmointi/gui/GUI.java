@@ -170,7 +170,7 @@ public class GUI extends Application {
                 }
             }).start();
         } catch (Exception e) {
-            showAlert(AlertType.ERROR, "File import from Dropbox failed", "Cannot import from Dropbox.");
+            showAlert(AlertType.ERROR, "File import from Dropbox failed", "Cannot import save data from Dropbox.");
         }
     }
 
@@ -187,7 +187,7 @@ public class GUI extends Application {
                 Platform.runLater(() -> showAlert(AlertType.CONFIRMATION, "Export to Dropbox", "List was successfully exported."));
             }).start();
         } catch (Exception e) {
-            showAlert(AlertType.ERROR, "File export to Dropbox failed", "Cannot export to Dropbox.");
+            showAlert(AlertType.ERROR, "File export to Dropbox failed", "Cannot export save data to Dropbox.");
         }
     }
 
