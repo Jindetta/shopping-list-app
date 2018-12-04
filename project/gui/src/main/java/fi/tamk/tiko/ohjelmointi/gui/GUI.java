@@ -170,7 +170,7 @@ public class GUI extends Application {
                 }
             }).start();
         } catch (Exception e) {
-            showAlert(AlertType.ERROR, "File import from Dropbox failed", e.getMessage());
+            showAlert(AlertType.ERROR, "File import from Dropbox failed", "Cannot import from Dropbox.");
         }
     }
 
