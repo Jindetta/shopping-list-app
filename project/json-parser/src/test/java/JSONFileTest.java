@@ -7,11 +7,17 @@ import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.FileOutputStream;
 
+/**
+ * Tests file handling.
+ *
+ * @author  Joonas Lauhala {@literal <joonas.lauhala@cs.tamk.fi>}
+ * @version 2018.1101
+ * @since   11
+ */
 public class JSONFileTest extends Assertions {
 
     /**
      * Replicates person info data from JSON.
-     *
      * @return JSONObject.
      */
     private JSONObject createPersonInformation() {
