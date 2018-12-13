@@ -17,18 +17,21 @@ import javax.persistence.*;
  * @version 2018.1101
  * @since   11
  */
+@Entity
 @JSONMappable
 public class Item {
 
     /**
      * Stores item name.
      */
+    @Column(name="itemName")
     @JSONData(key="itemName")
     private StringProperty itemName;
 
     /**
      * Stores item amount.
      */
+    @Column(name="itemAmount")
     @JSONData(key="itemAmount")
     private LongProperty itemAmount;
 
