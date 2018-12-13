@@ -437,6 +437,14 @@ public class GUI extends Application {
     }
 
     /**
+     * 
+     * @param disableSave
+     */
+    private void updateSaveMenuItem(boolean disableSave) {
+        saveMenuItem.setDisable(disableSave);
+    }
+
+    /**
      * Creates initial scene.
      * @return Scene.
      */
