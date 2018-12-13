@@ -107,6 +107,7 @@ public class GUI extends Application {
     @FXML
     private void onCreateAction() {
         tableView.setItems(items = FXCollections.observableArrayList());
+        updateSaveMenuItem(false);
     }
 
     /**
@@ -127,6 +128,7 @@ public class GUI extends Application {
 
             if (list != null) {
                 tableView.setItems(items = list);
+                updateSaveMenuItem(false);
             }
         }
     }
@@ -137,6 +139,7 @@ public class GUI extends Application {
     @FXML
     private void onSaveAction() {
         saveToFile(saveFile, false);
+        updateSaveMenuItem(true);
     }
 
     /**
@@ -282,6 +285,7 @@ public class GUI extends Application {
                     }
 
                     items.addAll(index, selected);
+                    updateSaveMenuItem(false);
                 }
             } catch (Exception e) {
                 // Clipboard data was corrupt or otherwise invalid
@@ -306,6 +310,8 @@ public class GUI extends Application {
             tableView.layout();
             tableView.edit(selected, columnAmount);
         }
+
+        updateSaveMenuItem(false);
     }
 
     /**
@@ -314,6 +320,7 @@ public class GUI extends Application {
     @FXML
     private void onEditItemAction() {
         tableView.edit(selection.getSelectedIndex(), columnAmount);
+        updateSaveMenuItem(false);
     }
 
     /**
@@ -323,6 +330,7 @@ public class GUI extends Application {
     private void onDeleteItemAction() {
         if (tableView.getEditingCell() == null) {
             items.removeAll(selection.getSelectedItems());
+            updateSaveMenuItem(false);
         }
     }
 
@@ -340,6 +348,14 @@ public class GUI extends Application {
     @FXML
     private void onShowDevSiteAction() {
         openResource("https://github.com/Jindetta/shopping-list-app");
+    }
+
+    /**
+     * 
+     */
+    @FXML
+    private void onEditCommitAction() {
+        updateSaveMenuItem(false);
     }
 
     /**
@@ -364,6 +380,8 @@ public class GUI extends Application {
 
         tableView.setEditable(true);
         tableView.setItems(items);
+
+        updateSaveMenuItem(false);
     }
 
     /**
