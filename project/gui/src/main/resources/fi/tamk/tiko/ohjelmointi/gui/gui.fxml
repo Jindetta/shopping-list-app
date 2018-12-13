@@ -121,8 +121,8 @@
    <center>
       <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="columnAmount" maxWidth="100.0" minWidth="100.0" prefWidth="-1.0" reorderable="false" resizable="false" text="Amount" />
-         <TableColumn fx:id="columnItem" minWidth="-1.0" prefWidth="-1.0" reorderable="false" resizable="false" text="Item" />
+          <TableColumn fx:id="columnAmount" onEditCommit="#onEditCommitAction" maxWidth="100.0" minWidth="100.0" prefWidth="-1.0" reorderable="false" resizable="false" text="Amount" />
+         <TableColumn fx:id="columnItem" onEditCommit="#onEditCommitAction" minWidth="-1.0" prefWidth="-1.0" reorderable="false" resizable="false" text="Item" />
         </columns>
       </TableView>
    </center>
