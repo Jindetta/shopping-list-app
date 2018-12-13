@@ -8,6 +8,8 @@ import javafx.beans.property.StringProperty;
 import fi.tamk.tiko.ohjelmointi.json.map.JSONMappable;
 import fi.tamk.tiko.ohjelmointi.json.map.JSONData;
 
+import javax.persistence.*;
+
 /**
  * Stores single shopping list item values.
  *
