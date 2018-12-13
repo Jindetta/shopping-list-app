@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
@@ -87,6 +88,12 @@ public class GUI extends Application {
      */
     @FXML
     private TableColumn<Item, String> columnItem;
+
+    /**
+     * 
+     */
+    @FXML
+    private MenuItem saveMenuItem;
 
     /**
      * Stores FXML control.
