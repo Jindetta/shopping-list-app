@@ -183,6 +183,7 @@ public class GUI extends Application {
             DropboxManager manager = new DropboxManager();
 
             new Thread(() -> {
+                onSaveAction();
                 manager.uploadFile(saveFile);
                 Platform.runLater(() -> showAlert(AlertType.CONFIRMATION, "Export to Dropbox", "List was successfully exported."));
             }).start();
