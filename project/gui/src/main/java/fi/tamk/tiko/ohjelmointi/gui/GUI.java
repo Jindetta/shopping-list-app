@@ -550,6 +550,23 @@ public class GUI extends Application {
     }
 
     /**
+     * Shows confirm dialog.
+     * @param type    Dialog type.
+     * @param title   Dialog title.
+     * @param message Dialog message content.
+     */
+    private static boolean showConfirmDialog(AlertType type, String title, String message) {
+        Alert alert = new Alert(type, message, ButtonType.YES, ButtonType.NO);
+
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setHeaderText(null);
+        alert.setTitle(title);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.YES;
+    }
+
+    /**
      * Shows text input dialog.
      * @param title   Dialog title.
      * @param message Dialog message content.
