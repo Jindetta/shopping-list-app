@@ -2,6 +2,7 @@ package fi.tamk.tiko.ohjelmointi.gui;
 
 import fi.tamk.tiko.ohjelmointi.json.*;
 import fi.tamk.tiko.ohjelmointi.json.map.JSONMapper;
+import fi.tamk.tiko.ohjelmointi.gui.managers.*;
 
 import javafx.application.Application;
 import javafx.application.Platform;
