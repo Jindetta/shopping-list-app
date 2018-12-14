@@ -1,4 +1,6 @@
-package fi.tamk.tiko.ohjelmointi.gui;
+package fi.tamk.tiko.ohjelmointi.gui.managers;
+
+import static fi.tamk.tiko.ohjelmointi.gui.GUI.*;
 
 import java.io.InputStream;
 import java.io.FileInputStream;
@@ -126,8 +128,8 @@ public class DropboxManager {
                 DbxWebAuth webAuth = new DbxWebAuth(APP_CONF, DbxAppInfo.Reader.readFully(key));
                 DbxWebAuth.Request webAuthRequest = DbxWebAuth.newRequestBuilder().withNoRedirect().build();
 
-                GUI.openResource(webAuth.authorize(webAuthRequest));
-                String code = GUI.showTextInput("Dropbox Authentication", "Token:");
+                openResource(webAuth.authorize(webAuthRequest));
+                String code = showTextInput("Dropbox Authentication", "Token:");
 
                 if (code != null) {
                     DbxAuthFinish authFinish = webAuth.finishFromCode(code);
