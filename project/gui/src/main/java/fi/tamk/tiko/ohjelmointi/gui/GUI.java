@@ -124,20 +124,23 @@ public class GUI extends Application {
      */
     @FXML
     private void onOpenAction() {
-        FileChooser fileChooser = new FileChooser();
+        if (showConfirmDialog(AlertType.CONFIRMATION, "Open an existing list", "Unsaved changes will be lost.\nAre you sure?")) {
+            FileChooser fileChooser = new FileChooser();
 
-        fileChooser.setTitle("Open shopping list file");
-        fileChooser.getExtensionFilters().add(FILE_FILTER);
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+            fileChooser.setTitle("Open shopping list file");
+            fileChooser.getExtensionFilters().add(FILE_FILTER);
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
 
-        File file = fileChooser.showOpenDialog(window);
+            File file = fileChooser.showOpenDialog(window);
 
-        if (file != null) {
-            ObservableList<Item> list = loadFromFile(file, false);
+            if (file != null) {
+                ObservableList<Item> list = loadFromFile(file, false);
 
-            if (list != null) {
-                tableView.setItems(items = list);
-                updateSaveMenuItem(false);
+                if (list != null) {
+                    tableView.setItems(items = list);
+
+                    updateSaveMenuItem(false);
+                }
             }
         }
     }
