@@ -152,7 +152,7 @@ public class GUI extends Application {
 
         fileChooser.setTitle("Save shopping list data");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+        fileChooser.setInitialDirectory(new File(getFileDirectoryPath(saveFile)));
         fileChooser.setInitialFileName(saveFile.getName());
 
         File file = fileChooser.showSaveDialog(window);
