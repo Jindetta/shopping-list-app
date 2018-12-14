@@ -112,8 +112,11 @@ public class GUI extends Application {
      */
     @FXML
     private void onCreateAction() {
-        tableView.setItems(items = FXCollections.observableArrayList());
-        updateSaveMenuItem(false);
+        if (showConfirmDialog(AlertType.CONFIRMATION, "Create a new list", "Unsaved changes will be lost.\nAre you sure?")) {
+            tableView.setItems(items = FXCollections.observableArrayList());
+
+            updateSaveMenuItem(false);
+        }
     }
 
     /**
