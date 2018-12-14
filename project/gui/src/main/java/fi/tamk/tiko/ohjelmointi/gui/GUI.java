@@ -53,6 +53,11 @@ import java.net.URI;
 public class GUI extends Application {
 
     /**
+     * 
+     */
+    private static FileChooser.ExtensionFilter FILE_FILTER = new FileChooser.ExtensionFilter("JSON Files", "*.json");
+
+    /**
      * Stores list items.
      */
     private ObservableList<Item> items;
@@ -119,7 +124,7 @@ public class GUI extends Application {
         FileChooser fileChooser = new FileChooser();
 
         fileChooser.setTitle("Open shopping list file");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+        fileChooser.getExtensionFilters().add(FILE_FILTER);
         fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
 
         File file = fileChooser.showOpenDialog(window);
@@ -151,7 +156,7 @@ public class GUI extends Application {
         FileChooser fileChooser = new FileChooser();
 
         fileChooser.setTitle("Save shopping list data");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+        fileChooser.getExtensionFilters().add(FILE_FILTER);
         fileChooser.setInitialDirectory(new File(getFileDirectoryPath(saveFile)));
         fileChooser.setInitialFileName(saveFile.getName());
 
