@@ -506,6 +506,14 @@ public class GUI extends Application {
     }
 
     /**
+     * 
+     */
+    @Override
+    public void stop() {
+        DatabaseManager.destroy();
+    }
+
+    /**
      * Shows alert dialog.
      * @param type    Dialog type.
      * @param title   Dialog title.
