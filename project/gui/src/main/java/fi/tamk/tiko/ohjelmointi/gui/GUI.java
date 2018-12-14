@@ -472,6 +472,14 @@ public class GUI extends Application {
     }
 
     /**
+     * 
+     */
+    @Override
+    public void init() {
+        DatabaseManager.initialize();
+    }
+
+    /**
      * @see Application#start(Stage) start
      */
     @Override
