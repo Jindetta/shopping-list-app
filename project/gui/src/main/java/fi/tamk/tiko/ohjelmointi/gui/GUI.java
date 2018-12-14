@@ -514,6 +514,21 @@ public class GUI extends Application {
     }
 
     /**
+     * 
+     * @param path
+     * @return
+     */
+    private static String getFileDirectoryPath(File path) {
+        String fullPath = path.getAbsolutePath();
+
+        if (path.isFile()) {
+            return fullPath.substring(0, fullPath.lastIndexOf(path.getName()));
+        }
+
+        return fullPath;
+    }
+
+    /**
      * Shows alert dialog.
      * @param type    Dialog type.
      * @param title   Dialog title.
