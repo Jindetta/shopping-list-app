@@ -21,10 +21,12 @@ public class CustomLongConverter extends LongStringConverter {
      */
     @Override
     public Long fromString(String value) {
-        try {
-            this.value = super.fromString(value);
-        } catch (NumberFormatException e) {
-            
+        if (!value.isBlank()) {
+            try {
+                this.value = super.fromString(value);
+            } catch (NumberFormatException e) {
+                
+            }
         }
 
         return this.value;
