@@ -31,6 +31,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
+import javafx.scene.image.Image;
 import javafx.scene.Scene;
 
 import javafx.stage.FileChooser;
@@ -570,6 +571,7 @@ public class GUI extends Application {
 
             stage.setTitle("Shopping List App");
             stage.setOnCloseRequest(e -> onCloseAction());
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
             stage.setScene(createFXMLScene());
             stage.centerOnScreen();
 
