@@ -390,7 +390,7 @@ public class GUI extends Application {
         columnItem.prefWidthProperty().bind(tableView.widthProperty().subtract(columnAmount.getWidth() + 2));
         columnItem.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        tableView.setOnMouseClicked(this::onTableMouseClickedEvent);
+        tableView.setRowFactory(this::onRowClickCallbackEvent);
         tableView.setOnKeyPressed(this::onTableKeyPressEvent);
         selection.setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -401,11 +401,27 @@ public class GUI extends Application {
     }
 
     /**
-     * Handles mouse click events.
-     * @param event MouseEvent.
+     * 
+     * @param table
+     * @return
      */
-    private void onTableMouseClickedEvent(MouseEvent event) {
-        
+    private TableRow<Item> onRowClickCallbackEvent(TableView<Item> table) {
+        final TableRow<Item> row = new TableRow<>();
+
+        row.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY && row.getIndex() >= items.size()) {
+                selection.clearSelection();
+                table.edit(-1, null);
+
+                if (event.getClickCount() >= 2) {
+                    onInsertItemAction();
+                }
+
+                event.consume();
+            }
+        });
+
+        return row;
     }
 
     /**
