@@ -151,6 +151,7 @@ public class GUI extends Application {
     @FXML
     private void onSaveAction() {
         saveToFile(saveFile, false);
+
         updateSaveMenuItem(true);
     }
 
@@ -297,6 +298,7 @@ public class GUI extends Application {
                     }
 
                     items.addAll(index, selected);
+
                     updateSaveMenuItem(false);
                 }
             } catch (Exception e) {
@@ -332,6 +334,7 @@ public class GUI extends Application {
     @FXML
     private void onEditItemAction() {
         tableView.edit(selection.getSelectedIndex(), columnAmount);
+
         updateSaveMenuItem(false);
     }
 
@@ -342,6 +345,7 @@ public class GUI extends Application {
     private void onDeleteItemAction() {
         if (tableView.getEditingCell() == null) {
             items.removeAll(selection.getSelectedItems());
+
             updateSaveMenuItem(false);
         }
     }
