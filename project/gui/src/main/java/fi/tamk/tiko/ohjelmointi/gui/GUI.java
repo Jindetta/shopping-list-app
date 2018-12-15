@@ -437,7 +437,7 @@ public class GUI extends Application {
         tableView.setEditable(true);
         tableView.setItems(items);
 
-        updateSaveMenuItem(false);
+        updateSaveMenuItem(!items.isEmpty());
     }
 
     /**
