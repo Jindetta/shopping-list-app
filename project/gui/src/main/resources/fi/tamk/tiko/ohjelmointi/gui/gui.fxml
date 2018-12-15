@@ -9,6 +9,7 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -18,7 +19,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tamk.tiko.ohjelmointi.gui.GUI">
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar focusTraversable="false" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -136,8 +137,8 @@
    <center>
       <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="columnAmount" onEditCommit="#onEditCommitAction" maxWidth="100.0" minWidth="100.0" prefWidth="-1.0" reorderable="false" resizable="false" text="Amount" />
-         <TableColumn fx:id="columnItem" onEditCommit="#onEditCommitAction" minWidth="-1.0" prefWidth="-1.0" reorderable="false" resizable="false" text="Item" />
+          <TableColumn fx:id="columnAmount" maxWidth="100.0" minWidth="100.0" onEditCommit="#onEditCommitAction" prefWidth="-1.0" reorderable="false" resizable="false" text="Amount" />
+         <TableColumn fx:id="columnItem" minWidth="-1.0" onEditCommit="#onEditCommitAction" prefWidth="-1.0" reorderable="false" resizable="false" text="Item" />
         </columns>
       </TableView>
    </center>
@@ -151,12 +152,24 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <CheckBox fx:id="toggleEditMode" mnemonicParsing="false" selected="true" text="Toggle edit mode on insert" />
+            <CheckBox fx:id="toggleEditMode" focusTraversable="false" mnemonicParsing="false" selected="true" text="Toggle edit mode on insert">
+               <tooltip>
+                  <Tooltip text="Enables editing mode after a new item is inserted to the list." />
+               </tooltip></CheckBox>
             <HBox alignment="CENTER_RIGHT" spacing="5.0" GridPane.columnIndex="1">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onInsertItemAction" text="Insert" />
-                  <Button mnemonicParsing="false" onAction="#onEditItemAction" text="Edit" />
-                  <Button mnemonicParsing="false" onAction="#onDeleteItemAction" text="Delete" />
+                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#onInsertItemAction" text="Insert">
+                     <tooltip>
+                        <Tooltip text="Inserts a new item to the list." />
+                     </tooltip></Button>
+                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#onEditItemAction" text="Edit">
+                     <tooltip>
+                        <Tooltip text="Edits currently selected item in the list." />
+                     </tooltip></Button>
+                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#onDeleteItemAction" text="Delete">
+                     <tooltip>
+                        <Tooltip text="Deletes currently selected item from the list." />
+                     </tooltip></Button>
                </children>
             </HBox>
          </children>
