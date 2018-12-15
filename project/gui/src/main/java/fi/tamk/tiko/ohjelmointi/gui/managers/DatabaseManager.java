@@ -36,7 +36,12 @@ public abstract class DatabaseManager {
         Transaction transaction = session.getTransaction();
 
         transaction.begin();
-        session.persist(item);
+        session.createSQLQuery("DELETE items").executeUpdate();
+
+        for (Item item : items) {
+            session.save(item);
+        }
+
         transaction.commit();
 
         session.close();
