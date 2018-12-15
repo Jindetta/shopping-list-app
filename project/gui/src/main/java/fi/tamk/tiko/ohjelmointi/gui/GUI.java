@@ -114,7 +114,7 @@ public class GUI extends Application {
      */
     @FXML
     private void onCreateAction() {
-        if (showConfirmDialog(AlertType.CONFIRMATION, "Create a new list", "Unsaved changes will be lost.\nAre you sure?")) {
+        if (hasUnsavedChanges("Create a new list")) {
             tableView.setItems(items = FXCollections.observableArrayList());
 
             updateSaveMenuItem(false);
