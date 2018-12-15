@@ -104,6 +104,12 @@ public class GUI extends Application {
     private MenuItem saveMenuItem;
 
     /**
+     * 
+     */
+    @FXML
+    private MenuItem loadStateMenuItem;
+
+    /**
      * Stores FXML control.
      */
     @FXML
