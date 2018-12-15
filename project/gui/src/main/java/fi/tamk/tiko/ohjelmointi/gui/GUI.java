@@ -421,11 +421,13 @@ public class GUI extends Application {
         items = loadFromFile(saveFile, true);
         selection = tableView.getSelectionModel();
 
+        final double DYNAMIC_COLUMN_SIZE = columnAmount.getWidth() + 15;
+
         columnAmount.setCellValueFactory(new PropertyValueFactory<>("itemAmount"));
         columnAmount.setCellFactory(TextFieldTableCell.forTableColumn(new CustomLongConverter()));
 
         columnItem.setCellValueFactory(new PropertyValueFactory<>("itemName"));
-        columnItem.prefWidthProperty().bind(tableView.widthProperty().subtract(columnAmount.getWidth() + 2));
+        columnItem.prefWidthProperty().bind(tableView.widthProperty().subtract(DYNAMIC_COLUMN_SIZE));
         columnItem.setCellFactory(TextFieldTableCell.forTableColumn());
 
         tableView.setRowFactory(this::onRowClickCallbackEvent);
