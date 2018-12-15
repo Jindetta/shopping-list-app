@@ -370,7 +370,15 @@ public class GUI extends Application {
      * 
      */
     @FXML
-    private void onEditCommitAction() {
+    private void onEditCommitAction(CellEditEvent<Item, ?> event) {
+        Item selected = selection.getSelectedItem();
+
+        if (event.getTableColumn() == columnAmount) {
+            selected.setItemAmount((Long) event.getNewValue());
+        } else {
+            selected.setItemName((String) event.getNewValue());
+        }
+
         updateSaveMenuItem(false);
     }
 
