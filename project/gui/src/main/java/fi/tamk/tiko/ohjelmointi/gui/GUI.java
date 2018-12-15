@@ -495,6 +495,19 @@ public class GUI extends Application {
     }
 
     /**
+     * 
+     * @param message
+     * @return
+     */
+    private boolean hasUnsavedChanges(String message) {
+        if (!saveMenuItem.isDisable()) {
+            return showConfirmDialog(AlertType.CONFIRMATION, message, "Unsaved changes will be lost.\nAre you sure?");
+        }
+
+        return true;
+    }
+
+    /**
      * Creates initial scene.
      * @return Scene.
      */
