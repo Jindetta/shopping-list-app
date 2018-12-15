@@ -31,7 +31,7 @@ public abstract class DatabaseManager {
      * 
      * @param items
      */
-    public static void addItem(Item item) {
+    public static void addItems(ObservableList<Item> items) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.getTransaction();
 
