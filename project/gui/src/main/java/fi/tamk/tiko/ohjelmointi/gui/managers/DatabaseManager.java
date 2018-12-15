@@ -51,12 +51,19 @@ public abstract class DatabaseManager {
      * 
      * @return
      */
-    public static Item getItem() {
+    @SuppressWarnings("unchecked")
+    public static ObservableList<Item> getItems() {
         Session session = sessionFactory.openSession();
-        Item item = session.get(Item.class, 0);
+        ObservableList<Item> items = FXCollections.observableArrayList();
+
+        NativeQuery<Object[]> rows = session.createSQLQuery("SELECT itemAmount, itemName FROM items");
+
+        for(Object[] row : rows.list()) {
+            items.add(new Item(((BigInteger) row[0]).longValue(), (String) row[1]));
+        }
 
         session.close();
-        return item;
+        return items;
     }
 
     /**
