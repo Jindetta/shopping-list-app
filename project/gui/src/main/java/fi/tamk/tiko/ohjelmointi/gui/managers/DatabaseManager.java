@@ -1,9 +1,14 @@
 package fi.tamk.tiko.ohjelmointi.gui.managers;
 
 import fi.tamk.tiko.ohjelmointi.gui.Item;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import org.hibernate.*;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.cfg.*;
+import org.hibernate.*;
+
+import java.math.BigInteger;
 
 /**
  * 
