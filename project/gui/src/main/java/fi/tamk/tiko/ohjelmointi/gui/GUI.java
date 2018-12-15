@@ -124,7 +124,7 @@ public class GUI extends Application {
      */
     @FXML
     private void onOpenAction() {
-        if (showConfirmDialog(AlertType.CONFIRMATION, "Open an existing list", "Unsaved changes will be lost.\nAre you sure?")) {
+        if (hasUnsavedChanges("Open an existing list")) {
             FileChooser fileChooser = new FileChooser();
 
             fileChooser.setTitle("Open shopping list file");
