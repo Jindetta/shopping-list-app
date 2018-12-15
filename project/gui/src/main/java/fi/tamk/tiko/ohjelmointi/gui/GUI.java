@@ -180,20 +180,22 @@ public class GUI extends Application {
      */
     @FXML
     private void onDropboxImportAction() {
-        try {
-            DropboxManager manager = new DropboxManager();
+        if (hasUnsavedChanges("Import list from DropBox")) {
+            try {
+                DropboxManager manager = new DropboxManager();
 
-            new Thread(() -> {
-                manager.downloadFile(saveFile);
-                ObservableList<Item> list = loadFromFile(saveFile, false);
+                new Thread(() -> {
+                    manager.downloadFile(saveFile);
+                    ObservableList<Item> list = loadFromFile(saveFile, false);
 
-                if (list != null) {
-                    tableView.setItems(items = list);
-                    Platform.runLater(() -> showAlert(AlertType.CONFIRMATION, "Import from Dropbox", "List was successfully imported."));
-                }
-            }).start();
-        } catch (Exception e) {
-            showAlert(AlertType.ERROR, "File import from Dropbox failed", "Cannot import save data from Dropbox.");
+                    if (list != null) {
+                        tableView.setItems(items = list);
+                        Platform.runLater(() -> showAlert(AlertType.CONFIRMATION, "Import from Dropbox", "List was successfully imported."));
+                    }
+                }).start();
+            } catch (Exception e) {
+                showAlert(AlertType.ERROR, "File import from Dropbox failed", "Cannot import save data from Dropbox.");
+            }
         }
     }
 
