@@ -487,7 +487,7 @@ public class GUI extends Application {
      */
     @Override
     public void init() {
-        new Thread(() -> DatabaseManager.initialize()).start();
+        new Thread(DatabaseManager::initialize).start();
     }
 
     /**
