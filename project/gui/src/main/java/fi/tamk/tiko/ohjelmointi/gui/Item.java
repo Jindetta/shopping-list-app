@@ -19,21 +19,36 @@ import javax.persistence.*;
  */
 @Entity
 @JSONMappable
+@Table(name="items")
 public class Item {
+
+    /**
+     * 
+     */
+    @Id
+    @Column(name="itemId", updatable=false, nullable=false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    public int itemId;
 
     /**
      * Stores item name.
      */
     @Column(name="itemName")
     @JSONData(key="itemName")
-    private StringProperty itemName;
+    private String itemName;
 
     /**
      * Stores item amount.
      */
     @Column(name="itemAmount")
     @JSONData(key="itemAmount")
-    private LongProperty itemAmount;
+    private Long itemAmount;
+
+    /**
+     * 
+     */
+    @Transient
+    private ItemProperties properties;
 
     /**
      * Gets item name.
@@ -41,7 +56,7 @@ public class Item {
      * @return Item name as String.
      */
     public String getItemName() {
-        return itemNameProperty().get();
+        return properties.getItem();
     }
 
     /**
@@ -50,20 +65,7 @@ public class Item {
      * @param value Item name.
      */
     public void setItemName(String value) {
-        itemNameProperty().set(value);
-    }
-
-    /**
-     * Gets item name as property field.
-     *
-     * @return StringProperty.
-     */
-    public StringProperty itemNameProperty() {
-        if (itemName == null) {
-            itemName = new SimpleStringProperty(this, "Item");
-        }
-
-        return itemName;
+        properties.setItem(value);
     }
 
     /**
@@ -72,7 +74,7 @@ public class Item {
      * @return Amount as Integer.
      */
     public Long getItemAmount() {
-        return itemAmountProperty().get();
+        return properties.getAmount();
     }
 
     /**
@@ -81,20 +83,7 @@ public class Item {
      * @param value Amount value.
      */
     public void setItemAmount(Long value) {
-        itemAmountProperty().set(value);
-    }
-
-    /**
-     * Gets item amount as property field.
-     *
-     * @return IntegerProperty.
-     */
-    public LongProperty itemAmountProperty() {
-        if (itemAmount == null) {
-            itemAmount = new SimpleLongProperty(this, "Amount");
-        }
-
-        return itemAmount;
+        properties.setAmount(value);
     }
 
     /**
@@ -111,7 +100,94 @@ public class Item {
      * @param item   Item name.
      */
     public Item(Long amount, String item) {
-        setItemAmount(amount);
-        setItemName(item);
+        properties = new ItemProperties(amount, item);
+    }
+
+    /**
+     * 
+     */
+    private class ItemProperties {
+
+        /**
+         * Stores item name.
+         */
+        private StringProperty item;
+
+        /**
+         * Stores item amount.
+         */
+        private LongProperty amount;
+
+        /**
+         * Gets item name.
+         *
+         * @return Item name as String.
+         */
+        public String getItem() {
+            return itemProperty().get();
+        }
+
+        /**
+         * Sets item name.
+         *
+         * @param value Item name.
+         */
+        public void setItem(String value) {
+            itemProperty().set(itemName = value);
+        }
+
+        /**
+         * Gets item name as property field.
+         *
+         * @return StringProperty.
+         */
+        public StringProperty itemProperty() {
+            if (item == null) {
+                item = new SimpleStringProperty(this, "Item");
+            }
+
+            return item;
+        }
+
+        /**
+         * Gets item amount.
+         *
+         * @return Amount as Integer.
+         */
+        public Long getAmount() {
+            return amountProperty().get();
+        }
+
+        /**
+         * Sets item amount.
+         *
+         * @param value Amount value.
+         */
+        public void setAmount(Long value) {
+            amountProperty().set(itemAmount = value);
+        }
+
+        /**
+         * Gets item amount as property field.
+         *
+         * @return IntegerProperty.
+         */
+        public LongProperty amountProperty() {
+            if (amount == null) {
+                amount = new SimpleLongProperty(this, "Amount");
+            }
+
+            return amount;
+        }
+
+        /**
+         * 
+         * @param amount
+         * @param item
+         */
+        public ItemProperties(Long amount, String item) {
+            setAmount(amount);
+            setItem(item);
+        }
     }
 }
