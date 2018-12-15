@@ -229,6 +229,25 @@ public class GUI extends Application {
      * Handles FXML event.
      */
     @FXML
+    private void onLoadStateAction() {
+        if (hasUnsavedChanges("Load list from database")) {
+            tableView.setItems(items = DatabaseManager.getItems());
+        }
+    }
+
+    /**
+     * Handles FXML event.
+     */
+    @FXML
+    private void onSaveStateAction() {
+        DatabaseManager.addItems(items);
+        loadStateMenuItem.setDisable(false);
+    }
+
+    /**
+     * Handles FXML event.
+     */
+    @FXML
     private void onCloseAction() {
         Platform.exit();
     }
