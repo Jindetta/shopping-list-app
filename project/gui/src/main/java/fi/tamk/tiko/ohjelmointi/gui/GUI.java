@@ -417,10 +417,6 @@ public class GUI extends Application {
      */
     @FXML
     public void initialize() {
-        saveFile = new File("list.json");
-        items = loadFromFile(saveFile, true);
-        selection = tableView.getSelectionModel();
-
         final double DYNAMIC_COLUMN_SIZE = columnAmount.getWidth() + 15;
 
         columnAmount.setCellValueFactory(new PropertyValueFactory<>("itemAmount"));
@@ -432,10 +428,11 @@ public class GUI extends Application {
 
         tableView.setRowFactory(this::onRowClickCallbackEvent);
         tableView.setOnKeyPressed(this::onTableKeyPressEvent);
-        selection.setSelectionMode(SelectionMode.MULTIPLE);
 
-        tableView.setEditable(true);
-        tableView.setItems(items);
+        saveFile = new File("list.json");
+        selection = tableView.getSelectionModel();
+        tableView.setItems(items = loadFromFile(saveFile, true));
+        selection.setSelectionMode(SelectionMode.MULTIPLE);
 
         updateSaveMenuItem(!items.isEmpty());
     }
