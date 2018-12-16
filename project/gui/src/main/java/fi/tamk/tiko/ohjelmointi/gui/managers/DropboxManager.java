@@ -97,7 +97,7 @@ public class DropboxManager {
         try (FileWriter writer = new FileWriter(TOKEN_FILE)) {
             writer.write(accessToken);
         } catch (Exception e) {
-
+            // Token cannot be saven
         }
     }
 
@@ -120,8 +120,9 @@ public class DropboxManager {
 
     /**
      * Overrides default constructor.
+     * @throws InterruptedException Exception is thrown if user cancels.
      */
-    public DropboxManager() {
+    public DropboxManager() throws InterruptedException {
         try {
             if (!hasTokenFile()) {
                 InputStream secretFile = getClass().getResourceAsStream("../api.json");
@@ -135,12 +136,14 @@ public class DropboxManager {
                     accessToken = authFinish.getAccessToken();
 
                     saveTokenFile();
+                } else {
+                    throw new InterruptedException();
                 }
             }
 
-            if (accessToken != null) {
-                verifyClientAccessToken();
-            }
+            verifyClientAccessToken();
+        } catch (InterruptedException cancelException) {
+            throw cancelException;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
