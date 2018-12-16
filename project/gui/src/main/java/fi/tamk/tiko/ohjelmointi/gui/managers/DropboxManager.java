@@ -126,9 +126,8 @@ public class DropboxManager {
             if (!hasTokenFile()) {
                 InputStream secretFile = getClass().getResourceAsStream("../api.json");
                 DbxWebAuth webAuth = new DbxWebAuth(APP_CONF, DbxAppInfo.Reader.readFully(secretFile));
-                DbxWebAuth.Request webAuthRequest = DbxWebAuth.newRequestBuilder().withNoRedirect().build();
 
-                openResource(webAuth.authorize(webAuthRequest));
+                openResource(webAuth.authorize(DbxWebAuth.newRequestBuilder().withNoRedirect().build()));
                 String code = showTextInput("Dropbox Authentication", "Token:");
 
                 if (code != null) {
