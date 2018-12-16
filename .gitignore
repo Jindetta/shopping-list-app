@@ -5,7 +5,7 @@ target/
 .vscode/
 
 project/*.json
-apitoken.json
+api.json
 
 **.project
 **.classpath

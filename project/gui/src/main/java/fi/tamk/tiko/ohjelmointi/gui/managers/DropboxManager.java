@@ -124,8 +124,8 @@ public class DropboxManager {
     public DropboxManager() {
         try {
             if (!hasTokenFile()) {
-                InputStream key = getClass().getResourceAsStream("apitoken.json");
-                DbxWebAuth webAuth = new DbxWebAuth(APP_CONF, DbxAppInfo.Reader.readFully(key));
+                InputStream secretFile = getClass().getResourceAsStream("../api.json");
+                DbxWebAuth webAuth = new DbxWebAuth(APP_CONF, DbxAppInfo.Reader.readFully(secretFile));
                 DbxWebAuth.Request webAuthRequest = DbxWebAuth.newRequestBuilder().withNoRedirect().build();
 
                 openResource(webAuth.authorize(webAuthRequest));
@@ -139,7 +139,9 @@ public class DropboxManager {
                 }
             }
 
-            verifyClientAccessToken();
+            if (accessToken != null) {
+                verifyClientAccessToken();
+            }
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
