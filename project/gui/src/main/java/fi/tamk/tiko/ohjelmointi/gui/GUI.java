@@ -405,15 +405,21 @@ public class GUI extends Application {
      */
     @FXML
     private void onEditCommitAction(CellEditEvent<Item, ?> event) {
-        Item selected = selection.getSelectedItem();
+        final Object value = event.getNewValue();
 
-        if (event.getTableColumn() == columnAmount) {
-            selected.setItemAmount((Long) event.getNewValue());
+        if (value != null) {
+            Item selected = selection.getSelectedItem();
+
+            if (value instanceof Long) {
+                selected.setItemAmount((Long) value);
+            } else {
+                selected.setItemName((String) value);
+            }
+
+            updateSaveMenuItem(false);
         } else {
-            selected.setItemName((String) event.getNewValue());
+            tableView.refresh();
         }
-
-        updateSaveMenuItem(false);
     }
 
     /**
