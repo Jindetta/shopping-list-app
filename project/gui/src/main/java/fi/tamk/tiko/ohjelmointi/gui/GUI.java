@@ -38,7 +38,9 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import javafx.scene.Scene;
 
 import javafx.stage.FileChooser;
@@ -711,19 +713,49 @@ public class GUI extends Application {
     }
 
     /**
-     * Shows text input dialog.
-     * @param title   Dialog title.
-     * @param message Dialog message content.
-     * @return User entered String or NULL if cancelled.
+     * 
+     * @param title
+     * @return
      */
-    public static String showTextInput(String title, String message) {
-        TextInputDialog input = new TextInputDialog();
+    public static String showDropboxAuthenticationDialog(String link) {
+        final Dialog<String> dialog = new Dialog<>();
+        final DialogPane panel = dialog.getDialogPane();
 
-        input.setContentText(message);
-        input.setHeaderText(null);
-        input.setTitle(title);
+        dialog.setTitle("Dropbox Authentication");
+        dialog.initStyle(StageStyle.UTILITY);
 
-        Optional<String> result = input.showAndWait();
+        CheckBox rememberToken = new CheckBox("Save token to file");
+        rememberToken.setOnAction(e -> DropboxManager.setRememberTokenState(rememberToken.isSelected()));
+        rememberToken.setSelected(DropboxManager.getRememberTokenState());
+        TextField tokenValue = new TextField();
+        tokenValue.setPrefWidth(300);
+
+        GridPane gridPane = new GridPane();
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+        gridPane.setHgap(15);
+        gridPane.setVgap(15);
+
+        gridPane.add(new ImageView(new Image(GUI.class.getResourceAsStream("dropbox.png"))), 0, 0);
+
+        VBox description = new VBox();
+        Label descriptionText = new Label("Provide your authentication token.\nYou can get this by logging in to your Dropbox account.\n\n\n");
+        Button visitButton = new Button("Open Dropbox authentication page");
+        visitButton.setOnAction(e -> openResource(link));
+        description.getChildren().addAll(descriptionText, visitButton);
+
+        gridPane.add(description , 1, 0);
+        gridPane.add(new Label("Token:"), 0, 1);
+        gridPane.add(tokenValue, 1, 1);
+        gridPane.add(rememberToken, 1, 2);
+
+        panel.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        panel.setContent(gridPane);
+
+        Platform.runLater(() -> tokenValue.requestFocus());
+
+        dialog.setResultConverter(button -> button == ButtonType.OK ? tokenValue.getText() : null);
+
+        Optional<String> result = dialog.showAndWait();
         return result.isPresent() ? result.get() : null;
     }
 

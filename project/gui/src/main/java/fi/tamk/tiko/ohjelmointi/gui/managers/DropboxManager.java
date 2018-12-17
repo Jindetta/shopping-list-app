@@ -26,6 +26,11 @@ import com.dropbox.core.v2.files.WriteMode;
 public class DropboxManager {
 
     /**
+     * 
+     */
+    private static boolean rememberToken = true;
+
+    /**
      * Stores an user authentication token.
      */
     private static final File TOKEN_FILE = new File("userToken.dat");
@@ -128,14 +133,16 @@ public class DropboxManager {
                 InputStream secretFile = getClass().getResourceAsStream("../api.json");
                 DbxWebAuth webAuth = new DbxWebAuth(APP_CONF, DbxAppInfo.Reader.readFully(secretFile));
 
-                openResource(webAuth.authorize(DbxWebAuth.newRequestBuilder().withNoRedirect().build()));
-                String code = showTextInput("Dropbox Authentication", "Token:");
+                String url = webAuth.authorize(DbxWebAuth.newRequestBuilder().withNoRedirect().build());
+                String code = showDropboxAuthenticationDialog(url);
 
                 if (code != null) {
                     DbxAuthFinish authFinish = webAuth.finishFromCode(code);
                     accessToken = authFinish.getAccessToken();
 
-                    saveTokenFile();
+                    if (getRememberTokenState()) {
+                        saveTokenFile();
+                    }
                 } else {
                     throw new InterruptedException();
                 }
@@ -147,5 +154,21 @@ public class DropboxManager {
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    /**
+     * 
+     * @param value
+     */
+    public static void setRememberTokenState(boolean value) {
+        rememberToken = value;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public static boolean getRememberTokenState() {
+        return rememberToken;
     }
 }
