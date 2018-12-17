@@ -26,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -376,10 +377,16 @@ public class GUI extends Application {
      * Handles FXML event.
      */
     @FXML
+    @SuppressWarnings("unchecked")
     private void onEditItemAction() {
-        tableView.edit(selection.getSelectedIndex(), columnAmount);
+        ObservableList<TablePosition> positions = selection.getSelectedCells();
 
-        updateSaveMenuItem(false);
+        if (!positions.isEmpty()) {
+            TablePosition index = positions.get(0);
+            tableView.edit(selection.getSelectedIndex(), index.getTableColumn());
+
+            updateSaveMenuItem(false);
+        }
     }
 
     /**
