@@ -23,6 +23,12 @@ public class JSONReader implements AutoCloseable {
      */
     private Object readable;
 
+    /**
+     * Uses {@link Reader} to read file contents.
+     * @param builder StringBuilder instance.
+     * @return true if successful, otherwise false.
+     * @throws IOException Exception is thrown if file is unaccessible.
+     */
     private boolean useReader(StringBuilder builder) throws IOException {
         if (readable instanceof Reader) {
             int character;
@@ -37,6 +43,12 @@ public class JSONReader implements AutoCloseable {
         return false;
     }
 
+    /**
+     * Uses {@link InputStream} to read file contents.
+     * @param builder StringBuilder instance.
+     * @return true if successful, otherwise false.
+     * @throws IOException Exception is thrown if file is unaccessible.
+     */
     private boolean useStream(StringBuilder builder) throws IOException {
         if (readable instanceof InputStream) {
             int character;
@@ -53,9 +65,7 @@ public class JSONReader implements AutoCloseable {
 
     /**
      * Reads next available JSONType from stream.
-     *
-     * @return Valid JSONType or null.
-     * @see JSONType
+     * @return Valid {@link JSONType} or null.
      */
     public JSONType readObject() throws IOException {
         if (tokenizer == null) {
@@ -73,14 +83,16 @@ public class JSONReader implements AutoCloseable {
 
     /**
      * Overrides default constructor.
-     *
-     * @param reader Reader object.
-     * @see Reader
+     * @param reader {@link Reader} object.
      */
     public JSONReader(Reader reader) {
         this.readable = reader;
     }
 
+    /**
+     * Overrides default contructor.
+     * @param stream {@link InputStream} object.
+     */
     public JSONReader(InputStream stream) {
         this.readable = stream;
     }

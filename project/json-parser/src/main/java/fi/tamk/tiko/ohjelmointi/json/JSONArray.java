@@ -18,8 +18,7 @@ public class JSONArray extends ArrayList<JSONType> {
 
     /**
      * Adds a new array value.
-     *
-     * @param value
+     * @param value JSONArray value.
      */
     public void addArray(JSONArray value) {
         add(JSONType.createArray(value));
@@ -27,8 +26,7 @@ public class JSONArray extends ArrayList<JSONType> {
 
     /**
      * Adds a new object value.
-     *
-     * @param value
+     * @param value JSONObject value.
      */
     public void addObject(JSONObject value) {
         add(JSONType.createObject(value));
@@ -36,8 +34,7 @@ public class JSONArray extends ArrayList<JSONType> {
 
     /**
      * Adds a new string value.
-     *
-     * @param value
+     * @param value String value.
      */
     public void addString(String value) {
         add(JSONType.createString(value));
@@ -45,8 +42,7 @@ public class JSONArray extends ArrayList<JSONType> {
 
     /**
      * Adds a new decimal value.
-     *
-     * @param value
+     * @param value Double value.
      */
     public void addDecimal(Double value) {
         add(JSONType.createDecimal(value));
@@ -54,8 +50,7 @@ public class JSONArray extends ArrayList<JSONType> {
 
     /**
      * Adds a new number value.
-     *
-     * @param value
+     * @param value Long value.
      */
     public void addNumber(Long value) {
         add(JSONType.createNumber(value));
@@ -63,8 +58,7 @@ public class JSONArray extends ArrayList<JSONType> {
 
     /**
      * Adds a new boolean value.
-     *
-     * @param value
+     * @param value Boolean value.
      */
     public void addBoolean(Boolean value) {
         add(JSONType.createBoolean(value));

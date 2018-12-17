@@ -16,7 +16,6 @@ public class JSONException extends RuntimeException {
 
     /**
      * Overrides default constructor.
-     *
      * @param message Exception message.
      */
     public JSONException(String message) {
@@ -24,8 +23,7 @@ public class JSONException extends RuntimeException {
     }
 
     /**
-     * Overrides default constructor.
-     *
+     * Overloads default constructor.
      * @param messageFormat String format.
      * @param args          List of arguments.
      */

@@ -39,7 +39,6 @@ public class JSONTokenizer {
 
     /**
      * Adds a new identifier.
-     *
      * @param identifier Identifier value.
      * @see Character
      */
@@ -49,7 +48,6 @@ public class JSONTokenizer {
 
     /**
      * Removes given identifier.
-     *
      * @param identifier Identifier value.
      * @param forceThrow
      */
@@ -72,7 +70,6 @@ public class JSONTokenizer {
 
     /**
      * Skips comments.
-     *
      * @param character Character token.
      * @param mode      Previous mode.
      * @return true if comment was found, otherwise false.
@@ -107,7 +104,6 @@ public class JSONTokenizer {
 
     /**
      * Finds next valid token.
-     *
      * @return Valid token or -1.
      */
     private int skipWhitespace() {
@@ -147,7 +143,6 @@ public class JSONTokenizer {
 
     /**
      * Parses single Unicode character.
-     *
      * @return Valid character.
      */
     private char parseUnicode() {
@@ -183,7 +178,6 @@ public class JSONTokenizer {
 
     /**
      * Validates given literal.
-     *
      * @param literal Literal value.
      * @return Literal as JSONType.
      */
@@ -205,7 +199,6 @@ public class JSONTokenizer {
 
     /**
      * Parses JSON array.
-     *
      * @return JSONType.
      */
     private JSONType parseArray() {
@@ -227,7 +220,6 @@ public class JSONTokenizer {
 
     /**
      * Parses JSON object.
-     *
      * @return JSONType.
      */
     private JSONType parseObject() {
@@ -263,7 +255,6 @@ public class JSONTokenizer {
 
     /**
      * Parses JSON literal.
-     *
      * @return JSONType.
      */
     private JSONType parseLiteral() {
@@ -297,7 +288,6 @@ public class JSONTokenizer {
 
     /**
      * Parses JSON string.
-     *
      * @param quoteType Quote type.
      * @return JSONType.
      */
@@ -350,7 +340,6 @@ public class JSONTokenizer {
 
     /**
      * Checks if next token exists.
-     *
      * @return true if next token is found, otherwise false.
      */
     private boolean hasNext() {
@@ -377,7 +366,6 @@ public class JSONTokenizer {
 
     /**
      * Parses next token.
-     *
      * @param topLevel Top level element.
      * @return JSONType.
      */
@@ -426,7 +414,6 @@ public class JSONTokenizer {
 
     /**
      * Parses JSON data.
-     *
      * @return JSONType.
      */
     public JSONType parse() {
@@ -441,7 +428,6 @@ public class JSONTokenizer {
 
     /**
      * Overrides default constructor.
-     *
      * @param stream Parseable string.
      */
     public JSONTokenizer(String stream) {
@@ -455,7 +441,6 @@ public class JSONTokenizer {
 
     /**
      * Throws exception on error.
-     * 
      * @param message Message formatting.
      * @param args    Arguments.
      */
@@ -465,7 +450,6 @@ public class JSONTokenizer {
 
     /**
      * Throws exception on condition.
-     *
      * @param condition Condition.
      * @param message   Message formatting.
      * @param args      Arguments.
@@ -478,7 +462,6 @@ public class JSONTokenizer {
 
     /**
      * Writes JSON number.
-     *
      * @param value Long value.
      * @return JSON formatted String.
      */
@@ -488,7 +471,6 @@ public class JSONTokenizer {
 
     /**
      * Writes JSON decimal.
-     *
      * @param value Double value.
      * @return JSON formatted String.
      */
@@ -498,7 +480,6 @@ public class JSONTokenizer {
 
     /**
      * Writes JSON string.
-     *
      * @param value     String value.
      * @param quoteType Quote type.
      * @return JSON formatted String.
@@ -531,7 +512,6 @@ public class JSONTokenizer {
 
     /**
      * Writes JSON formatted String with double-quotes.
-     *
      * @param value String value.
      * @return JSON formatted String.
      */
@@ -541,7 +521,6 @@ public class JSONTokenizer {
 
     /**
      * Writes JSON formatted String with single-quotes.
-     *
      * @param value String value.
      * @return JSON formatted String.
      */
@@ -551,7 +530,6 @@ public class JSONTokenizer {
 
     /**
      * Writes JSON object.
-     *
      * @param object JSONObject.
      * @return JSON formatted string.
      */
@@ -572,7 +550,6 @@ public class JSONTokenizer {
 
     /**
      * Writes JSON array.
-     *
      * @param array JSONArray.
      * @return JSON formatted string.
      */
@@ -593,7 +570,6 @@ public class JSONTokenizer {
 
     /**
      * Writes JSON boolean.
-     *
      * @param value Boolean value.
      * @return JSON formatted string.
      */
@@ -603,7 +579,6 @@ public class JSONTokenizer {
 
     /**
      * Writes JSON null.
-     *
      * @return JSON formatted string.
      */
     public static String writeNull() {
@@ -620,39 +595,36 @@ public class JSONTokenizer {
     private class JSONIdentifier {
 
         /**
-         *
+         * Stores identifier data.
          */
         private char identifier;
 
         /**
-         *
+         * Stores identifier exception.
          */
         private JSONException exception;
 
         /**
-         *
-         *
-         * @return
+         * Gets identifier data.
+         * @return Identifier as Character.
          */
         public char getIdentifier() {
             return identifier;
         }
 
         /**
-         *
-         *
-         * @return
+         * Gets exception from this identifier.
+         * @return {@link JSONException}.
          */
         public JSONException getException() {
             return exception;
         }
 
         /**
-         *
-         *
-         * @param identifier
-         * @param message
-         * @param args
+         * Overrides default contructor.
+         * @param identifier Identifier data.
+         * @param message    Exception message.
+         * @param args       Exception arguments.
          */
         public JSONIdentifier(char identifier, String message, Object... args) {
             this.exception = new JSONException(message, args);
@@ -660,9 +632,8 @@ public class JSONTokenizer {
         }
 
         /**
-         *
-         *
-         * @return
+         * Overrides default implementation.
+         * @return Identifier as String.
          */
         @Override
         public String toString() {

@@ -21,8 +21,7 @@ public class JSONType {
 
     /**
      * Gets type enum.
-     *
-     * @return JSONTypes enumeration.
+     * @return {@link JSONTypes} enumeration.
      */
     public JSONTypes getType() {
         return type;
@@ -30,9 +29,7 @@ public class JSONType {
 
     /**
      * Sets object type and value.
-     *
      * @param value Insertable object.
-     * @see Object
      */
     public void set(Object value) {
         if ((type = getTypeOf(value)) == null) {
@@ -44,7 +41,6 @@ public class JSONType {
 
     /**
      * Gets JSON data value.
-     *
      * @return Object.
      */
     public Object get() {
@@ -53,8 +49,7 @@ public class JSONType {
 
     /**
      * Gets JSON data as array.
-     *
-     * @return JSONArray.
+     * @return {@link JSONArray}.
      */
     public JSONArray getAsArray() {
         if (type.equals(JSONTypes.ARRAY)) {
@@ -66,8 +61,7 @@ public class JSONType {
 
     /**
      * Gets JSON data as object.
-     *
-     * @return JSONObject.
+     * @return {@link JSONObject}.
      */
     public JSONObject getAsObject() {
         if (type.equals(JSONTypes.OBJECT)) {
@@ -79,7 +73,6 @@ public class JSONType {
 
     /**
      * Gets JSON data as string.
-     *
      * @return String.
      */
     public String getAsString() {
@@ -92,7 +85,6 @@ public class JSONType {
 
     /**
      * Gets JSON data as decimal.
-     *
      * @return Double.
      */
     public Double getAsDecimal() {
@@ -105,7 +97,6 @@ public class JSONType {
 
     /**
      * Gets JSON data as number.
-     *
      * @return Long.
      */
     public Long getAsNumber() {
@@ -118,7 +109,6 @@ public class JSONType {
 
     /**
      * Gets JSON data as boolean.
-     *
      * @return Boolean.
      */
     public Boolean getAsBoolean() {
@@ -131,8 +121,7 @@ public class JSONType {
 
     /**
      * Checks if JSON data is null.
-     *
-     * @return true if value == null, otherwise false
+     * @return true if value is null, otherwise false
      */
     public boolean isNull() {
         return get() == null && type.equals(JSONTypes.NULL);
@@ -146,8 +135,7 @@ public class JSONType {
     }
 
     /**
-     * Overrides default constructor.
-     *
+     * Overloads default constructor.
      * @param object Object value.
      */
     public JSONType(Object object) {
@@ -155,9 +143,9 @@ public class JSONType {
     }
 
     /**
-     * 
-     * @param object
-     * @return
+     * Gets type of given object.
+     * @param object Object to check.
+     * @return {@link JSONTypes}.
      */
     private static JSONTypes getTypeOf(Object object) {
         JSONTypes type = null;
@@ -183,8 +171,7 @@ public class JSONType {
 
     /**
      * Creates new array JSONType.
-     *
-     * @return JSONType.
+     * @return {@link JSONType}.
      */
     public static JSONType createArray(JSONArray array) {
         return new JSONType(array);
@@ -192,8 +179,7 @@ public class JSONType {
 
     /**
      * Creates new object JSONType.
-     *
-     * @return JSONType.
+     * @return {@link JSONType}.
      */
     public static JSONType createObject(JSONObject object) {
         return new JSONType(object);
@@ -201,8 +187,7 @@ public class JSONType {
 
     /**
      * Creates new string JSONType.
-     *
-     * @return JSONType.
+     * @return {@link JSONType}.
      */
     public static JSONType createString(String value) {
         return new JSONType(value);
@@ -210,8 +195,7 @@ public class JSONType {
 
     /**
      * Creates new boolean JSONType.
-     *
-     * @return JSONType.
+     * @return {@link JSONType}.
      */
     public static JSONType createBoolean(Boolean value) {
         return new JSONType(value);
@@ -219,8 +203,7 @@ public class JSONType {
 
     /**
      * Creates new decimal JSONType.
-     *
-     * @return JSONType.
+     * @return {@link JSONType}.
      */
     public static JSONType createDecimal(Double value) {
         return new JSONType(value);
@@ -228,8 +211,7 @@ public class JSONType {
 
     /**
      * Creates new number JSONType.
-     *
-     * @return JSONType.
+     * @return {@link JSONType}.
      */
     public static JSONType createNumber(Long value) {
         return new JSONType(value);
@@ -237,17 +219,16 @@ public class JSONType {
 
     /**
      * Creates new null JSONType.
-     *
-     * @return JSONType.
+     * @return {@link JSONType}.
      */
     public static JSONType createNull() {
         return new JSONType();
     }
 
     /**
-     * 
-     * @param object
-     * @return
+     * Gets given object as JSON formatted string.
+     * @param object Object to stringify.
+     * @return JSON formatted string.
      */
     public static String getJSONString(Object object) {
         switch (getTypeOf(object)) {
@@ -297,7 +278,6 @@ public class JSONType {
 
     /**
      * Overrides default implementation.
-     *
      * @return String representation of this type.
      */
     @Override

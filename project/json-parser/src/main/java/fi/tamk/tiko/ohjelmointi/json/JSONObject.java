@@ -18,7 +18,6 @@ public class JSONObject extends HashMap<String, JSONType> {
 
     /**
      * Adds a new array value.
-     *
      * @param key   Key identifier.
      * @param value JSONArray object.
      */
@@ -28,7 +27,6 @@ public class JSONObject extends HashMap<String, JSONType> {
 
     /**
      * Adds a new object value.
-     *
      * @param key   Key identifier.
      * @param value JSONObject object.
      */
@@ -38,7 +36,6 @@ public class JSONObject extends HashMap<String, JSONType> {
 
     /**
      * Adds a new string value.
-     *
      * @param key   Key identifier.
      * @param value String value.
      */
@@ -58,7 +55,6 @@ public class JSONObject extends HashMap<String, JSONType> {
 
     /**
      * Adds a new number value.
-     *
      * @param key   Key identifier.
      * @param value Long value.
      */
@@ -68,7 +64,6 @@ public class JSONObject extends HashMap<String, JSONType> {
 
     /**
      * Adds a new boolean value.
-     *
      * @param key   Key identifier.
      * @param value Boolean value.
      */
@@ -78,7 +73,6 @@ public class JSONObject extends HashMap<String, JSONType> {
 
     /**
      * Adds a new null value.
-     *
      * @param key   Key identifier.
      */
     public void putNull(String key) {

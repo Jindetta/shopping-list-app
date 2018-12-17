@@ -19,8 +19,10 @@ public class JSONWriter implements AutoCloseable {
     private Object writable;
 
     /**
-     * 
-     * @return
+     * Uses {@link Writer} to write contents.
+     * @param data Writable JSON data.
+     * @return true if successful, otherwise false.
+     * @throws IOException Exception is thrown if file is unaccessible.
      */
     private boolean useWriter(String data) throws IOException {
         if (writable instanceof Writer) {
@@ -33,8 +35,10 @@ public class JSONWriter implements AutoCloseable {
     }
 
     /**
-     * 
-     * @return
+     * Uses {@link OutputStream} to write contents.
+     * @param data Writable JSON data.
+     * @return true if successful, otherwise false.
+     * @throws IOException Exception is thrown if file is unaccessible.
      */
     private boolean useStream(String data) throws IOException {
         if (writable instanceof OutputStream) {
@@ -48,8 +52,7 @@ public class JSONWriter implements AutoCloseable {
 
     /**
      * Writes JSON data type.
-     *
-     * @param value JSONType.
+     * @param value {@link JSONType}.
      * @throws IOException On write operation failure.
      */
     public void write(JSONType value) throws IOException {
@@ -62,8 +65,7 @@ public class JSONWriter implements AutoCloseable {
 
     /**
      * Writes JSON array.
-     *
-     * @param value JSONArray.
+     * @param value {@link JSONArray}.
      * @throws IOException On write operation failure.
      */
     public void writeArray(JSONArray value) throws IOException {
@@ -72,8 +74,7 @@ public class JSONWriter implements AutoCloseable {
 
     /**
      * Writes JSON object.
-     *
-     * @param value JSONObject.
+     * @param value {@link JSONObject}.
      * @throws IOException On write operation failure.
      */
     public void writeObject(JSONObject value) throws IOException {
@@ -82,7 +83,6 @@ public class JSONWriter implements AutoCloseable {
 
     /**
      * Writes JSON string.
-     *
      * @param value String.
      * @throws IOException On write operation failure.
      */
@@ -92,7 +92,6 @@ public class JSONWriter implements AutoCloseable {
 
     /**
      * Writes JSON decimal.
-     *
      * @param value Double.
      * @throws IOException On write operation failure.
      */
@@ -102,7 +101,6 @@ public class JSONWriter implements AutoCloseable {
 
     /**
      * Writes JSON number.
-     *
      * @param value Long.
      * @throws IOException On write operation failure.
      */
@@ -112,7 +110,6 @@ public class JSONWriter implements AutoCloseable {
 
     /**
      * Writes JSON boolean.
-     *
      * @param value Boolean.
      * @throws IOException On write operation failure.
      */
@@ -122,7 +119,6 @@ public class JSONWriter implements AutoCloseable {
 
     /**
      * Writes null.
-     *
      * @throws IOException On write operation failure.
      */
     public void writeNull() throws IOException {
@@ -131,15 +127,15 @@ public class JSONWriter implements AutoCloseable {
 
     /**
      * Overrides default constructor.
-     *
-     * @param writer Writer object.
+     * @param writer {@link Writer} object.
      */
     public JSONWriter(Writer writer) {
         this.writable = writer;
     }
 
     /**
-     * 
+     * Overrides default contructor.
+     * @param stream {@link OutputStream} object.
      */
     public JSONWriter(OutputStream stream) {
         this.writable = stream;
