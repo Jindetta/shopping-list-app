@@ -13,7 +13,6 @@ public class Launcher {
 
     /**
      * Starts the program.
-     *
      * @param args Command-line arguments.
      */
     public static void main(String[] args) {

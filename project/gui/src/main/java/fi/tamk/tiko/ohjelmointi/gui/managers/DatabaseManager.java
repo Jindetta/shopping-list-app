@@ -11,7 +11,7 @@ import org.hibernate.*;
 import java.math.BigInteger;
 
 /**
- * 
+ * Manages Database interaction with H2.
  *
  * @author  Joonas Lauhala {@literal <joonas.lauhala@cs.tamk.fi>}
  * @version 2018.1101
@@ -20,12 +20,12 @@ import java.math.BigInteger;
 public abstract class DatabaseManager {
 
     /**
-     * 
+     * Stores factory for creating new sessions.
      */
     private static SessionFactory sessionFactory;
 
     /**
-     * 
+     * Initializes memory database configuration.
      */
     public static void initialize() {
         Configuration config = new Configuration().configure();
@@ -33,8 +33,8 @@ public abstract class DatabaseManager {
     }
 
     /**
-     * 
-     * @param items
+     * Adds items to the database.
+     * @param items List of Item objects.
      */
     public static void addItems(ObservableList<Item> items) {
         Session session = sessionFactory.openSession();
@@ -53,8 +53,8 @@ public abstract class DatabaseManager {
     }
 
     /**
-     * 
-     * @return
+     * Gets Items from database.
+     * @return List of Item objects.
      */
     @SuppressWarnings("unchecked")
     public static ObservableList<Item> getItems() {
@@ -72,7 +72,7 @@ public abstract class DatabaseManager {
     }
 
     /**
-     * 
+     * Closes the session factory.
      */
     public static void destroy() {
         if (sessionFactory != null) {

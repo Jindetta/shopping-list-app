@@ -3,7 +3,7 @@ package fi.tamk.tiko.ohjelmointi.gui;
 import javafx.util.converter.LongStringConverter;
 
 /**
- * Custom version of LongStringConverter.
+ * Implements a custom version of LongStringConverter.
  *
  * @author  Joonas Lauhala {@literal <joonas.lauhala@cs.tamk.fi>}
  * @version 2018.1101
@@ -12,7 +12,7 @@ import javafx.util.converter.LongStringConverter;
 public class CustomLongConverter extends LongStringConverter {
 
     /**
-     * Stores value.
+     * Stores previous value.
      */
     private Long value;
 

@@ -26,7 +26,7 @@ import com.dropbox.core.v2.files.WriteMode;
 public class DropboxManager {
 
     /**
-     * 
+     * Stores token rememeber state.
      */
     private static boolean rememberToken = true;
 
@@ -157,16 +157,16 @@ public class DropboxManager {
     }
 
     /**
-     * 
-     * @param value
+     * Sets remember token.
+     * @param value Token value as Boolean.
      */
     public static void setRememberTokenState(boolean value) {
         rememberToken = value;
     }
 
     /**
-     * 
-     * @return
+     * Gets remember token.
+     * @return true if token should be remembered, otherwise false.
      */
     public static boolean getRememberTokenState() {
         return rememberToken;

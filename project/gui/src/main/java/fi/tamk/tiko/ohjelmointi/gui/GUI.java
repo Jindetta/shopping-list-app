@@ -65,7 +65,7 @@ import java.net.URI;
 public class GUI extends Application {
 
     /**
-     * 
+     * Stores default file extension format.
      */
     private static FileChooser.ExtensionFilter FILE_FILTER = new FileChooser.ExtensionFilter("JSON Files", "*.json");
 
@@ -90,43 +90,43 @@ public class GUI extends Application {
     TableViewSelectionModel<Item> selection;
 
     /**
-     * Stores FXML control.
+     * Stores FXML control - Table.
      */
     @FXML
     private TableView<Item> tableView;
 
     /**
-     * Stores FXML control.
+     * Stores FXML control - Column: Item amount.
      */
     @FXML
     private TableColumn<Item, Long> columnAmount;
 
     /**
-     * Stores FXML control.
+     * Stores FXML control - Column: Item name.
      */
     @FXML
     private TableColumn<Item, String> columnItem;
 
     /**
-     * 
+     * Stores FXML control - Menu item: Save.
      */
     @FXML
     private MenuItem saveMenuItem;
 
     /**
-     * 
+     * Stores FXML control - Menu item: Load state.
      */
     @FXML
     private MenuItem loadStateMenuItem;
 
     /**
-     * Stores FXML control.
+     * Stores FXML control - Checkbox: Toggle edit mode.
      */
     @FXML
     private CheckBox toggleEditMode;
 
     /**
-     * Handles FXML event.
+     * Handles FXML event when new list is created.
      */
     @FXML
     private void onCreateAction() {
@@ -138,7 +138,7 @@ public class GUI extends Application {
     }
 
     /**
-     * Handles FXML event.
+     * Handles FXML event when opening a new list.
      */
     @FXML
     private void onOpenAction() {
@@ -164,7 +164,7 @@ public class GUI extends Application {
     }
 
     /**
-     * Handles FXML event.
+     * Handles FXML event when saving current list.
      */
     @FXML
     private void onSaveAction() {
@@ -174,7 +174,7 @@ public class GUI extends Application {
     }
 
     /**
-     * Handles FXML event.
+     * Handles FXML event when saving current list as new file.
      */
     @FXML
     private void onSaveAsAction() {
@@ -194,7 +194,7 @@ public class GUI extends Application {
     }
 
     /**
-     * Handles FXML event.
+     * Handles FXML event when importing from Dropbox.
      */
     @FXML
     private void onDropboxImportAction() {
@@ -220,7 +220,7 @@ public class GUI extends Application {
     }
 
     /**
-     * Handles FXML event.
+     * Handles FXML event when exporting to Dropbox.
      */
     @FXML
     private void onDropboxExportAction() {
@@ -240,7 +240,7 @@ public class GUI extends Application {
     }
 
     /**
-     * Handles FXML event.
+     * Handles FXML event when loading state from database.
      */
     @FXML
     private void onLoadStateAction() {
@@ -250,7 +250,7 @@ public class GUI extends Application {
     }
 
     /**
-     * Handles FXML event.
+     * Handles FXML event when saving state to database.
      */
     @FXML
     private void onSaveStateAction() {
@@ -259,7 +259,7 @@ public class GUI extends Application {
     }
 
     /**
-     * Handles FXML event.
+     * Handles FXML event when closing application.
      */
     @FXML
     private void onCloseAction() {
@@ -267,7 +267,7 @@ public class GUI extends Application {
     }
 
     /**
-     * Handles FXML event.
+     * Handles FXML event when selecting all items.
      */
     @FXML
     private void onSelectAllAction() {
@@ -275,7 +275,7 @@ public class GUI extends Application {
     }
 
     /**
-     * Handles FXML event.
+     * Handles FXML event when desecting all items.
      */
     @FXML
     private void onDeselectAllAction() {
@@ -283,7 +283,7 @@ public class GUI extends Application {
     }
 
     /**
-     * Handles FXML event.
+     * Handles FXML event when cutting to clipboard.
      */
     @FXML
     private void onClipboardCutAction() {
@@ -295,8 +295,8 @@ public class GUI extends Application {
     }
 
     /**
-     * Handles FXML event.
-     * @return Copied items as ObservableList or NULL is unsuccessful.
+     * Handles FXML event when copying to clipboard.
+     * @return Copied items as {@link ObservableList} or NULL is unsuccessful.
      */
     @FXML
     private ObservableList<Item> onClipboardCopyAction() {
@@ -319,7 +319,7 @@ public class GUI extends Application {
     }
 
     /**
-     * Handles FXML event.
+     * Handles FXML event when pasting from clipboard.
      */
     @FXML
     private void onClipboardPasteAction() {
@@ -351,7 +351,7 @@ public class GUI extends Application {
     }
 
     /**
-     * Handles FXML event.
+     * Handles FXML event when inseting a new item.
      */
     @FXML
     private void onInsertItemAction() {
@@ -374,7 +374,7 @@ public class GUI extends Application {
     }
 
     /**
-     * Handles FXML event.
+     * Handles FXML event when editing selected item.
      */
     @FXML
     @SuppressWarnings("unchecked")
@@ -390,7 +390,7 @@ public class GUI extends Application {
     }
 
     /**
-     * Handles FXML event.
+     * Handles FXML event when deleting items.
      */
     @FXML
     private void onDeleteItemAction() {
@@ -418,7 +418,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Handles FXML event when committing edits.
      */
     @FXML
     private void onEditCommitAction(CellEditEvent<Item, ?> event) {
@@ -465,9 +465,9 @@ public class GUI extends Application {
     }
 
     /**
-     * 
-     * @param table
-     * @return
+     * Sets up callback handler for each row.
+     * @param table {@link TableView}.
+     * @return {@link TableRow}.
      */
     private TableRow<Item> onRowClickCallbackEvent(TableView<Item> table) {
         final TableRow<Item> row = new TableRow<>();
@@ -490,7 +490,7 @@ public class GUI extends Application {
 
     /**
      * Handles key press events.
-     * @param event KeyEvent.
+     * @param event {@link KeyEvent}.
      */
     private void onTableKeyPressEvent(KeyEvent event) {
         switch (event.getCode()) {
@@ -551,17 +551,17 @@ public class GUI extends Application {
     }
 
     /**
-     * 
-     * @param disableSave
+     * Sets "Save" menu item disable state.
+     * @param disableSave Disabled state.
      */
     private void updateSaveMenuItem(boolean disableSave) {
         saveMenuItem.setDisable(disableSave);
     }
 
     /**
-     * 
-     * @param message
-     * @return
+     * Shows an alert if user has unsaved changes.
+     * @param message Message string.
+     * @return true if user proceeded with the operation, otherwise false.
      */
     private boolean hasUnsavedChanges(String message) {
         if (!saveMenuItem.isDisable()) {
@@ -572,7 +572,7 @@ public class GUI extends Application {
     }
 
     /**
-     * Creates initial scene.
+     * Creates initial scene from FXML resource.
      * @return Scene.
      */
     private Scene createFXMLScene() throws Exception {
@@ -580,7 +580,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Initializes H2 Database.
      */
     @Override
     public void init() {
@@ -615,7 +615,7 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     * Closes H2 Database.
      */
     @Override
     public void stop() {
@@ -623,9 +623,9 @@ public class GUI extends Application {
     }
 
     /**
-     * 
-     * @param path
-     * @return
+     * Gets file directory path.
+     * @param path {@link File} to check.
+     * @return Path as String.
      */
     private static String getFileDirectoryPath(File path) {
         String fullPath = path.getAbsolutePath();
@@ -654,9 +654,9 @@ public class GUI extends Application {
     }
 
     /**
-     * 
-     * @param title
-     * @return
+     * Shows insert item dialog.
+     * @param title Dialog title.
+     * @return Created Item which is contained in {@link Optional}.
      */
     private static Optional<Item> showInsertItemDialog(Item item, String title) {
         final Dialog<Item> dialog = new Dialog<>();
@@ -719,9 +719,9 @@ public class GUI extends Application {
     }
 
     /**
-     * 
-     * @param title
-     * @return
+     * Shows Dropbox authentication dialog.
+     * @param title Dialog title.
+     * @return Token as String.
      */
     public static String showDropboxAuthenticationDialog(String link) {
         final Dialog<String> dialog = new Dialog<>();

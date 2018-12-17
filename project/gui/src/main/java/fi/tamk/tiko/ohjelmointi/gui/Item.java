@@ -23,7 +23,7 @@ import javax.persistence.*;
 public class Item {
 
     /**
-     * 
+     * Stores item id (primary key).
      */
     @Id
     @Column(name="itemId", updatable=false, nullable=false)
@@ -45,14 +45,13 @@ public class Item {
     private Long itemAmount;
 
     /**
-     * 
+     * Stores item properties.
      */
     @Transient
     private ItemProperties properties;
 
     /**
      * Gets item name.
-     *
      * @return Item name as String.
      */
     public String getItemName() {
@@ -61,7 +60,6 @@ public class Item {
 
     /**
      * Sets item name.
-     *
      * @param value Item name.
      */
     public void setItemName(String value) {
@@ -70,7 +68,6 @@ public class Item {
 
     /**
      * Gets item amount.
-     *
      * @return Amount as Integer.
      */
     public Long getItemAmount() {
@@ -79,7 +76,6 @@ public class Item {
 
     /**
      * Sets item amount.
-     *
      * @param value Amount value.
      */
     public void setItemAmount(Long value) {
@@ -94,8 +90,7 @@ public class Item {
     }
 
     /**
-     * Overrides default constructor.
-     *
+     * Overloads default contructor.
      * @param amount Item amount.
      * @param item   Item name.
      */
@@ -104,7 +99,7 @@ public class Item {
     }
 
     /**
-     * 
+     * Inner class for properties.
      */
     private class ItemProperties {
 
@@ -120,7 +115,6 @@ public class Item {
 
         /**
          * Gets item name.
-         *
          * @return Item name as String.
          */
         public String getItem() {
@@ -129,7 +123,6 @@ public class Item {
 
         /**
          * Sets item name.
-         *
          * @param value Item name.
          */
         public void setItem(String value) {
@@ -138,8 +131,7 @@ public class Item {
 
         /**
          * Gets item name as property field.
-         *
-         * @return StringProperty.
+         * @return {@link StringProperty}.
          */
         public StringProperty itemProperty() {
             if (item == null) {
@@ -151,7 +143,6 @@ public class Item {
 
         /**
          * Gets item amount.
-         *
          * @return Amount as Integer.
          */
         public Long getAmount() {
@@ -160,7 +151,6 @@ public class Item {
 
         /**
          * Sets item amount.
-         *
          * @param value Amount value.
          */
         public void setAmount(Long value) {
@@ -169,8 +159,7 @@ public class Item {
 
         /**
          * Gets item amount as property field.
-         *
-         * @return IntegerProperty.
+         * @return {@link IntegerProperty}.
          */
         public LongProperty amountProperty() {
             if (amount == null) {
@@ -181,9 +170,9 @@ public class Item {
         }
 
         /**
-         * 
-         * @param amount
-         * @param item
+         * Overrides default contructor.
+         * @param amount Item amount.
+         * @param item   Item name.
          */
         public ItemProperties(Long amount, String item) {
             setAmount(amount);
