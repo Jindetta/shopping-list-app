@@ -17,165 +17,170 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tamk.tiko.ohjelmointi.gui.GUI">
-   <top>
-      <MenuBar focusTraversable="false" BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-                  <MenuItem mnemonicParsing="false" onAction="#onCreateAction" text="New...">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#onOpenAction" text="Open...">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" onAction="#onSaveAction" text="Save">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                  <MenuItem mnemonicParsing="false" onAction="#onSaveAsAction" text="Save As...">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <Menu mnemonicParsing="false" text="Import/Export">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="450.0"
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tamk.tiko.ohjelmointi.gui.GUI">
+    <top>
+        <MenuBar focusTraversable="false" BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#onDropboxImportAction" text="Import from Dropbox">
-                           <accelerator>
-                              <KeyCodeCombination alt="UP" code="I" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
-                           </accelerator>
+                        <MenuItem mnemonicParsing="false" onAction="#onCreateAction" text="New...">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#onDropboxExportAction" text="Export to Dropbox">
-                           <accelerator>
-                              <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
-                           </accelerator>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#onOpenAction" text="Open...">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" onAction="#onSaveAction" text="Save">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#onSaveAsAction" text="Save As...">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <Menu mnemonicParsing="false" text="Import/Export">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#onDropboxImportAction" text="Import from Dropbox">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="I" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                                    </accelerator>
+                                </MenuItem>
+                                <MenuItem mnemonicParsing="false" onAction="#onDropboxExportAction" text="Export to Dropbox">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                                    </accelerator>
+                                </MenuItem>
+                            </items>
+                        </Menu>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <Menu mnemonicParsing="false" text="Database">
+                            <items>
+                                <MenuItem fx:id="loadStateMenuItem" disable="true" mnemonicParsing="false" onAction="#onLoadStateAction" text="Load state...">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="R" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                                    </accelerator>
+                                </MenuItem>
+                                <MenuItem mnemonicParsing="false" onAction="#onSaveStateAction" text="Save state...">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="B" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                                    </accelerator>
+                                </MenuItem>
+                            </items>
+                        </Menu>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#onCloseAction" text="Close">
+                            <accelerator>
+                                <KeyCodeCombination alt="DOWN" code="F4" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
                         </MenuItem>
                     </items>
-                  </Menu>
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <Menu mnemonicParsing="false" text="Database">
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
                     <items>
-                        <MenuItem fx:id="loadStateMenuItem" disable="true" mnemonicParsing="false" onAction="#onLoadStateAction" text="Load state...">
-                           <accelerator>
-                              <KeyCodeCombination alt="UP" code="R" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
-                           </accelerator>
+                        <MenuItem mnemonicParsing="false" onAction="#onSelectAllAction" text="Select all">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#onSaveStateAction" text="Save state...">
-                           <accelerator>
-                              <KeyCodeCombination alt="UP" code="B" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
-                           </accelerator>
+                        <MenuItem mnemonicParsing="false" onAction="#onDeselectAllAction" text="Deselect all">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#onClipboardCutAction" text="Cut">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#onClipboardCopyAction" text="Copy">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#onClipboardPasteAction" text="Paste">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#onInsertItemAction" text="Insert">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="INSERT" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#onEditItemAction" text="Edit" />
+                        <MenuItem mnemonicParsing="false" onAction="#onDeleteItemAction" text="Delete">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="DELETE" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
                         </MenuItem>
                     </items>
-                  </Menu>
-                  <SeparatorMenuItem mnemonicParsing="false" />
-              <MenuItem mnemonicParsing="false" onAction="#onCloseAction" text="Close">
-                     <accelerator>
-                        <KeyCodeCombination alt="DOWN" code="F4" control="UP" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-                  <MenuItem mnemonicParsing="false" onAction="#onSelectAllAction" text="Select all">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                  <MenuItem mnemonicParsing="false" onAction="#onDeselectAllAction" text="Deselect all">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#onClipboardCutAction" text="Cut">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                  <MenuItem mnemonicParsing="false" onAction="#onClipboardCopyAction" text="Copy">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                  <MenuItem mnemonicParsing="false" onAction="#onClipboardPasteAction" text="Paste">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#onInsertItemAction" text="Insert">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="INSERT" control="UP" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-              <MenuItem mnemonicParsing="false" onAction="#onEditItemAction" text="Edit" />
-              <MenuItem mnemonicParsing="false" onAction="#onDeleteItemAction" text="Delete">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="DELETE" control="UP" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-               </MenuItem>
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#onShowAppInfoAction" text="About Shopping List Application" />
-              <MenuItem mnemonicParsing="false" onAction="#onShowDevSiteAction" text="Visit developer GitHub..." />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
-   <center>
-      <TableView fx:id="tableView" editable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <columns>
-          <TableColumn fx:id="columnAmount" maxWidth="100.0" minWidth="100.0" onEditCommit="#onEditCommitAction" prefWidth="-1.0" reorderable="false" resizable="false" text="Amount" />
-         <TableColumn fx:id="columnItem" minWidth="-1.0" onEditCommit="#onEditCommitAction" prefWidth="-1.0" reorderable="false" resizable="false" text="Item" />
-        </columns>
-      </TableView>
-   </center>
-   <bottom>
-      <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <CheckBox fx:id="toggleEditMode" focusTraversable="false" mnemonicParsing="false" selected="true" text="Toggle edit mode on insert">
-               <tooltip>
-                  <Tooltip text="Enables editing mode after a new item is inserted to the list." />
-               </tooltip></CheckBox>
-            <HBox alignment="CENTER_RIGHT" spacing="5.0" GridPane.columnIndex="1">
-               <children>
-                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#onInsertItemAction" text="Insert">
-                     <tooltip>
-                        <Tooltip text="Inserts a new item to the list." />
-                     </tooltip></Button>
-                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#onEditItemAction" text="Edit">
-                     <tooltip>
-                        <Tooltip text="Edits currently selected item in the list." />
-                     </tooltip></Button>
-                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#onDeleteItemAction" text="Delete">
-                     <tooltip>
-                        <Tooltip text="Deletes currently selected item from the list." />
-                     </tooltip></Button>
-               </children>
-            </HBox>
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </GridPane>
-   </bottom>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#onShowAppInfoAction" text="About Shopping List Application" />
+                        <MenuItem mnemonicParsing="false" onAction="#onShowDevSiteAction" text="Visit developer GitHub..." />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <center>
+        <TableView fx:id="tableView" editable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="columnAmount" maxWidth="100.0" minWidth="100.0" onEditCommit="#onEditCommitAction" prefWidth="-1.0" reorderable="false" resizable="false" text="Amount" />
+                <TableColumn fx:id="columnItem" minWidth="-1.0" onEditCommit="#onEditCommitAction" prefWidth="-1.0" reorderable="false" resizable="false" text="Item" />
+            </columns>
+        </TableView>
+    </center>
+    <bottom>
+        <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <CheckBox fx:id="toggleEditMode" focusTraversable="false" mnemonicParsing="false" selected="true" text="Toggle edit mode on insert">
+                    <tooltip>
+                        <Tooltip text="Enables editing mode after a new item is inserted to the list." />
+                    </tooltip>
+                </CheckBox>
+                <HBox alignment="CENTER_RIGHT" spacing="5.0" GridPane.columnIndex="1">
+                    <children>
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#onInsertItemAction" text="Insert">
+                            <tooltip>
+                                <Tooltip text="Inserts a new item to the list." />
+                            </tooltip>
+                        </Button>
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#onEditItemAction" text="Edit">
+                            <tooltip>
+                                <Tooltip text="Edits currently selected item in the list." />
+                            </tooltip>
+                        </Button>
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#onDeleteItemAction" text="Delete">
+                            <tooltip>
+                                <Tooltip text="Deletes currently selected item from the list." />
+                            </tooltip>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+        </GridPane>
+    </bottom>
 </BorderPane>
