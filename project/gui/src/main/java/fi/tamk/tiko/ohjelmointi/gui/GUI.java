@@ -720,7 +720,7 @@ public class GUI extends Application {
 
     /**
      * Shows Dropbox authentication dialog.
-     * @param title Dialog title.
+     * @param link Dialog title.
      * @return Token as String.
      */
     public static String showDropboxAuthenticationDialog(String link) {
