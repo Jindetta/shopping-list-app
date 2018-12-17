@@ -8,16 +8,22 @@ import javafx.application.Application;
 import javafx.application.Platform;
 
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.fxml.FXML;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.SelectionMode;
@@ -31,6 +37,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.GridPane;
 import javafx.scene.image.Image;
 import javafx.scene.Scene;
 
@@ -347,17 +354,19 @@ public class GUI extends Application {
     @FXML
     private void onInsertItemAction() {
         int selected = selection.getSelectedIndex();
+        Item item = new Item();
 
         if (selected == -1) {
             selected = items.size();
         }
 
-        items.add(selected, new Item());
-
         if (toggleEditMode.isSelected()) {
-            tableView.layout();
-            tableView.edit(selected, columnAmount);
+            if (showInsertItemDialog(item, "Insert new item").isEmpty()) {
+                return;
+            }
         }
+
+        items.add(selected, item);
 
         updateSaveMenuItem(false);
     }
@@ -634,6 +643,54 @@ public class GUI extends Application {
         alert.setTitle(title);
 
         alert.show();
+    }
+
+    /**
+     * 
+     * @param title
+     * @return
+     */
+    private static Optional<Item> showInsertItemDialog(Item item, String title) {
+        final Dialog<Item> dialog = new Dialog<>();
+        final DialogPane panel = dialog.getDialogPane();
+
+        dialog.setTitle(title);
+        dialog.initStyle(StageStyle.UTILITY);
+
+        TextField itemAmount = new TextField(item.getItemAmount().toString());
+        TextField itemName = new TextField(item.getItemName());
+
+        GridPane gridPane = new GridPane();
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+
+        gridPane.add(new Label("Amount:"), 0, 0);
+        gridPane.add(itemAmount, 1, 0);
+        gridPane.add(new Label("Item:"), 0, 1);
+        gridPane.add(itemName, 1, 1);
+
+        panel.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        panel.setContent(gridPane);
+
+        Platform.runLater(() -> itemAmount.requestFocus());
+
+        itemAmount.addEventFilter(KeyEvent.ANY, e -> {
+            panel.lookupButton(ButtonType.OK).setDisable(!itemAmount.getText().matches("^-?\\d+$"));
+        });
+
+        dialog.setResultConverter(button -> {
+            if (button == ButtonType.OK) {
+                item.setItemName(itemName.getText());
+                item.setItemAmount(Long.parseLong(itemAmount.getText()));
+
+                return item;
+            }
+
+            return null;
+        });
+
+        return dialog.showAndWait();
     }
 
     /**
