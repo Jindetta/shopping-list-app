@@ -157,7 +157,7 @@ public class GUI extends Application {
                 if (list != null) {
                     tableView.setItems(items = list);
 
-                    updateSaveMenuItem(false);
+                    updateSaveMenuItem(!items.isEmpty());
                 }
             }
         }
