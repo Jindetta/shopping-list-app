@@ -130,7 +130,7 @@ public class DropboxManager {
     public DropboxManager() throws InterruptedException {
         try {
             if (!hasTokenFile()) {
-                InputStream secretFile = getClass().getResourceAsStream("../api.json");
+                InputStream secretFile = getClass().getResourceAsStream("api.json");
                 DbxWebAuth webAuth = new DbxWebAuth(APP_CONF, DbxAppInfo.Reader.readFully(secretFile));
 
                 String url = webAuth.authorize(DbxWebAuth.newRequestBuilder().withNoRedirect().build());
