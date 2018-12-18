@@ -377,7 +377,7 @@ public class GUI extends Application {
      * Handles FXML event when editing selected item.
      */
     @FXML
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private void onEditItemAction() {
         ObservableList<TablePosition> positions = selection.getSelectedCells();
 
