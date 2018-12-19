@@ -430,13 +430,19 @@ public class GUI extends Application {
             if (value instanceof Long) {
                 selected.setItemAmount((Long) value);
             } else {
-                selected.setItemName((String) value);
+                String item = (String) value;
+
+                if (item.isBlank()) {
+                    items.remove(selected);
+                } else {
+                    selected.setItemName(item);
+                }
             }
 
             updateSaveMenuItem(false);
-        } else {
-            tableView.refresh();
         }
+
+        tableView.refresh();
     }
 
     /**
@@ -683,8 +689,11 @@ public class GUI extends Application {
 
         Platform.runLater(() -> itemAmount.requestFocus());
 
-        itemAmount.addEventFilter(KeyEvent.ANY, e -> {
-            panel.lookupButton(ButtonType.OK).setDisable(!itemAmount.getText().matches("^-?\\d+$"));
+        panel.addEventFilter(KeyEvent.ANY, e -> {
+            String amount = itemAmount.getText();
+            String value = itemName.getText();
+
+            panel.lookupButton(ButtonType.OK).setDisable(!amount.matches("^-?\\d+$") || value.isBlank());
         });
 
         dialog.setResultConverter(button -> {
