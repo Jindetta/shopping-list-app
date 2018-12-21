@@ -59,6 +59,7 @@
                                         <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
                                     </accelerator>
                                 </MenuItem>
+                                <MenuItem fx:id="tokenDiscardMenuItem" mnemonicParsing="false" onAction="#onDropboxTokenDiscardAction" text="Discard token file..." />
                             </items>
                         </Menu>
                         <SeparatorMenuItem mnemonicParsing="false" />
@@ -138,8 +139,8 @@
     <center>
         <TableView fx:id="tableView" editable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="columnAmount" maxWidth="100.0" minWidth="100.0" onEditCommit="#onEditCommitAction" prefWidth="-1.0" reorderable="false" resizable="false" text="Amount" />
-                <TableColumn fx:id="columnItem" minWidth="-1.0" onEditCommit="#onEditCommitAction" prefWidth="-1.0" reorderable="false" resizable="false" text="Item" />
+                <TableColumn fx:id="columnAmount" maxWidth="100.0" minWidth="100.0" onEditStart="#onEditStartAction" onEditCancel="#onEditCancelAction" onEditCommit="#onEditCommitAction" prefWidth="-1.0" reorderable="false" resizable="false" text="Amount" />
+                <TableColumn fx:id="columnItem" minWidth="-1.0" onEditStart="#onEditStartAction" onEditCancel="#onEditCancelAction" onEditCommit="#onEditCommitAction" prefWidth="-1.0" reorderable="false" resizable="false" text="Item" />
             </columns>
         </TableView>
     </center>
