@@ -75,27 +75,6 @@ public class DropboxManager {
     }
 
     /**
-     * Checks if access token already exists.
-     * @return true if access token data is found, otherwise false.
-     */
-    private boolean hasTokenFile() {
-        try (FileReader reader = new FileReader(TOKEN_FILE)) {
-            StringBuilder data = new StringBuilder();
-            int character;
-
-            while ((character = reader.read()) != -1) {
-                data.append((char) character);
-            }
-
-            accessToken = data.toString();
-        } catch (Exception e) {
-            // No readable token file present
-        }
-
-        return accessToken != null;
-    }
-
-    /**
      * Saves current access token to a file.
      */
     private void saveTokenFile() {
@@ -107,29 +86,12 @@ public class DropboxManager {
     }
 
     /**
-     * Vefifies current access token.
-     */
-    private void verifyClientAccessToken() {
-        DbxClientV2 client = new DbxClientV2(APP_CONF, accessToken);
-
-        try {
-            if (client.users().getCurrentAccount() != null) {
-                this.client = client;
-            }
-        } catch (Exception e) {
-            TOKEN_FILE.delete();
-
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-
-    /**
      * Overrides default constructor.
      * @throws InterruptedException Exception is thrown if user cancels.
      */
     public DropboxManager() throws InterruptedException {
         try {
-            if (!hasTokenFile()) {
+            if ((accessToken = processTokenFile()) == null) {
                 InputStream secretFile = getClass().getResourceAsStream("api.json");
                 DbxWebAuth webAuth = new DbxWebAuth(APP_CONF, DbxAppInfo.Reader.readFully(secretFile));
 
@@ -148,12 +110,75 @@ public class DropboxManager {
                 }
             }
 
-            verifyClientAccessToken();
+            client = verifyClientAccessToken(accessToken);
         } catch (InterruptedException cancelException) {
             throw cancelException;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    /**
+     * Vefifies current access token.
+     */
+    private static DbxClientV2 verifyClientAccessToken(String token) {
+        DbxClientV2 client = new DbxClientV2(APP_CONF, token);
+
+        try {
+            if (client.users().getCurrentAccount() != null) {
+                return client;
+            }
+        } catch (Exception e) {
+            TOKEN_FILE.delete();
+
+            throw new RuntimeException(e.getMessage());
+        }
+
+        return null;
+    }
+
+    /**
+     * Checks if access token already exists.
+     * @return true if access token data is found, otherwise false.
+     */
+    private static String processTokenFile() {
+        String result = null;
+
+        try (FileReader reader = new FileReader(TOKEN_FILE)) {
+            StringBuilder data = new StringBuilder();
+            int character;
+
+            while ((character = reader.read()) != -1) {
+                data.append((char) character);
+            }
+
+            result = data.toString();
+        } catch (Exception e) {
+
+        }
+
+        return result;
+    }
+
+    /**
+     * Checks if token file exists.
+     * @return true if file exists, otherwise false.
+     */
+    public static boolean hasTokenFile() {
+        return TOKEN_FILE.isFile();
+    }
+
+    /**
+     * Deletes token file.
+     */
+    public static void deleteTokenFile() {
+        try {
+            verifyClientAccessToken(processTokenFile()).auth().tokenRevoke();
+        } catch (Exception e) {
+
+        }
+
+        TOKEN_FILE.delete();
     }
 
     /**
