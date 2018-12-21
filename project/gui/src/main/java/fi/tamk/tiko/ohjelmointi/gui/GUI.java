@@ -116,6 +116,12 @@ public class GUI extends Application {
      * Stores FXML control - Menu item: Load state.
      */
     @FXML
+    private MenuItem tokenDiscardMenuItem;
+
+    /**
+     * Stores FXML control - Menu item: Load state.
+     */
+    @FXML
     private MenuItem loadStateMenuItem;
 
     /**
@@ -200,6 +206,7 @@ public class GUI extends Application {
         if (hasUnsavedChanges("Import list from DropBox")) {
             try {
                 DropboxManager manager = new DropboxManager();
+                updateTokenDiscardMenuItem();
 
                 new Thread(() -> {
                     manager.downloadFile(saveFile);
@@ -225,6 +232,7 @@ public class GUI extends Application {
     private void onDropboxExportAction() {
         try {
             DropboxManager manager = new DropboxManager();
+            updateTokenDiscardMenuItem();
 
             new Thread(() -> {
                 onSaveAction();
@@ -235,6 +243,14 @@ public class GUI extends Application {
             // User cancelled this action
         } catch (Exception e) {
             showAlert(AlertType.ERROR, "File export to Dropbox failed", "Cannot export save data to Dropbox.");
+        }
+    }
+
+    @FXML
+    private void onDropboxTokenDiscardAction() {
+        if (showConfirmDialog(AlertType.CONFIRMATION, "Discard token", "You are about to discard your Dropbox access token.\nAre you sure?")) {
+            DropboxManager.deleteTokenFile();
+            updateTokenDiscardMenuItem();
         }
     }
 
@@ -418,6 +434,22 @@ public class GUI extends Application {
     }
 
     /**
+     * Handles FXML event when starting edits.
+     */
+    @FXML
+    private void onEditStartAction(CellEditEvent<Item, ?> event) {
+        tableView.setFocusTraversable(false);
+    }
+
+    /**
+     * Handles FXML event when cancelling edits.
+     */
+    @FXML
+    private void onEditCancelAction(CellEditEvent<Item, ?> event) {
+        tableView.setFocusTraversable(tableView.getEditingCell() == null);
+    }
+
+    /**
      * Handles FXML event when committing edits.
      */
     @FXML
@@ -425,23 +457,24 @@ public class GUI extends Application {
         final Object value = event.getNewValue();
 
         if (value != null) {
-            Item selected = selection.getSelectedItem();
+            Item item = event.getRowValue();
 
             if (value instanceof Long) {
-                selected.setItemAmount((Long) value);
-            } else {
-                String item = (String) value;
+                item.setItemAmount((Long) value);
+            } else if (value instanceof String) {
+                String newName = (String) value;
 
-                if (item.isBlank()) {
-                    items.remove(selected);
+                if (!newName.isBlank()) {
+                    item.setItemName(newName);
                 } else {
-                    selected.setItemName(item);
+                    items.remove(item);
                 }
             }
 
             updateSaveMenuItem(false);
         }
 
+        onEditCancelAction(null);
         tableView.refresh();
     }
 
@@ -468,6 +501,7 @@ public class GUI extends Application {
         selection.setSelectionMode(SelectionMode.MULTIPLE);
 
         updateSaveMenuItem(!items.isEmpty());
+        updateTokenDiscardMenuItem();
     }
 
     /**
@@ -499,20 +533,40 @@ public class GUI extends Application {
      * @param event {@link KeyEvent}.
      */
     private void onTableKeyPressEvent(KeyEvent event) {
-        switch (event.getCode()) {
-            case PAGE_UP:
-                selection.selectFirst();
-                break;
+        if (tableView.isFocusTraversable()) {
+            switch (event.getCode()) {
+                case PAGE_UP:
+                    selection.selectFirst();
+                    break;
 
-            case PAGE_DOWN:
-                selection.selectLast();
-                break;
+                case TAB:
+                    int current = selection.getSelectedIndex();
 
-            default:
-                return;
+                    if (event.isShiftDown()) {
+                        selection.clearAndSelect(--current);
+
+                        if (current < 0) {
+                            selection.clearAndSelect(items.size() - 1);
+                        }
+                    } else {
+                        selection.clearAndSelect(++current);
+
+                        if (current >= items.size()) {
+                            selection.clearAndSelect(0);
+                        }
+                    }
+                    break;
+
+                case PAGE_DOWN:
+                    selection.selectLast();
+                    break;
+
+                default:
+                    return;
+            }
+
+            event.consume();
         }
-
-        event.consume();
     }
 
     /**
@@ -575,6 +629,13 @@ public class GUI extends Application {
         }
 
         return true;
+    }
+
+    /**
+     * Sets "Discard token..." menu item state.
+     */
+    private void updateTokenDiscardMenuItem() {
+        tokenDiscardMenuItem.setDisable(!DropboxManager.hasTokenFile());
     }
 
     /**
