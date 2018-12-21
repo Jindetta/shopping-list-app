@@ -52,24 +52,6 @@
                     <destDir>doc</destDir>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>${maven.clean.version}</version>
-                <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>../</directory>
-                            <followSymlinks>false</followSymlinks>
-                            <includes>
-                                <include>target</include>
-                                <include>*.json</include>
-                                <include>*.dat</include>
-                            </includes>
-                        </fileset>
-                    </filesets>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 </project>
